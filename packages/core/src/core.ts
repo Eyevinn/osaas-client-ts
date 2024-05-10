@@ -56,3 +56,21 @@ export async function removeInstance(
     }
   });
 }
+
+export async function getInstance(
+  context: Context,
+  serviceId: string,
+  name: string,
+  token: string
+) {
+  const service = await getService(context, serviceId);
+  const instanceUrl = new URL(service.apiUrl + '/' + name);
+
+  return await createFetch<any>(instanceUrl, {
+    method: 'GET',
+    headers: {
+      'x-jwt': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+}
