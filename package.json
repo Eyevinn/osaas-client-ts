@@ -1,0 +1,39 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "author": "Eyevinn Technology <info@eyevinn.se>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eyevinn/osaas-client-ts.git"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "lint": "lerna run lint",
+    "pretty": "lerna run pretty",
+    "typecheck": "lerna run typecheck",
+    "lerna:version": "lerna run test && lerna version --conventional-commits --no-changelog",
+    "publish": "lerna run build && lerna publish from-package --yes --ignore-scripts --no-verify-access"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.11.19",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "jest-environment-node-single-context": "^29.1.0",
+    "lerna": "^8.1.2",
+    "prettier": "^2.8.4",
+    "ts-jest": "^29.1.1",
+    "typescript": "^4.9.5"
+  }
+}
