@@ -11,4 +11,6 @@ cli
   .option('--env <environment>', 'Environment to use');
 cli.addCommand(cmdAdmin());
 cli.addCommand(cmdUser.cmdList());
+cli.addCommand(cmdUser.cmdCreate());
+cli.addCommand(cmdUser.cmdRemove());
 cli.parse(process.argv);
