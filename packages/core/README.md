@@ -1,7 +1,7 @@
 # @osaas/client-core
 
 ## Usage
- 
+
 ### Launch a Chaos Stream Proxy
 
 ```javascript

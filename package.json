@@ -2,7 +2,8 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/core",
+    "packages/cli"
   ],
   "author": "Eyevinn Technology <info@eyevinn.se>",
   "repository": {

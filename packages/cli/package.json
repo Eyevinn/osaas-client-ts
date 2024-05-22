@@ -1,0 +1,32 @@
+{
+  "name": "@osaas/cli",
+  "version": "0.1.0",
+  "description": "Open Source Cloud CLI",
+  "author": "Eyevinn Technology <work@eyevinn.se>",
+  "homepage": "https://www.osaas.io",
+  "license": "MIT",
+  "main": "dist/cli.js",
+  "bin": {
+    "osc": "./dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eyevinn/osaas-client-ts.git"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "pretty": "prettier --check --ignore-unknown .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "jest --pass-with-no-tests"
+  },
+  "dependencies": {
+    "@osaas/client-core": "0.3.0",
+    "chalk": "4.1.2",
+    "commander": "^12.1.0",
+    "fast-jwt": "^4.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
