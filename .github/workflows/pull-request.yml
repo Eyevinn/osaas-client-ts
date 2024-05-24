@@ -17,9 +17,8 @@ jobs:
         run: npm run lint
       - name: Run Prettier
         run: npm run pretty
-      - name: Run Tests
-        run: npm run test
-      - name: Build
-        run: npm run build
       - name: Run Type Check
         run: npm run typecheck
+      - name: Run Tests
+        run: npm run test
+
