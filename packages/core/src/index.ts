@@ -7,3 +7,10 @@ export {
   getInstance,
   listInstances
 } from './core';
+export {
+  createJob,
+  removeJob,
+  getJob,
+  listJobs,
+  waitForJobToComplete
+} from './job';

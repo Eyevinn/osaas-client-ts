@@ -14,6 +14,7 @@ export type ServiceAccessToken = {
 export type Service = {
   serviceId: string;
   apiUrl: string;
+  serviceType: 'instance' | 'job';
 };
 
 export type Subscriptions = {

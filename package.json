@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "packages/core",
-    "packages/cli"
+    "packages/cli",
+    "packages/transcode"
   ],
   "author": "Eyevinn Technology <info@eyevinn.se>",
   "repository": {
@@ -16,6 +17,7 @@
     "lint": "lerna run lint",
     "pretty": "lerna run pretty",
     "typecheck": "lerna run typecheck",
+    "build:doc": "lerna run build:doc",
     "lerna:version": "lerna run test && lerna version --conventional-commits --no-changelog",
     "publish": "lerna run build && lerna publish from-package --yes --ignore-scripts --no-verify-access"
   },
@@ -36,5 +38,8 @@
     "prettier": "^2.8.4",
     "ts-jest": "^29.1.1",
     "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "jsdoc": "^4.0.3"
   }
 }

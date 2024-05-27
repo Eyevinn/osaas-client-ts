@@ -1,7 +1,7 @@
 {
-  "name": "@osaas/client-core",
-  "version": "0.4.0",
-  "description": "Open Source Cloud Client SDK core library",
+  "name": "@osaas/client-transcode",
+  "version": "0.1.0",
+  "description": "Open Source Cloud Client SDK transcode library",
   "author": "Eyevinn Technology <work@eyevinn.se>",
   "homepage": "https://www.osaas.io",
   "license": "MIT",
@@ -22,7 +22,8 @@
     "lint": "eslint .",
     "pretty": "prettier --check --ignore-unknown .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "jest"
+    "test": "jest --passWithNoTests",
+    "build:doc": "npm run build && jsdoc -r -R ./README.md -d docs lib/"
   },
   "dependencies": {
     "@osaas/client-core": "^0.4.0",
