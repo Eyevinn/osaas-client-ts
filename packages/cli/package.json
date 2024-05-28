@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@osaas/client-core": "^0.5.0",
+    "@osaas/client-transcode": "^0.2.0",
     "chalk": "4.1.2",
     "commander": "^12.1.0",
     "fast-jwt": "^4.0.1"
