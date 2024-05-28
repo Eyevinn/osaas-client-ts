@@ -1,4 +1,4 @@
-import { Context, Log, createInstance, getInstance } from '../src/index';
+import { Context, Log, createInstance } from '../src/index';
 
 async function main() {
   const ctx = new Context();

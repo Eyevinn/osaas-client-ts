@@ -1,4 +1,10 @@
-import { Context, Log, createInstance } from '../src/index';
+import {
+  Context,
+  Log,
+  createJob,
+  getJob,
+  waitForJobToComplete
+} from '../src/index';
 
 async function main() {
   const ctx = new Context();
@@ -8,7 +14,7 @@ async function main() {
       'eyevinn-docker-retransfer'
     );
 
-    const job = await createInstance(
+    const job = await createJob(
       ctx,
       'eyevinn-docker-retransfer',
       serviceAccessToken,
@@ -20,7 +26,20 @@ async function main() {
           '-v https://www.eyevinn.se/instagram.ecb3802c.png s3://lab-testcontent-store/birme/'
       }
     );
-    console.log(job);
+    await waitForJobToComplete(
+      ctx,
+      'eyevinn-docker-retransfer',
+      job.name,
+      serviceAccessToken
+    );
+    console.log(
+      await getJob(
+        ctx,
+        'eyevinn-docker-retransfer',
+        job.name,
+        serviceAccessToken
+      )
+    );
   } catch (err) {
     Log().error(err);
   }

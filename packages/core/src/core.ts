@@ -1,7 +1,8 @@
 import { Context, Service } from './context';
 import { createFetch } from './fetch';
+import { Log } from './log';
 
-async function getService(context: Context, serviceId: string) {
+export async function getService(context: Context, serviceId: string) {
   const serviceUrl = new URL(
     `https://catalog.svc.${context.getEnvironment()}.osaas.io/mysubscriptions`
   );
@@ -66,13 +67,19 @@ export async function getInstance(
   const service = await getService(context, serviceId);
   const instanceUrl = new URL(service.apiUrl + '/' + name);
 
-  return await createFetch<any>(instanceUrl, {
-    method: 'GET',
-    headers: {
-      'x-jwt': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  });
+  try {
+    const instance = await createFetch<any>(instanceUrl, {
+      method: 'GET',
+      headers: {
+        'x-jwt': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    return instance;
+  } catch (err) {
+    Log().debug(err);
+  }
+  return undefined;
 }
 
 export async function listInstances(
