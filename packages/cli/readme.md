@@ -28,7 +28,10 @@ Commands:
   list <serviceId>                     List all my service instances
   create [options] <serviceId> <name>  Create a service instance
   remove <serviceId> <name>            Remove a service instance
+  transcode [options] <source> <dest>  Transcode file to ABR fileset and store on S3 bucket
+  compare
   help [command]                       display help for command
+
 ```
 
 To display help for subcommand `admin` you enter
@@ -72,6 +75,22 @@ Commands:
 
 ```
 % osc remove channel-engine clidemo
+```
+
+### Create ABR files for VOD using SVT Encore
+
+```
+osc transcode \
+  https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4 \
+  s3://lab-testcontent-store/birme/
+```
+
+### Compare two video files using VMAF
+
+```
+% osc compare vmaf s3://lab-testcontent-store/birme/snaxax_x264_3100.mp4 \
+    s3://lab-testcontent-store/birme/snaxax_x264_324.mp4 \
+    s3://lab-testcontent-store/birme/
 ```
 
 ### List all channel-engine instance for tenant `eyevinn` as an OSC super admin
