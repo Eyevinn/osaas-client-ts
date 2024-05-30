@@ -12,14 +12,11 @@ jobs:
         with:
           node-version: '18.x'
           registry-url: https://registry.npmjs.org/
-      - name: Install Dependencies
+      - name: Install Dependencies and build docs
         run: |
-          sudo apt-get install -y zip
           npm install
-      - name: Build library
-        run: npm run build
-      - name: Build docs
-        run: npm run build:doc
+          npm run build
+          npm run build:doc
       - name: Deploy docs to S3 bucket
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
