@@ -22,8 +22,7 @@
     "lint": "eslint .",
     "pretty": "prettier --check --ignore-unknown .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "jest --passWithNoTests",
-    "build:doc": "npm run build && jsdoc -r -R ./README.md -d docs lib/"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@osaas/client-core": "^0.5.0",

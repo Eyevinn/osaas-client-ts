@@ -1,5 +1,7 @@
 {
-  "name": "root",
+  "name": "osc-client-javascript",
+  "description": "Open Source Cloud client library for Javascript",
+  "version": "3.0.0",
   "private": true,
   "workspaces": [
     "packages/core",
@@ -17,13 +19,14 @@
     "lint": "lerna run lint",
     "pretty": "lerna run pretty",
     "typecheck": "lerna run typecheck",
-    "build:doc": "lerna run build:doc",
+    "build:doc": "monorepodoc",
     "lerna:version": "lerna run test && lerna version --conventional-commits --no-changelog",
     "publish": "lerna run build && lerna publish from-package --yes --ignore-scripts --no-verify-access"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
+    "@optimics/monorepodoc": "^0.2.7",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.19",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
