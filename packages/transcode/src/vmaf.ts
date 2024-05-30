@@ -6,6 +6,24 @@ import {
 } from '@osaas/client-core';
 import path from 'node:path';
 
+/**
+ * Compare two video files using VMAF
+ *
+ * @param {Context} ctx - Open Source Cloud configuration context
+ * @param {URL} reference - URL to reference video file (supported protocols: s3)
+ * @param {URL} distorted - URL to distorted video file (supported protocols: s3)
+ * @param {URL} resultBucket - URL to S3 bucket where result file will be stored
+ * @returns S3 URL to result file
+ * @example
+ * import { Context } from '@osaas/client-core';
+ * import { vmafCompare } from '@osaas/client-transcode';
+ *
+ * const ctx = new Context();
+ * const reference = new URL('s3://video/reference.mp4');
+ * const distorted = new URL('s3://video/distorted.mp4');
+ * const resultBucket = new URL('s3://video/results');
+ * const resultFile = await vmafCompare(ctx, reference, distorted, resultBucket);
+ */
 export async function vmafCompare(
   ctx: Context,
   reference: URL,
