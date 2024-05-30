@@ -32,6 +32,7 @@ export class QueuePool {
    * @param {QueuePoolOptions} options - Queue Pool options
    * @example
    * import { Context } from '@osaas/client-core';
+   * import { QueuePool } from '@osaas/transcode';
    * const ctx = new Context();
    * // Create a new pool with 2 queues
    * const pool = new QueuePool({ context: ctx, size: 2 });
