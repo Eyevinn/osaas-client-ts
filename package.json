@@ -19,14 +19,13 @@
     "lint": "lerna run lint",
     "pretty": "lerna run pretty",
     "typecheck": "lerna run typecheck",
-    "build:doc": "monorepodoc",
+    "build:doc": "jsdoc -c jsdoc.json",
     "lerna:version": "lerna run test && lerna version --conventional-commits --no-changelog",
     "publish": "lerna run build && lerna publish from-package --yes --ignore-scripts --no-verify-access"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
-    "@optimics/monorepodoc": "^0.2.7",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.11.19",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
