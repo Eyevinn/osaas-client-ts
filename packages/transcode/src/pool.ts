@@ -32,7 +32,7 @@ export class QueuePool {
    * @param {QueuePoolOptions} options - Queue Pool options
    * @example
    * import { Context } from '@osaas/client-core';
-   * import { QueuePool } from '@osaas/transcode';
+   * import { QueuePool } from '@osaas/client-transcode';
    * const ctx = new Context();
    * // Create a new pool with 2 queues
    * const pool = new QueuePool({ context: ctx, size: 2 });
@@ -100,6 +100,26 @@ export class QueuePool {
     }
   }
 
+  /**
+   * @typedef TranscodeOptions
+   * @type object
+   * @property {string?} profile - Transcoding profile to use (default: program)
+   * @property {number?} duration - Duration in seconds (default: entire file)
+   */
+
+  /**
+   * Transcodes a media file into an ABR bundle that is transferred to a destination
+   * @async
+   * @param {URL} source - Source URL of the media file (supported protocols: http, https)
+   * @param {URL} destination - Destination URL of the transcoded media files (supported protocols: s3)
+   * @param {TranscodeOptions} options - Transcode options
+   * @example
+   * const source = new URL('https://example.com/video.mp4');
+   * const destination = new URL('s3://mybucket/video/');
+   *
+   * // Transcode the first 10 seconds of the video
+   * await pool.transcode(source, destination, { duration: 10 });
+   */
   public async transcode(
     source: URL,
     destination: URL,

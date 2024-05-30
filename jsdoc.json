@@ -7,6 +7,11 @@
       "packages/transcode/lib"
     ]
   },
+  "templates": {
+    "default": {
+      "outputSourceFiles": false
+    }
+  },
   "opts": {
     "destination": "./docs/"
   }

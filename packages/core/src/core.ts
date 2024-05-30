@@ -20,6 +20,29 @@ export async function getService(context: Context, serviceId: string) {
   return service;
 }
 
+/**
+ * @typedef ServiceInstance
+ * @type object
+ * @property {string} name - Service instance name
+ * @property {string} url - Service instance URL
+ * @property ... - Service specific properties
+ */
+
+/**
+ * Create a new instance of a service in Open Source Cloud
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - Service identifier. The service identifier is {github-organization}-{github-repo}
+ * @param {string} token - Service access token
+ * @param {object} body - Service instance options. The options are service specific
+ * @returns {ServiceInstance} - Service instance
+ * @example
+ * import { Context, createInstance } from '@osaas/client-core';
+ *
+ * const ctx = new Context();
+ * const sat = await ctx.getServiceAccessToken('eyevinn-test-adserver');
+ * const instance = await createInstance(ctx, 'eyevinn-test-adserver', sat, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createInstance(
   context: Context,
   serviceId: string,
@@ -40,6 +63,18 @@ export async function createInstance(
   return instance;
 }
 
+/**
+ * Remove an instance of a service in Open Source Cloud
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - The service identifier
+ * @param {string} name - The name of the service instance to remove
+ * @param {string} token - Service access token
+ * @example
+ * import { Context, removeInstance } from '@osaas/client-core';
+ * const ctx = new Context();
+ * const sat = await ctx.getServiceAccessToken('eyevinn-test-adserver');
+ * await removeInstance(ctx, 'eyevinn-test-adserver', 'my-instance', sat);
+ */
 export async function removeInstance(
   context: Context,
   serviceId: string,
@@ -58,6 +93,14 @@ export async function removeInstance(
   });
 }
 
+/**
+ * Retrieve an instance of a service in Open Source Cloud
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - The service identifier
+ * @param {string} name - The name of the service instance to remove
+ * @param {string} token - Service access token
+ * @returns {ServiceInstance} - Service instance
+ */
 export async function getInstance(
   context: Context,
   serviceId: string,
@@ -82,6 +125,13 @@ export async function getInstance(
   return undefined;
 }
 
+/**
+ * List all instances of a service in Open Source Cloud
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - The service identifier
+ * @param {string} token - Service access token
+ * @returns {Array.<ServiceInstance>} - List of instances
+ */
 export async function listInstances(
   context: Context,
   serviceId: string,
