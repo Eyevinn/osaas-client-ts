@@ -1,0 +1,13 @@
+{
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": [
+      "readme.md",
+      "packages/core/lib",
+      "packages/transcode/lib"
+    ]
+  },
+  "opts": {
+    "destination": "./docs/"
+  }
+}
