@@ -9,6 +9,7 @@ import path from 'node:path';
 /**
  * Compare two video files using VMAF
  *
+ * @async
  * @param {Context} ctx - Open Source Cloud configuration context
  * @param {URL} reference - URL to reference video file (supported protocols: s3)
  * @param {URL} distorted - URL to distorted video file (supported protocols: s3)
