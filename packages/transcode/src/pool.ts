@@ -11,13 +11,6 @@ import { FileOutput } from './encore';
 import path from 'node:path';
 import { createStreamingPackage } from './packager';
 
-/**
- * @typedef TranscodeOptions
- * @type object
- * @property {string?} profile - Transcoding profile to use (default: program)
- * @property {number?} duration - Duration in seconds (default: entire file)
- * @property {boolean?} packageDestination - If provided create a streaming package and store here
- */
 export type TranscodeOptions = {
   profile?: string;
   duration?: number;
@@ -39,6 +32,14 @@ export class QueuePool {
    * @type object
    * @property {Context} context - Open Source Cloud configuration context
    * @property {number} size - Number of queues in the pool
+   */
+
+  /**
+   * @typedef TranscodeOptions
+   * @type object
+   * @property {string?} profile - Transcoding profile to use (default: program)
+   * @property {number?} duration - Duration in seconds (default: entire file)
+   * @property {URL?} packageDestination - If provided create a streaming package and store here
    */
 
   /**
@@ -127,6 +128,9 @@ export class QueuePool {
    *
    * // Transcode the first 10 seconds of the video
    * await pool.transcode(source, destination, { duration: 10 });
+   *
+   * // Transcode the entire video and create a streaming package
+   * await pool.transcode(source, destination, { packageDestination: new URL('s3://mybucket/streaming/') });
    */
   public async transcode(
     source: URL,

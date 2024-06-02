@@ -19,6 +19,7 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 /**
  * Create a new service job in Open Source Cloud
+ * @memberof module:@osaas/client-core
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} serviceId - Service identifier. The service identifier is {github-organization}-{github-repo}
  * @param {string} token - Service access token
@@ -55,6 +56,14 @@ export async function createJob(
   return await createInstance(context, serviceId, token, body);
 }
 
+/**
+ * Remove a service job in Open Source Cloud
+ * @memberof module:@osaas/client-core
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - Service identifier. The service identifier is {github-organization}-{github-repo}
+ * @param {string} name - Name of service job to remove
+ * @param {string} token - Service access token
+ */
 export async function removeJob(
   context: Context,
   serviceId: string,
@@ -68,6 +77,14 @@ export async function removeJob(
   return await removeInstance(context, serviceId, name, token);
 }
 
+/**
+ * Get a service job in Open Source Cloud
+ * @memberof module:@osaas/client-core
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - Service identifier. The service identifier is {github-organization}-{github-repo}
+ * @param {string} name - Name of service job to read
+ * @param {string} token - Service access token
+ */
 export async function getJob(
   context: Context,
   serviceId: string,
@@ -81,6 +98,13 @@ export async function getJob(
   return await getInstance(context, serviceId, name, token);
 }
 
+/**
+ * List service jobs in Open Source Cloud
+ * @memberof module:@osaas/client-core
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - Service identifier. The service identifier is {github-organization}-{github-repo}
+ * @param {string} token - Service access token
+ */
 export async function listJobs(
   context: Context,
   serviceId: string,
@@ -93,6 +117,14 @@ export async function listJobs(
   return await listInstances(context, serviceId, token);
 }
 
+/**
+ * Wait for a service job to complete
+ * @memberof module:@osaas/client-core
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - Service identifier. The service identifier is {github-organization}-{github-repo}
+ * @param {string} name - Name of service job to wait for
+ * @param {string} token - Service access token
+ */
 export async function waitForJobToComplete(
   context: Context,
   serviceId: string,
