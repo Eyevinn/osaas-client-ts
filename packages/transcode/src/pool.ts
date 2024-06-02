@@ -26,6 +26,7 @@ export type TranscodeOptions = {
 
 /**
  * Represents a pool of Encore queues (instances) in Open Source Cloud
+ * @memberof module:@osaas/transcode
  */
 export class QueuePool {
   private context: Context;
