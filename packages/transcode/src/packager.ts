@@ -9,7 +9,7 @@ import {
  * Create a HLS and MPEG-DASH streaming package
  *
  * @async
- * @memberof module:@osaas/transcode
+ * @memberof module:@osaas/client-transcode
  * @param {Context} ctx - Open Source Cloud configuration context
  * @param {URL} sourceBucket - URL to source bucket (supported protocols: s3)
  * @param {string[]} videos - List of video files in source bucket
