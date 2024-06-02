@@ -9,11 +9,15 @@ export default function cmdTranscode() {
     .description('Transcode file to ABR fileset and store on S3 bucket')
     .argument('<source>', 'Source URL (supported protocols: http, https)')
     .argument('<dest>', 'Destination URL (supported protocols: s3)')
+    .argument(
+      '[packageDestination]',
+      'Optional destination URL for Streaming package (supported protocols: s3)'
+    )
     .option(
       '-d, --duration <duration>',
       'Duration in seconds. If not provided will transcode entire file'
     )
-    .action(async (source, dest, options, command) => {
+    .action(async (source, dest, packageDestination, options, command) => {
       try {
         const globalOpts = command.optsWithGlobals();
         const environment = globalOpts?.env || 'prod';
@@ -21,7 +25,8 @@ export default function cmdTranscode() {
         const pool = new QueuePool({ context: ctx, size: 1 });
         await pool.init();
         await pool.transcode(new URL(source), new URL(dest), {
-          duration: options.duration
+          duration: options.duration,
+          packageDestination: packageDestination
         });
         await pool.destroy();
       } catch (err) {

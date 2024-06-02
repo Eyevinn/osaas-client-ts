@@ -30,6 +30,7 @@ export async function getService(context: Context, serviceId: string) {
 
 /**
  * Create a new instance of a service in Open Source Cloud
+ * @memberof module:@osaas/client-core
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} serviceId - Service identifier. The service identifier is {github-organization}-{github-repo}
  * @param {string} token - Service access token
@@ -65,6 +66,7 @@ export async function createInstance(
 
 /**
  * Remove an instance of a service in Open Source Cloud
+ * @memberof module:@osaas/client-core
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} serviceId - The service identifier
  * @param {string} name - The name of the service instance to remove
@@ -95,6 +97,7 @@ export async function removeInstance(
 
 /**
  * Retrieve an instance of a service in Open Source Cloud
+ * @memberof module:@osaas/client-core
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} serviceId - The service identifier
  * @param {string} name - The name of the service instance to remove
@@ -127,6 +130,7 @@ export async function getInstance(
 
 /**
  * List all instances of a service in Open Source Cloud
+ * @memberof module:@osaas/client-core
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} serviceId - The service identifier
  * @param {string} token - Service access token
