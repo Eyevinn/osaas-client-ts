@@ -5,6 +5,16 @@ import {
   waitForJobToComplete
 } from '@osaas/client-core';
 
+/**
+ * Create a HLS and MPEG-DASH streaming package
+ *
+ * @async
+ * @param {Context} ctx - Open Source Cloud configuration context
+ * @param {URL} sourceBucket - URL to source bucket (supported protocols: s3)
+ * @param {string[]} videos - List of video files in source bucket
+ * @param {string} audio - Audio file in source bucket
+ * @param {URL} resultBucket - URL to bucket where streaming package will be stored (supported protocols: s3)
+ */
 export async function createStreamingPackage(
   ctx: Context,
   sourceBucket: URL,
