@@ -9,6 +9,20 @@ import {
 import { delay, transferFile, waitForEncoreJobToComplete } from './util';
 import { FileOutput } from './encore';
 import path from 'node:path';
+import { createStreamingPackage } from './packager';
+
+/**
+ * @typedef TranscodeOptions
+ * @type object
+ * @property {string?} profile - Transcoding profile to use (default: program)
+ * @property {number?} duration - Duration in seconds (default: entire file)
+ * @property {boolean?} packageDestination - If provided create a streaming package and store here
+ */
+export type TranscodeOptions = {
+  profile?: string;
+  duration?: number;
+  packageDestination?: URL;
+};
 
 /**
  * Represents a pool of Encore queues (instances) in Open Source Cloud
@@ -101,13 +115,6 @@ export class QueuePool {
   }
 
   /**
-   * @typedef TranscodeOptions
-   * @type object
-   * @property {string?} profile - Transcoding profile to use (default: program)
-   * @property {number?} duration - Duration in seconds (default: entire file)
-   */
-
-  /**
    * Transcodes a media file into an ABR bundle that is transferred to a destination
    * @async
    * @param {URL} source - Source URL of the media file (supported protocols: http, https)
@@ -123,7 +130,7 @@ export class QueuePool {
   public async transcode(
     source: URL,
     destination: URL,
-    { profile, duration }: { profile?: string; duration?: number }
+    { profile, duration, packageDestination }: TranscodeOptions
   ) {
     if (!this.token) {
       throw new Error('Pool not initialized');
@@ -180,5 +187,22 @@ export class QueuePool {
       )
     );
     await Promise.all(transferPromises);
+    if (packageDestination) {
+      Log().debug(`Creating streaming package on ${packageDestination}`);
+      const videos = outputFiles
+        .filter((file) => file.type === 'VideoFile')
+        .map((file) => path.basename(file.file));
+      const audio = outputFiles.find((file) => file.type === 'AudioFile')?.file;
+      Log().debug(videos, audio);
+      if (videos && audio) {
+        await createStreamingPackage(
+          this.context,
+          destination,
+          videos,
+          path.basename(audio),
+          packageDestination
+        );
+      }
+    }
   }
 }
