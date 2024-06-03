@@ -1,5 +1,9 @@
 import { Context } from '@osaas/client-core';
-import { createLiveSingleBitrateHLS, listSingleBitrateHLS, removeLiveSingleBitrateHLS } from '@osaas/client-transcode';
+import {
+  createLiveSingleBitrateHLS,
+  listSingleBitrateHLS,
+  removeLiveSingleBitrateHLS
+} from '@osaas/client-transcode';
 import { Command } from 'commander';
 
 export default function cmdLive() {
