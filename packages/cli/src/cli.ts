@@ -6,6 +6,7 @@ import * as cmdUser from './user/cmd';
 import cmdTranscode from './transcode/cmd';
 import cmdCompare from './vmaf/cmd';
 import cmdPackager from './packager/cmd';
+import cmdLive from './live/cmd';
 
 const cli = new Command();
 
@@ -19,4 +20,5 @@ cli.addCommand(cmdUser.cmdRemove());
 cli.addCommand(cmdTranscode());
 cli.addCommand(cmdPackager());
 cli.addCommand(cmdCompare());
+cli.addCommand(cmdLive());
 cli.parse(process.argv);

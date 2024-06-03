@@ -6,7 +6,8 @@ export {
   createInstance,
   removeInstance,
   getInstance,
-  listInstances
+  listInstances,
+  getPortsForInstance
 } from './core';
 export {
   createJob,

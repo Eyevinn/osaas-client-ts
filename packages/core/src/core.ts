@@ -20,6 +20,12 @@ export async function getService(context: Context, serviceId: string) {
   return service;
 }
 
+export type Port = {
+  externalIp: string;
+  externalPort: number;
+  internalPort: number;
+};
+
 /**
  * @typedef ServiceInstance
  * @type object
@@ -145,6 +151,34 @@ export async function listInstances(
   const instanceUrl = new URL(service.apiUrl);
 
   return await createFetch<any>(instanceUrl, {
+    method: 'GET',
+    headers: {
+      'x-jwt': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
+/**
+ * List all extra TCP ports routed to an instance in Open Source Cloud
+ * @memberof module:@osaas/client-core
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} serviceId - The service identifier
+ * @param {string} name - The name of the service instance
+ * @param {string} token - Service access token
+ * @returns {Array.<Port>} - List of ports
+ */
+export async function getPortsForInstance(
+  context: Context,
+  serviceId: string,
+  name: string,
+  token: string
+): Promise<Port[]> {
+  const service = await getService(context, serviceId);
+  const instanceUrl = new URL(service.apiUrl);
+  const portsUrl = new URL('https://' + instanceUrl.host + '/ports/' + name);
+
+  return await createFetch<Port[]>(portsUrl, {
     method: 'GET',
     headers: {
       'x-jwt': `Bearer ${token}`,
