@@ -90,4 +90,8 @@ export class Context {
       }
     });
   }
+
+  async refreshServiceAccessToken(serviceId: string) {
+    return await this.getServiceAccessToken(serviceId);
+  }
 }

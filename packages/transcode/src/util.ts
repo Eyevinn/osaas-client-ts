@@ -1,5 +1,6 @@
 import {
   Context,
+  FetchError,
   Log,
   createFetch,
   createJob,
@@ -10,19 +11,31 @@ const MAX_ITER = 1000;
 
 export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-export async function waitForEncoreJobToComplete(jobUrl: URL, token: string) {
+export async function waitForEncoreJobToComplete(
+  jobUrl: URL,
+  token: string,
+  context: Context
+) {
   for (const _ of Array(MAX_ITER)) {
-    const data = await createFetch<any>(jobUrl, {
-      method: 'GET',
-      headers: {
-        'x-jwt': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+    try {
+      const data = await createFetch<any>(jobUrl, {
+        method: 'GET',
+        headers: {
+          'x-jwt': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      const job = JSON.parse(data);
+      Log().debug(`Progress: ${job.progress}`);
+      if (job.status === 'SUCCESSFUL') {
+        return job;
       }
-    });
-    const job = JSON.parse(data);
-    Log().debug(`Progress: ${job.progress}`);
-    if (job.status === 'SUCCESSFUL') {
-      return job;
+    } catch (err) {
+      if (err instanceof FetchError && err.httpCode === 401) {
+        // Token must have expired
+        Log().debug('Refreshing token');
+        token = await context.refreshServiceAccessToken('encore');
+      }
     }
     await delay(10000);
   }

@@ -175,7 +175,8 @@ export class QueuePool {
     const encoreJob = JSON.parse(data);
     const job = await waitForEncoreJobToComplete(
       new URL(encoreJobUrl.toString() + '/' + encoreJob.id),
-      this.token
+      this.token,
+      this.context
     );
     Log().debug(job);
     const outputFiles: FileOutput[] = job.output.filter(
