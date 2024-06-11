@@ -15,7 +15,22 @@ npm install --save @osaas/client-intercom
 Example code
 
 ```javascript
+import { Context, Log } from '@osaas/client-core';
+import { IntercomSystem } from '@osaas/client-intercom';
 
+async function main() {
+  const ctx = new Context();
+  try {
+    const intercom = new IntercomSystem({ context: ctx, name });
+    await intercom.init();
+    const p = await intercom.createProduction('myproduction', ['line1', 'line2', 'line3']);
+    console.log(`Production '${p.name}' created with id ${p.productionId}`);
+  } catch (err) {
+    Log().error(err);
+  }
+}
+
+main();
 ```
 
 ## About Open Source Cloud
