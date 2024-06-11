@@ -23,7 +23,11 @@ async function main() {
   try {
     const intercom = new IntercomSystem({ context: ctx, name });
     await intercom.init();
-    const p = await intercom.createProduction('myproduction', ['line1', 'line2', 'line3']);
+    const p = await intercom.createProduction('myproduction', [
+      'line1',
+      'line2',
+      'line3'
+    ]);
     console.log(`Production '${p.name}' created with id ${p.productionId}`);
   } catch (err) {
     Log().error(err);
