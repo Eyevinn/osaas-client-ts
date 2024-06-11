@@ -6,7 +6,8 @@
   "workspaces": [
     "packages/core",
     "packages/cli",
-    "packages/transcode"
+    "packages/transcode",
+    "packages/intercom"
   ],
   "author": "Eyevinn Technology <info@eyevinn.se>",
   "repository": {
