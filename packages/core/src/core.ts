@@ -1,5 +1,6 @@
 import { Context, Service } from './context';
-import { createFetch } from './fetch';
+import { UnauthorizedError } from './errors';
+import { FetchError, createFetch } from './fetch';
 import { Log } from './log';
 
 export async function getService(context: Context, serviceId: string) {
@@ -130,6 +131,9 @@ export async function getInstance(
     return instance;
   } catch (err) {
     Log().debug(err);
+    if (err instanceof FetchError && err.httpCode === 401) {
+      throw new UnauthorizedError();
+    }
   }
   return undefined;
 }
