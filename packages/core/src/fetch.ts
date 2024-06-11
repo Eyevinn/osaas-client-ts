@@ -34,6 +34,9 @@ export const createFetch = async <T>(
     Log().debug(`${options?.method}: ${url}`);
     const response = await fetch(url, { ...options });
 
+    Log().debug(
+      response.status + ': ' + response.statusText + ': ' + response.ok
+    );
     if (!response.ok) {
       throw await errorFactory(response);
     }
