@@ -45,11 +45,11 @@ jobs:
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
-        tags: |
-          latest
-          ${{ steps.get-version.outputs.version }}
         with:
           images: eyevinntechnology/osccli
+          tags: |
+            latest
+            ${{ steps.get-version.outputs.version }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
