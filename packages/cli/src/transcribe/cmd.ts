@@ -8,8 +8,8 @@ export default function cmdTranscribe() {
   transcriber
     .description('Generate subtitles from video or audio using Open AI Whisper')
     .argument('<source>', 'Source URL (supported protocols: http, https)')
-    .option('-f, --format', 'Output format (default: vtt)')
-    .option('-l, --language', 'Language (default: en)')
+    .option('-f, --format <format>', 'Output format (default: vtt)')
+    .option('-l, --language <language>', 'Language (default: en)')
     .action(async (source, options, command) => {
       try {
         const globalOpts = command.optsWithGlobals();

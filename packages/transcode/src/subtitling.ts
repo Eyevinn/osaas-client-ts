@@ -112,6 +112,7 @@ export class SubtitlingPool {
       this.token
     );
     const transcribeJobUrl = new URL('/transcribe', instance.url);
+    Log().debug(language, format);
     const data = await createFetch<TranscribeResult>(transcribeJobUrl, {
       method: 'POST',
       body: JSON.stringify({
