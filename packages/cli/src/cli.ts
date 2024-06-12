@@ -8,6 +8,7 @@ import cmdCompare from './vmaf/cmd';
 import cmdPackager from './packager/cmd';
 import cmdLive from './live/cmd';
 import cmdIntercom from './intercom/cmd';
+import cmdTranscribe from './transcribe/cmd';
 
 const cli = new Command();
 
@@ -23,4 +24,5 @@ cli.addCommand(cmdPackager());
 cli.addCommand(cmdCompare());
 cli.addCommand(cmdLive());
 cli.addCommand(cmdIntercom());
+cli.addCommand(cmdTranscribe());
 cli.parse(process.argv);

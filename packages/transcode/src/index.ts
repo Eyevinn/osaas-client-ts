@@ -7,3 +7,4 @@ export {
   removeLiveSingleBitrateHLS,
   listSingleBitrateHLS
 } from './live';
+export { SubtitlingPool } from './subtitling';
