@@ -9,6 +9,7 @@ import cmdPackager from './packager/cmd';
 import cmdLive from './live/cmd';
 import cmdIntercom from './intercom/cmd';
 import cmdTranscribe from './transcribe/cmd';
+import cmdDb from './db/cmd';
 
 const cli = new Command();
 
@@ -25,4 +26,5 @@ cli.addCommand(cmdCompare());
 cli.addCommand(cmdLive());
 cli.addCommand(cmdIntercom());
 cli.addCommand(cmdTranscribe());
+cli.addCommand(cmdDb());
 cli.parse(process.argv);

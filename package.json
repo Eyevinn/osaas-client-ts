@@ -7,7 +7,8 @@
     "packages/core",
     "packages/cli",
     "packages/transcode",
-    "packages/intercom"
+    "packages/intercom",
+    "packages/db"
   ],
   "author": "Eyevinn Technology <info@eyevinn.se>",
   "repository": {
