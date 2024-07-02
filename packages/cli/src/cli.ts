@@ -25,7 +25,7 @@ cli.version(packageJson.version, '-v, --version', 'Output the current version');
 cli
   .configureHelp({ showGlobalOptions: true })
   .option('--env <environment>', 'Environment to use');
-  
+
 cli.addCommand(cmdAdmin());
 cli.addCommand(cmdUser.cmdList());
 cli.addCommand(cmdUser.cmdCreate());
