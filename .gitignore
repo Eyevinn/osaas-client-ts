@@ -4,3 +4,4 @@ dist/
 .nx/
 .DS_Store
 docs/
+packages/core/README.md
