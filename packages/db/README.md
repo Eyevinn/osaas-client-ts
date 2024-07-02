@@ -15,7 +15,7 @@ npm install --save @osaas/client-db
 Example code creating a Valkey database and use a Redis client to connect with it
 
 ```javascript
-import { Context, Log } from '@osaas/client-core';
+import { Context, Log } from '@osaas/client-core';
 import { ValkeyDb } from '@osaas/client-db';
 import Redis from 'ioredis';
 
