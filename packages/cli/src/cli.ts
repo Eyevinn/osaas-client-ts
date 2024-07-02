@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { Command } from 'commander';
 import cmdAdmin from './admin/cmd';
 import * as cmdUser from './user/cmd';
@@ -13,9 +15,17 @@ import cmdDb from './db/cmd';
 
 const cli = new Command();
 
+// Read package.json
+const packageJson = JSON.parse(
+  readFileSync(join(__dirname, '..', 'package.json'), 'utf8')
+);
+
+cli.version(packageJson.version, '-v, --version', 'Output the current version');
+
 cli
   .configureHelp({ showGlobalOptions: true })
   .option('--env <environment>', 'Environment to use');
+  
 cli.addCommand(cmdAdmin());
 cli.addCommand(cmdUser.cmdList());
 cli.addCommand(cmdUser.cmdCreate());
