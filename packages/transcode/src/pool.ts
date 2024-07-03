@@ -35,6 +35,7 @@ export class QueuePool {
   private queueSize: number;
   private redisPackagingQueue?: ValkeyDb;
   private encoreCallbacks: { [name: string]: EncoreCallbackListener };
+  private encorePackager?: EncorePackager;
 
   /**
    * @typedef QueuePoolOptions
@@ -140,10 +141,19 @@ export class QueuePool {
    */
   public async destroy() {
     if (!this.token) {
-      throw new Error('Pool not initialized');
+      this.token = await this.context.getServiceAccessToken('encore');
     }
     for (const instance of this.instances) {
       await removeInstance(this.context, 'encore', instance, this.token);
+      if (this.encoreCallbacks[instance]) {
+        await this.encoreCallbacks[instance].destroy();
+      }
+    }
+    if (this.encorePackager) {
+      await this.encorePackager.destroy();
+    }
+    if (this.redisPackagingQueue) {
+      await this.redisPackagingQueue.destroy();
     }
   }
 
@@ -255,13 +265,13 @@ export class QueuePool {
         if (!redisUrl) {
           throw new Error('Failed to get Redis URL');
         }
-        const packager = new EncorePackager({
+        this.encorePackager = new EncorePackager({
           context: this.context,
           name: 'packager',
           redisUrl: redisUrl.toString(),
           outputFolder: packageDestination.toString()
         });
-        await packager.init();
+        await this.encorePackager.init();
         Log().info(
           'Streaming packaging delegated to Encore Packager to output to ' +
             packageDestination

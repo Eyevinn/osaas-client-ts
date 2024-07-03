@@ -32,6 +32,7 @@ cli.addCommand(cmdUser.cmdCreate());
 cli.addCommand(cmdUser.cmdRemove());
 cli.addCommand(cmdTranscode.cmdTranscode());
 cli.addCommand(cmdTranscode.cmdEncore());
+cli.addCommand(cmdTranscode.cmdVodPipeline());
 cli.addCommand(cmdPackager());
 cli.addCommand(cmdCompare());
 cli.addCommand(cmdLive());

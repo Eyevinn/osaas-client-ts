@@ -4,6 +4,7 @@ import {
   createInstance,
   getInstance,
   listInstances,
+  removeInstance,
   valueOrSecret
 } from '@osaas/client-core';
 
@@ -98,6 +99,22 @@ export class EncoreCallbackListener {
       this.callbackUrl = newInstance.url + '/encoreCallback';
     } else {
       this.callbackUrl = instance.url + '/encoreCallback';
+    }
+  }
+
+  public async destroy() {
+    try {
+      this.token = await this.context.getServiceAccessToken(
+        CALLBACK_SERVICE_ID
+      );
+      await removeInstance(
+        this.context,
+        CALLBACK_SERVICE_ID,
+        this.name,
+        this.token
+      );
+    } catch (err) {
+      Log().error((err as Error).message);
     }
   }
 
@@ -227,5 +244,29 @@ export class EncorePackager {
         throw new Error('Failed to create Encore Packager instance');
       }
     }
+  }
+
+  public async destroy() {
+    try {
+      this.token = await this.context.getServiceAccessToken(
+        PACKAGER_SERVICE_ID
+      );
+      await removeInstance(
+        this.context,
+        PACKAGER_SERVICE_ID,
+        this.name,
+        this.token
+      );
+    } catch (err) {
+      Log().error((err as Error).message);
+    }
+  }
+
+  public getOutputFolder(): string {
+    return this.outputFolder;
+  }
+
+  public getName(): string {
+    return this.name;
   }
 }
