@@ -6,8 +6,9 @@ import {
   getInstance,
   removeInstance
 } from '@osaas/client-core';
+import { ValkeyDb } from '@osaas/client-db';
 import { delay, transferFile, waitForEncoreJobToComplete } from './util';
-import { FileOutput } from './encore';
+import { EncoreCallbackListener, EncorePackager, FileOutput } from './encore';
 import path from 'node:path';
 import { createStreamingPackage } from './packager';
 
@@ -15,6 +16,12 @@ export type TranscodeOptions = {
   profile?: string;
   duration?: number;
   packageDestination?: URL;
+};
+
+export type QueuePoolOptions = {
+  context: Context;
+  size?: number;
+  usePackagingQueue?: boolean;
 };
 
 /**
@@ -26,12 +33,16 @@ export class QueuePool {
   private token?: string;
   private instances: string[];
   private queueSize: number;
+  private redisPackagingQueue?: ValkeyDb;
+  private encoreCallbacks: { [name: string]: EncoreCallbackListener };
+  private encorePackager?: EncorePackager;
 
   /**
    * @typedef QueuePoolOptions
    * @type object
    * @property {Context} context - Open Source Cloud configuration context
    * @property {number} size - Number of queues in the pool
+   * @property {boolean?} usePackagingQueue - If true, use a packaging queue (default: false)
    */
 
   /**
@@ -54,10 +65,17 @@ export class QueuePool {
    * const pool = new QueuePool({ context: ctx, size: 2 });
    * await pool.init();
    */
-  constructor({ context, size }: { context: Context; size?: number }) {
+  constructor({ context, size, usePackagingQueue }: QueuePoolOptions) {
     this.context = context;
     this.instances = [];
     this.queueSize = size || 1;
+    if (usePackagingQueue) {
+      this.redisPackagingQueue = new ValkeyDb({
+        context,
+        name: 'packaging'
+      });
+    }
+    this.encoreCallbacks = {};
   }
 
   /**
@@ -67,6 +85,14 @@ export class QueuePool {
    * await pool.init();
    */
   public async init() {
+    let redisUrl: URL | undefined = undefined;
+    if (this.redisPackagingQueue) {
+      redisUrl = await this.redisPackagingQueue.getRedisUrl();
+      if (!redisUrl) {
+        throw new Error('Failed to get Redis URL');
+      }
+    }
+
     this.token = await this.context.getServiceAccessToken('encore');
 
     if (this.instances.length > 0) {
@@ -77,7 +103,7 @@ export class QueuePool {
       names.push(`node${i + 1}`);
     }
     for (const name of names) {
-      const instance = await getInstance(
+      let instance = await getInstance(
         this.context,
         'encore',
         name,
@@ -85,18 +111,24 @@ export class QueuePool {
       );
       if (!instance) {
         Log().debug(`Creating pool instance ${name}`);
-        const instance = await createInstance(
-          this.context,
-          'encore',
-          this.token,
-          {
-            name
-          }
-        );
+        instance = await createInstance(this.context, 'encore', this.token, {
+          name
+        });
         await delay(5000);
         this.instances.push(instance.name);
       } else {
         this.instances.push(instance.name);
+      }
+      if (redisUrl) {
+        const callback = new EncoreCallbackListener({
+          context: this.context,
+          name,
+          redisUrl: redisUrl.toString(),
+          encoreUrl: instance.url.replace(/\/$/, '')
+        });
+        Log().debug(`Creating callback listener for ${name}`);
+        await callback.init();
+        this.encoreCallbacks[name] = callback;
       }
     }
   }
@@ -109,10 +141,19 @@ export class QueuePool {
    */
   public async destroy() {
     if (!this.token) {
-      throw new Error('Pool not initialized');
+      this.token = await this.context.getServiceAccessToken('encore');
     }
     for (const instance of this.instances) {
       await removeInstance(this.context, 'encore', instance, this.token);
+      if (this.encoreCallbacks[instance]) {
+        await this.encoreCallbacks[instance].destroy();
+      }
+    }
+    if (this.encorePackager) {
+      await this.encorePackager.destroy();
+    }
+    if (this.redisPackagingQueue) {
+      await this.redisPackagingQueue.destroy();
     }
   }
 
@@ -160,6 +201,7 @@ export class QueuePool {
         outputFolder: `/usercontent/${jobId}`,
         baseName: jobId,
         duration: duration,
+        progressCallbackUri: this.encoreCallbacks[name]?.getCallbackUrl(),
         inputs: [
           {
             type: 'AudioVideo',
@@ -173,40 +215,66 @@ export class QueuePool {
       }
     });
     const encoreJob = JSON.parse(data);
-    const job = await waitForEncoreJobToComplete(
-      new URL(encoreJobUrl.toString() + '/' + encoreJob.id),
-      this.token,
-      this.context
-    );
-    Log().debug(job);
-    const outputFiles: FileOutput[] = job.output.filter(
-      (file: FileOutput) =>
-        file.type === 'VideoFile' || file.type === 'AudioFile'
-    );
-    const transferPromises = outputFiles.map((file) =>
-      transferFile(
-        this.context,
-        path.basename(file.file),
-        new URL(file.file, instance.url),
-        destination,
-        this.token || ''
-      )
-    );
-    await Promise.all(transferPromises);
-    if (packageDestination) {
-      Log().debug(`Creating streaming package on ${packageDestination}`);
-      const videos = outputFiles
-        .filter((file) => file.type === 'VideoFile')
-        .map((file) => path.basename(file.file));
-      const audio = outputFiles.find((file) => file.type === 'AudioFile')?.file;
-      Log().debug(videos, audio);
-      if (videos && audio) {
-        await createStreamingPackage(
+    if (!this.encoreCallbacks[name]?.getCallbackUrl()) {
+      const job = await waitForEncoreJobToComplete(
+        new URL(encoreJobUrl.toString() + '/' + encoreJob.id),
+        this.token,
+        this.context
+      );
+      Log().debug(job);
+      const outputFiles: FileOutput[] = job.output.filter(
+        (file: FileOutput) =>
+          file.type === 'VideoFile' || file.type === 'AudioFile'
+      );
+      const transferPromises = outputFiles.map((file) =>
+        transferFile(
           this.context,
+          path.basename(file.file),
+          new URL(file.file, instance.url),
           destination,
-          videos,
-          path.basename(audio),
-          packageDestination
+          this.token || ''
+        )
+      );
+      await Promise.all(transferPromises);
+      if (packageDestination) {
+        Log().debug(`Creating streaming package on ${packageDestination}`);
+        const videos = outputFiles
+          .filter((file) => file.type === 'VideoFile')
+          .map((file) => path.basename(file.file));
+        const audio = outputFiles.find(
+          (file) => file.type === 'AudioFile'
+        )?.file;
+        Log().debug(videos, audio);
+        if (videos && audio) {
+          await createStreamingPackage(
+            this.context,
+            destination,
+            videos,
+            path.basename(audio),
+            packageDestination
+          );
+        }
+      }
+    } else {
+      if (packageDestination) {
+        // Create packaging queue processor
+        if (!this.redisPackagingQueue) {
+          throw new Error('Packaging queue not initialized');
+        }
+        const redisUrl = await this.redisPackagingQueue.getRedisUrl();
+        if (!redisUrl) {
+          throw new Error('Failed to get Redis URL');
+        }
+        this.encorePackager = new EncorePackager({
+          context: this.context,
+          name: 'packager',
+          redisUrl: redisUrl.toString(),
+          outputFolder: packageDestination.toString()
+        });
+        await this.encorePackager.init();
+        Log().info(
+          'Streaming packaging delegated to Encore Packager to output to ' +
+            packageDestination
         );
       }
     }

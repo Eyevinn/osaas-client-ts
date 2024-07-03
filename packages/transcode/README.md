@@ -40,6 +40,37 @@ async function main() {
 main();
 ```
 
+Transcode and create streaming package
+
+```javascript
+import { Context, Log } from '@osaas/client-core';
+import { QueuePool } from '@osaas/client-transcode';
+
+async function main() {
+  const ctx = new Context();
+
+  try {
+    const pool = new QueuePool({ context: ctx, usePackagingQueue: true });
+    await pool.init();
+    await pool.transcode(
+      new URL(
+        'https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4'
+      ),
+      new URL('s3://lab-testcontent-store/birme/'),
+      {
+        packageDestination: new URL(
+          's3://lab-testcontent-storate/birme/output/'
+        )
+      }
+    );
+  } catch (err) {
+    Log().error(err);
+  }
+}
+
+main();
+```
+
 ## About Open Source Cloud
 
 Open Source Cloud reduces the barrier to get started with open source without having to host it on your own infrastructure.

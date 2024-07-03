@@ -7,7 +7,9 @@ export {
   removeInstance,
   getInstance,
   listInstances,
-  getPortsForInstance
+  getPortsForInstance,
+  instanceValue,
+  valueOrSecret
 } from './core';
 export {
   createJob,

@@ -133,6 +133,8 @@ export async function getInstance(
     Log().debug(err);
     if (err instanceof FetchError && err.httpCode === 401) {
       throw new UnauthorizedError();
+    } else if (err instanceof FetchError && err.httpCode === 404) {
+      return undefined;
     }
   }
   return undefined;
@@ -189,4 +191,15 @@ export async function getPortsForInstance(
       'Content-Type': 'application/json'
     }
   });
+}
+
+export function instanceValue(
+  instance: { [key: string]: string },
+  key: string
+) {
+  return instance[key].match(/^{{secrets}}/) ? '***' : instance[key];
+}
+
+export function valueOrSecret(value: string) {
+  return value.match(/^{{secrets}}/) ? '***' : value;
 }

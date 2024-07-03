@@ -8,6 +8,8 @@ import {
   removeInstance
 } from '@osaas/client-core';
 
+export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 const SERVICE_ID = 'valkey-io-valkey';
 
 export class ValkeyDb {
@@ -59,6 +61,7 @@ export class ValkeyDb {
       ) {
         throw new Error('Failed to create Valkey instance');
       }
+      await delay(5000);
     }
     const redisPort = await this.getRedisPort();
     if (redisPort) {
