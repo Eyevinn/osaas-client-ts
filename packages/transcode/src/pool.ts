@@ -123,7 +123,7 @@ export class QueuePool {
           context: this.context,
           name,
           redisUrl: redisUrl.toString(),
-          encoreUrl: instance.url
+          encoreUrl: instance.url.replace(/\/$/, '')
         });
         Log().debug(`Creating callback listener for ${name}`);
         await callback.init();
