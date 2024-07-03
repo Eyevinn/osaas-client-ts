@@ -58,7 +58,9 @@ async function main() {
       ),
       new URL('s3://lab-testcontent-store/birme/'),
       {
-        packageDestination: new URL('s3://lab-testcontent-storate/birme/output/')
+        packageDestination: new URL(
+          's3://lab-testcontent-storate/birme/output/'
+        )
       }
     );
   } catch (err) {
