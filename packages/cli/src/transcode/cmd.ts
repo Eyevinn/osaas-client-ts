@@ -1,8 +1,8 @@
 import { Context } from '@osaas/client-core';
-import { QueuePool } from '@osaas/client-transcode';
+import { EncoreCallbackListener, QueuePool } from '@osaas/client-transcode';
 import { Command } from 'commander';
 
-export default function cmdTranscode() {
+export function cmdTranscode() {
   const transcode = new Command('transcode');
 
   transcode
@@ -17,21 +17,49 @@ export default function cmdTranscode() {
       '-d, --duration <duration>',
       'Duration in seconds. If not provided will transcode entire file'
     )
+    .option('-b, --background', 'Run transcoding and packaging in background')
     .action(async (source, dest, packageDestination, options, command) => {
       try {
         const globalOpts = command.optsWithGlobals();
         const environment = globalOpts?.env || 'prod';
         const ctx = new Context({ environment });
-        const pool = new QueuePool({ context: ctx, size: 1 });
+        const pool = new QueuePool({
+          context: ctx,
+          size: 1,
+          usePackagingQueue: options.background
+        });
         await pool.init();
         await pool.transcode(new URL(source), new URL(dest), {
           duration: options.duration,
           packageDestination: packageDestination
         });
-        await pool.destroy();
+        if (!options.background) {
+          await pool.destroy();
+        }
       } catch (err) {
         console.log((err as Error).message);
       }
     });
   return transcode;
+}
+
+export function cmdEncore() {
+  const encore = new Command('encore');
+  encore
+    .command('list-callbacks')
+    .description('List all callback listeners')
+    .action(async (options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const ctx = new Context({ environment });
+        const callbacks = await EncoreCallbackListener.list(ctx);
+        callbacks.map((callback: EncoreCallbackListener) =>
+          console.log(callback.getName())
+        );
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+  return encore;
 }
