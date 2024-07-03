@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@osaas/client-core": "^0.8.0",
+    "@osaas/client-db": "^0.1.2",
     "chalk": "4.1.2"
   },
   "publishConfig": {
