@@ -123,7 +123,8 @@ export function cmdVodPipeline() {
         const pool = new QueuePool({
           context: ctx,
           size: options.size || 1,
-          usePackagingQueue: true
+          usePackagingQueue: true,
+          packageDestination: new URL('s3://dummy')
         });
         await pool.init();
         await pool.destroy();
