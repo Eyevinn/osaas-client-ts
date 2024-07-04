@@ -22,6 +22,7 @@ export type QueuePoolOptions = {
   context: Context;
   size?: number;
   usePackagingQueue?: boolean;
+  packageDestination?: URL;
 };
 
 /**
@@ -35,6 +36,7 @@ export class QueuePool {
   private queueSize: number;
   private redisPackagingQueue?: ValkeyDb;
   private encoreCallbacks: { [name: string]: EncoreCallbackListener };
+  private packageDestination?: URL;
   private encorePackager?: EncorePackager;
 
   /**
@@ -65,7 +67,12 @@ export class QueuePool {
    * const pool = new QueuePool({ context: ctx, size: 2 });
    * await pool.init();
    */
-  constructor({ context, size, usePackagingQueue }: QueuePoolOptions) {
+  constructor({
+    context,
+    size,
+    usePackagingQueue,
+    packageDestination
+  }: QueuePoolOptions) {
     this.context = context;
     this.instances = [];
     this.queueSize = size || 1;
@@ -74,6 +81,7 @@ export class QueuePool {
         context,
         name: 'packaging'
       });
+      this.packageDestination = packageDestination;
     }
     this.encoreCallbacks = {};
   }
@@ -130,6 +138,15 @@ export class QueuePool {
         await callback.init();
         this.encoreCallbacks[name] = callback;
       }
+    }
+    if (redisUrl && this.packageDestination) {
+      this.encorePackager = new EncorePackager({
+        context: this.context,
+        name: 'packager',
+        redisUrl: redisUrl.toString(),
+        outputFolder: this.packageDestination.toString()
+      });
+      await this.encorePackager.init();
     }
   }
 
@@ -256,6 +273,9 @@ export class QueuePool {
         }
       }
     } else {
+      if (this.packageDestination) {
+        packageDestination = this.packageDestination;
+      }
       if (packageDestination) {
         // Create packaging queue processor
         if (!this.redisPackagingQueue) {

@@ -24,6 +24,11 @@ export function cmdTranscode() {
     .option('-b, --background', 'Run transcoding and packaging in background')
     .action(async (source, dest, packageDestination, options, command) => {
       try {
+        if (options.background) {
+          throw new Error(
+            `Option '-b' has been deprecated and replaced with 'osc pipeline' command.`
+          );
+        }
         const globalOpts = command.optsWithGlobals();
         const environment = globalOpts?.env || 'prod';
         const ctx = new Context({ environment });
@@ -52,11 +57,39 @@ export function cmdVodPipeline() {
   pipeline
     .command('create')
     .description('Create a new VOD pipeline')
+    .argument('<dest>', 'Destination URL (supported protocols: s3)')
     .option(
       '-s, --size <size>',
       'Number of Encore instances in the pool (default: 1)'
     )
-    .action(async (options, command) => {
+    .action(async (dest, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const ctx = new Context({ environment });
+        const pool = new QueuePool({
+          context: ctx,
+          size: options.size || 1,
+          usePackagingQueue: true,
+          packageDestination: new URL(dest)
+        });
+        await pool.destroy(); // Remove pipeline if already exists
+        await pool.init();
+        console.log('VOD pipeline created');
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+
+  pipeline
+    .command('transcode')
+    .description('Transcode and create VOD package')
+    .argument('<source>', 'Source URL (supported protocols: http, https)')
+    .option(
+      '-d, --duration <duration>',
+      'Duration in seconds. If not provided will transcode entire file'
+    )
+    .action(async (source, options, command) => {
       try {
         const globalOpts = command.optsWithGlobals();
         const environment = globalOpts?.env || 'prod';
@@ -67,7 +100,9 @@ export function cmdVodPipeline() {
           usePackagingQueue: true
         });
         await pool.init();
-        console.log('VOD pipeline created');
+        await pool.transcode(new URL(source), new URL('s3://dummy/'), {
+          duration: options.duration
+        });
       } catch (err) {
         console.log((err as Error).message);
       }
