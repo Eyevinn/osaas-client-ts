@@ -89,7 +89,7 @@ osc transcode \
 
 ```
 osc pipeline create s3://lab-testcontent-store/birme/output/
-osc pipepline transcode https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4
+osc pipeline transcode https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4
 ```
 
 ### Compare two video files using VMAF
