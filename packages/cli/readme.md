@@ -88,10 +88,8 @@ osc transcode \
 ### Transcode and create streaming package using SVT Encore and Shaka Packager
 
 ```
-osc transcode -b \
-  https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4 \
-  s3://lab-testcontent-store/birme/ \
-  s3://lab-testcontent-store/birme/output/
+osc pipeline create s3://lab-testcontent-store/birme/output/
+osc pipepline transcode https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4
 ```
 
 ### Compare two video files using VMAF
