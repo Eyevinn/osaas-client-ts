@@ -1,12 +1,15 @@
 import {
   Context,
   Log,
+  createFetch,
   createInstance,
   getInstance,
   listInstances,
   removeInstance,
   valueOrSecret
 } from '@osaas/client-core';
+import { ValkeyDb } from '@osaas/client-db';
+import { delay } from './util';
 
 export type FileOutput = {
   file: string;
@@ -268,5 +271,251 @@ export class EncorePackager {
 
   public getName(): string {
     return this.name;
+  }
+}
+
+export type EncoreTransferOpts = {
+  context: Context;
+  name: string;
+  redisUrl: string;
+  redisQueue?: string;
+  outputFolder?: string;
+  personalAccessTokenSecret?: string;
+  awsAccessKeyIdSecret?: string;
+  awsSecretAccessKeySecret?: string;
+};
+
+const TRANSFER_SERVICE_ID = 'eyevinn-encore-transfer';
+
+export class EncoreTransfer {
+  private context: Context;
+  private name: string;
+  private token?: string;
+  private redisUrl: string;
+  private redisQueue?: string;
+  private personalAccessTokenSecret: string;
+  private awsAccessKeyIdSecret: string;
+  private awsSecretAccessKeySecret: string;
+  private outputFolder?: string;
+
+  constructor({
+    context,
+    name,
+    redisUrl,
+    redisQueue,
+    outputFolder,
+    personalAccessTokenSecret,
+    awsAccessKeyIdSecret,
+    awsSecretAccessKeySecret
+  }: EncoreTransferOpts) {
+    this.context = context;
+    this.name = name;
+    this.redisUrl = redisUrl;
+    this.redisQueue = redisQueue;
+    this.outputFolder = outputFolder;
+    this.personalAccessTokenSecret = personalAccessTokenSecret || 'osctoken';
+    this.awsAccessKeyIdSecret = awsAccessKeyIdSecret || 'awsaccesskeyid';
+    this.awsSecretAccessKeySecret =
+      awsSecretAccessKeySecret || 'awssecretaccesskey';
+  }
+
+  public async init() {
+    this.token = await this.context.getServiceAccessToken(TRANSFER_SERVICE_ID);
+    const instance = await getInstance(
+      this.context,
+      TRANSFER_SERVICE_ID,
+      this.name,
+      this.token
+    );
+    if (!instance) {
+      if (!this.outputFolder) {
+        throw new Error('No output folder specified');
+      }
+      const newInstance = await createInstance(
+        this.context,
+        TRANSFER_SERVICE_ID,
+        this.token,
+        {
+          name: this.name,
+          RedisUrl: this.redisUrl,
+          RedisQueue: this.redisQueue,
+          Output: this.outputFolder,
+          OscAccessToken: `{{secrets.${this.personalAccessTokenSecret}}}`,
+          AwsAccessKeyIdSecret: this.awsAccessKeyIdSecret,
+          AwsSecretAccessKeySecret: this.awsSecretAccessKeySecret
+        }
+      );
+      if (!newInstance) {
+        throw new Error('Failed to create Encore Transfer instance');
+      }
+    }
+  }
+
+  public async destroy() {
+    try {
+      this.token = await this.context.getServiceAccessToken(
+        TRANSFER_SERVICE_ID
+      );
+      await removeInstance(
+        this.context,
+        TRANSFER_SERVICE_ID,
+        this.name,
+        this.token
+      );
+    } catch (err) {
+      Log().error((err as Error).message);
+    }
+  }
+
+  public getOutputFolder(): string | undefined {
+    return this.outputFolder;
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+}
+
+export type EncoreOpts = {
+  context: Context;
+  name: string;
+  outputFolder?: URL;
+  awsAccessKeyIdSecret?: string;
+  awsSecretAccessKeySecret?: string;
+};
+
+export type EncoreJobOptions = {
+  profile?: string;
+  duration?: number;
+};
+
+export class Encore {
+  private context: Context;
+  private name: string;
+  private outputFolder?: URL;
+  private awsAccessKeyIdSecret: string;
+  private awsSecretAccessKeySecret: string;
+  private transferQueue: ValkeyDb;
+  private encoreCallback?: EncoreCallbackListener;
+  private encoreTransfer?: EncoreTransfer;
+
+  constructor({
+    context,
+    name,
+    outputFolder,
+    awsAccessKeyIdSecret,
+    awsSecretAccessKeySecret
+  }: EncoreOpts) {
+    this.context = context;
+    this.name = name;
+    this.outputFolder = outputFolder;
+    this.awsAccessKeyIdSecret = awsAccessKeyIdSecret || 'awsaccesskeyid';
+    this.awsSecretAccessKeySecret =
+      awsSecretAccessKeySecret || 'awssecretaccesskey';
+    this.transferQueue = new ValkeyDb({
+      context,
+      name: 'transfer'
+    });
+  }
+
+  public async init() {
+    const redisUrl = await this.transferQueue.getRedisUrl();
+    if (!redisUrl) {
+      throw new Error('Failed to get Redis URL');
+    }
+    const encoreToken = await this.context.getServiceAccessToken('encore');
+    let encoreInstance = await getInstance(
+      this.context,
+      'encore',
+      this.name,
+      encoreToken
+    );
+    if (!encoreInstance) {
+      Log().debug(`Creating Encore instance ${this.name}`);
+      encoreInstance = await createInstance(
+        this.context,
+        'encore',
+        encoreToken,
+        {
+          name: this.name
+        }
+      );
+      await delay(5000);
+    }
+    const callback = new EncoreCallbackListener({
+      context: this.context,
+      name: this.name,
+      redisUrl: redisUrl.toString(),
+      redisQueue: 'transfer-queue',
+      encoreUrl: encoreInstance.url.replace(/\/$/, '')
+    });
+    Log().debug(`Creating callback listener for ${this.name}`);
+    await callback.init();
+    this.encoreCallback = callback;
+
+    const transfer = new EncoreTransfer({
+      context: this.context,
+      name: this.name,
+      redisUrl: redisUrl.toString(),
+      redisQueue: 'transfer-queue',
+      outputFolder: this.outputFolder
+        ? this.outputFolder.toString()
+        : undefined,
+      awsAccessKeyIdSecret: this.awsAccessKeyIdSecret,
+      awsSecretAccessKeySecret: this.awsSecretAccessKeySecret
+    });
+    await transfer.init();
+    this.encoreTransfer = transfer;
+  }
+
+  public async transcode(source: URL, { profile, duration }: EncoreJobOptions) {
+    if (!this.encoreCallback) {
+      throw new Error('Pipeline not initialized');
+    }
+    const encoreToken = await this.context.getServiceAccessToken('encore');
+    const instance = await getInstance(
+      this.context,
+      'encore',
+      this.name,
+      encoreToken
+    );
+    const jobId = Math.random().toString(36).substring(7);
+    const encoreJobUrl = new URL('/encoreJobs', instance.url);
+    const data = await createFetch<any>(encoreJobUrl, {
+      method: 'POST',
+      body: JSON.stringify({
+        profile: profile || 'program',
+        outputFolder: `/usercontent/${jobId}`,
+        baseName: jobId,
+        duration: duration,
+        progressCallbackUri: this.encoreCallback.getCallbackUrl(),
+        inputs: [
+          {
+            type: 'AudioVideo',
+            uri: source.toString()
+          }
+        ]
+      }),
+      headers: {
+        'x-jwt': `Bearer ${encoreToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    const encoreJob = JSON.parse(data);
+    Log().debug(encoreJob);
+  }
+
+  public async destroy() {
+    const encoreToken = await this.context.getServiceAccessToken('encore');
+    await removeInstance(this.context, 'encore', this.name, encoreToken);
+    if (this.encoreCallback) {
+      await this.encoreCallback.destroy();
+    }
+    if (this.encoreTransfer) {
+      await this.encoreTransfer.destroy();
+    }
+    if (this.transferQueue) {
+      await this.transferQueue.destroy();
+    }
   }
 }
