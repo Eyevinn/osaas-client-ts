@@ -1,5 +1,6 @@
 import { Context } from '@osaas/client-core';
 import {
+  Encore,
   EncoreCallbackListener,
   EncorePackager,
   QueuePool
@@ -138,6 +139,75 @@ export function cmdVodPipeline() {
 
 export function cmdEncore() {
   const encore = new Command('encore');
+
+  encore
+    .command('create')
+    .description('Create a new Encore transcoding pipeline')
+    .argument('<name>', 'Name of Encore transcoding pipeline')
+    .argument('<dest>', 'Destination URL (supported protocols: s3)')
+    .action(async (name, dest, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const ctx = new Context({ environment });
+        const encore = new Encore({
+          context: ctx,
+          name,
+          outputFolder: new URL(dest)
+        });
+        await encore.init();
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+  encore
+    .command('teardown')
+    .description('Teardown an Encore transcoding pipeline')
+    .argument('<name>', 'Name of Encore transcoding pipeline')
+    .action(async (name, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const ctx = new Context({ environment });
+        const encore = new Encore({
+          context: ctx,
+          name,
+          outputFolder: new URL('s3://dummy/')
+        });
+        await encore.init();
+        await encore.destroy();
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+
+  encore
+    .command('transcode')
+    .description('Start a new Encore transcoding job')
+    .argument('<name>', 'Name of Encore transcoding pipeline')
+    .argument('<source>', 'Source URL (supported protocols: http, https)')
+    .option(
+      '-d, --duration <duration>',
+      'Duration in seconds. If not provided will transcode entire file'
+    )
+    .action(async (name, source, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const ctx = new Context({ environment });
+        const encore = new Encore({
+          context: ctx,
+          name
+        });
+        await encore.init();
+        await encore.transcode(new URL(source), {
+          duration: options.duration
+        });
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+
   encore
     .command('list-callbacks')
     .description('List all callback listeners')

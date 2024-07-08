@@ -80,9 +80,8 @@ Commands:
 ### Create ABR files for VOD using SVT Encore
 
 ```
-osc transcode \
-  https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4 \
-  s3://lab-testcontent-store/birme/
+osc encore create test s3://lab-testcontent-store/birme/
+osc encore transcode https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4
 ```
 
 ### Transcode and create streaming package using SVT Encore and Shaka Packager
