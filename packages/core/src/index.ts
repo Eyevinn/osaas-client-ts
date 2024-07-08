@@ -8,6 +8,7 @@ export {
   getInstance,
   listInstances,
   getPortsForInstance,
+  getLogsForInstance,
   instanceValue,
   valueOrSecret
 } from './core';

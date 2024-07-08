@@ -193,6 +193,24 @@ export async function getPortsForInstance(
   });
 }
 
+export async function getLogsForInstance(
+  context: Context,
+  serviceId: string,
+  name: string,
+  token: string
+): Promise<string[]> {
+  const service = await getService(context, serviceId);
+  const instanceUrl = new URL(service.apiUrl);
+  const logsUrl = new URL('https://' + instanceUrl.host + '/logs/' + name);
+
+  return await createFetch<string[]>(logsUrl, {
+    method: 'GET',
+    headers: {
+      'x-jwt': `Bearer ${token}`
+    }
+  });
+}
+
 export function instanceValue(
   instance: { [key: string]: string },
   key: string

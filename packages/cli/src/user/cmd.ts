@@ -2,6 +2,7 @@ import {
   Context,
   createInstance,
   getInstance,
+  getLogsForInstance,
   listInstances,
   removeInstance
 } from '@osaas/client-core';
@@ -124,4 +125,32 @@ export function cmdRemove() {
       }
     });
   return remove;
+}
+
+export function cmdLogs() {
+  const logs = new Command('logs');
+
+  logs
+    .description('Get logs for a service instance')
+    .argument('<serviceId>', 'The Service Id')
+    .argument('<name>', 'The instance name')
+    .action(async (serviceId, name, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const ctx = new Context({ environment });
+        const serviceAccessToken = await ctx.getServiceAccessToken(serviceId);
+
+        const logs = await getLogsForInstance(
+          ctx,
+          serviceId,
+          name,
+          serviceAccessToken
+        );
+        console.log(logs);
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+  return logs;
 }
