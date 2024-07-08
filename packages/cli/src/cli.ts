@@ -29,7 +29,9 @@ cli
 cli.addCommand(cmdAdmin());
 cli.addCommand(cmdUser.cmdList());
 cli.addCommand(cmdUser.cmdCreate());
+cli.addCommand(cmdUser.cmdDescribe());
 cli.addCommand(cmdUser.cmdRemove());
+cli.addCommand(cmdUser.cmdLogs());
 cli.addCommand(cmdTranscode.cmdTranscode());
 cli.addCommand(cmdTranscode.cmdEncore());
 cli.addCommand(cmdTranscode.cmdVodPipeline());
