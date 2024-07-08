@@ -1,6 +1,7 @@
 import {
   Context,
   createInstance,
+  getInstance,
   listInstances,
   removeInstance
 } from '@osaas/client-core';
@@ -68,6 +69,37 @@ export function cmdCreate() {
       }
     });
   return create;
+}
+
+export function cmdDescribe() {
+  const describe = new Command('describe');
+
+  describe
+    .description('Get details for a service instance')
+    .argument('<serviceId>', 'The Service Id')
+    .argument('<name>', 'The instance name')
+    .action(async (serviceId, name, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const ctx = new Context({ environment });
+        const serviceAccessToken = await ctx.getServiceAccessToken(serviceId);
+
+        const instance = await getInstance(
+          ctx,
+          serviceId,
+          name,
+          serviceAccessToken
+        );
+        delete instance['resources'];
+        Object.keys(instance).forEach((key) => {
+          console.log(`${key}: ${instance[key]}`);
+        });
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+  return describe;
 }
 
 export function cmdRemove() {
