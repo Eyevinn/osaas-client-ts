@@ -24,7 +24,7 @@ export async function createLiveMultiBitrateHLS(
     HlsOnly: true,
     StreamKey: streamKey
   });
-  await delay(2000);
+  await delay(8000);
 
   const encoding = await startLiveMultiBitrateHLS(ctx, name);
   await delay(1000);
@@ -85,6 +85,7 @@ export async function startLiveMultiBitrateHLS(
     if (status.status != 'starting') {
       throw new Error('Failed to start encoder');
     }
+    Log().debug(encoding);
     return {
       rtmpUrl: new URL(
         `rtmp://${rtmpPort.externalIp}:${rtmpPort.externalPort}/live/${encoding.streamKey}`
