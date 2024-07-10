@@ -6,6 +6,9 @@ export { createStreamingPackage } from './packager';
 export {
   createLiveSingleBitrateHLS,
   removeLiveSingleBitrateHLS,
-  listSingleBitrateHLS
+  listSingleBitrateHLS,
+  createLiveMultiBitrateHLS,
+  startLiveMultiBitrateHLS,
+  stopLiveMultiBitrateHLS
 } from './live';
 export { SubtitlingPool } from './subtitling';
