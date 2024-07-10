@@ -13,6 +13,7 @@ A software as a service based on open source with a unique transparent model whe
 ### Development
 
 Prerequisites:
+
 - Lerna (install with `npm install -g lerna`)
 
 Install dependencies

@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {    
+  "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* JavaScript Support */
@@ -21,14 +21,9 @@
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "target": "es2022",
-    "lib": [
-      "es2022"
-    ],
+    "lib": ["es2022"],
     "module": "commonjs",
     "moduleResolution": "node"
   },
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts"
-  ]
+  "exclude": ["node_modules", "**/*.test.ts"]
 }
