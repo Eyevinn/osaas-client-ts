@@ -12,6 +12,7 @@ import cmdLive from './live/cmd';
 import cmdIntercom from './intercom/cmd';
 import cmdTranscribe from './transcribe/cmd';
 import cmdDb from './db/cmd';
+import { cmdChat } from './architect/cmd';
 
 const cli = new Command();
 
@@ -41,4 +42,5 @@ cli.addCommand(cmdLive());
 cli.addCommand(cmdIntercom());
 cli.addCommand(cmdTranscribe());
 cli.addCommand(cmdDb());
+cli.addCommand(cmdChat());
 cli.parse(process.argv);

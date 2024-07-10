@@ -18,16 +18,21 @@
     "lint": "eslint .",
     "pretty": "prettier --check --ignore-unknown .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "jest --pass-with-no-tests"
+    "test": "jest --pass-with-no-tests",
+    "dev": "ts-node src/cli.ts"
   },
   "dependencies": {
+    "@osaas/client-ai": "^0.2.0",
     "@osaas/client-core": "^0.10.0",
     "@osaas/client-db": "^0.2.1",
     "@osaas/client-intercom": "^0.1.2",
     "@osaas/client-transcode": "^0.10.1",
+    "@types/promptly": "^3.0.5",
     "chalk": "4.1.2",
     "commander": "^12.1.0",
-    "fast-jwt": "^4.0.1"
+    "fast-jwt": "^4.0.1",
+    "ora-classic": "^5.4.2",
+    "promptly": "^3.2.0"
   },
   "publishConfig": {
     "access": "public"
