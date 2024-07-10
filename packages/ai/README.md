@@ -37,7 +37,6 @@ async function main(question: string) {
 main("How can I create a FASY channel?");
 ```
 
-
 ## About Open Source Cloud
 
 Open Source Cloud reduces the barrier to get started with open source without having to host it on your own infrastructure.
