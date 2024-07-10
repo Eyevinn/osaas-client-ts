@@ -1,7 +1,7 @@
 FROM node:21-alpine
 WORKDIR /app
 COPY . .
-RUN npm ci
+RUN npm ci --include=optional
 RUN npm run build
 RUN cd packages/cli/ && npm install -g
 
