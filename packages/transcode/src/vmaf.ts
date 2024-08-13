@@ -45,8 +45,9 @@ export async function vmafCompare(
   }
   const job = await createJob(ctx, 'eyevinn-easyvmaf-s3', serviceAccessToken, {
     name: jobId,
-    awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    AwsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    AwsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    AwsSessionToken: process.env.AWS_SESSION_TOKEN,
     cmdLineArgs: `-r ${reference.toString()} -d ${distorted.toString()} -o ${resultFile}`
   });
   Log().debug(
