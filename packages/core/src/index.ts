@@ -12,6 +12,7 @@ export {
   instanceValue,
   valueOrSecret
 } from './core';
+export { listSubscriptions, removeSubscription, Subscription } from './admin';
 export {
   createJob,
   removeJob,
