@@ -3,6 +3,10 @@ import { generatePat } from './token';
 import { Log } from '@osaas/client-core';
 import { listInstancesForTenant, removeInstanceForTenant } from './instance';
 import { confirm } from '../user/util';
+import {
+  listSubscriptionsForTenant,
+  removeSubscriptionForTenant
+} from './subscription';
 
 export default function cmdAdmin() {
   const admin = new Command('admin');
@@ -58,6 +62,52 @@ export default function cmdAdmin() {
           'Are you sure you want to remove this instance? (yes/no) '
         );
         await removeInstanceForTenant(tenantId, serviceId, name, environment);
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+  admin
+    .command('list-subscriptions')
+    .description('List all subscriptions for a tenant')
+    .argument('<tenantId>', 'The tenant ID')
+    .action(async (tenantId, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        Log().info(
+          `Listing subscriptions for tenant ${tenantId} in ${environment}`
+        );
+        const subscriptions = await listSubscriptionsForTenant(
+          tenantId,
+          environment
+        );
+        subscriptions.forEach((subscription) => console.log(subscription));
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+  admin
+    .command('remove-subscription')
+    .description('Remove a subscription for a tenant')
+    .argument('<tenantId>', 'The Tenant Id')
+    .argument('<serviceId>', 'The Service Id')
+    .action(async (tenantId, serviceId, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        Log().info(
+          `Removing ${serviceId} subscription for tenant ${tenantId} in ${environment}`
+        );
+        const subscriptions = await listSubscriptionsForTenant(
+          tenantId,
+          environment
+        );
+        if (subscriptions.includes(serviceId)) {
+          await confirm(
+            `Are you sure you want to remove the subscription for service ${serviceId}? (yes/no) `
+          );
+          await removeSubscriptionForTenant(tenantId, serviceId, environment);
+        }
       } catch (err) {
         console.log((err as Error).message);
       }
