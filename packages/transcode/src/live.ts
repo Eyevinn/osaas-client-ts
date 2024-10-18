@@ -74,13 +74,16 @@ export async function startLiveMultiBitrateHLS(
       }
     );
     await delay(5000);
-    const status = await createFetch<any>(new URL(encoder.url + '/api/encoder'), {
-      method: 'GET',
-      headers: {
-        'x-jwt': `Bearer ${serviceAccessToken}`,
-        'Content-Type': 'application/json'
+    const status = await createFetch<any>(
+      new URL(encoder.url + '/api/encoder'),
+      {
+        method: 'GET',
+        headers: {
+          'x-jwt': `Bearer ${serviceAccessToken}`,
+          'Content-Type': 'application/json'
+        }
       }
-    });
+    );
     Log().debug(status);
     if (status.status != 'starting') {
       throw new Error('Failed to start encoder');
