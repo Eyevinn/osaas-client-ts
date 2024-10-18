@@ -63,7 +63,7 @@ export async function startLiveMultiBitrateHLS(
     }
 
     const encoding = await createFetch<{ streamKey: string; playlist: string }>(
-      new URL(encoder.url + '/encoder'),
+      new URL(encoder.url + '/api/encoder'),
       {
         method: 'POST',
         headers: {
@@ -74,13 +74,16 @@ export async function startLiveMultiBitrateHLS(
       }
     );
     await delay(5000);
-    const status = await createFetch<any>(new URL(encoder.url + '/encoder'), {
-      method: 'GET',
-      headers: {
-        'x-jwt': `Bearer ${serviceAccessToken}`,
-        'Content-Type': 'application/json'
+    const status = await createFetch<any>(
+      new URL(encoder.url + '/api/encoder'),
+      {
+        method: 'GET',
+        headers: {
+          'x-jwt': `Bearer ${serviceAccessToken}`,
+          'Content-Type': 'application/json'
+        }
       }
-    });
+    );
     Log().debug(status);
     if (status.status != 'starting') {
       throw new Error('Failed to start encoder');
@@ -108,7 +111,7 @@ export async function stopLiveMultiBitrateHLS(ctx: Context, name: string) {
     serviceAccessToken
   );
   if (encoder) {
-    await createFetch<any>(new URL(encoder.url + '/encoder'), {
+    await createFetch<any>(new URL(encoder.url + '/api/encoder'), {
       method: 'DELETE',
       headers: {
         'x-jwt': `Bearer ${serviceAccessToken}`,
