@@ -4,7 +4,8 @@ export function instanceOptsToPayload(opts: string[] | undefined) {
   const payload: { [key: string]: any } = {};
   if (opts) {
     opts.map((kv: string) => {
-      const [key, value] = kv.split('=');
+      const regex = /=(?=(?:[^"]*"[^"]*")*[^"]*$)/;
+      const [key, value] = kv.split(regex);
       const subkeys = key.split('.');
       if (subkeys.length > 1) {
         let current = payload;
