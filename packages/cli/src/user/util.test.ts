@@ -6,4 +6,10 @@ describe('util functions', () => {
     const payload = instanceOptsToPayload(opts);
     expect(payload).toEqual({ cmdLineArgs: '-i "hejhopp=tjohopp"' });
   });
+
+  test('can parse instance options containing = not in quotes', () => {
+    const opts = [`cmdLineArgs=-i hejhopp=tjohopp`];
+    const payload = instanceOptsToPayload(opts);
+    expect(payload).toEqual({ cmdLineArgs: '-i hejhopp=tjohopp' });
+  });
 });
