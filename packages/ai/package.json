@@ -1,6 +1,6 @@
 {
   "name": "@osaas/client-ai",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Open Source Cloud Client SDK ai library",
   "author": "Eyevinn Technology <work@eyevinn.se>",
   "homepage": "https://www.osaas.io",
