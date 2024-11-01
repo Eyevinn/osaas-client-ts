@@ -26,7 +26,15 @@ export class ChatClient {
     Log().debug(`Using url: ${this.url}`);
   }
 
-  public async sendChat(message: string): Promise<ChatResponse> {
+  public async sendChat(
+    message: string,
+    userProfile?: {
+      firstName: string;
+      lastName: string;
+      jobTitle: string;
+      industry: string;
+    }
+  ): Promise<ChatResponse> {
     if (!this.token) {
       throw new Error('Chat system not initialized');
     }
@@ -38,7 +46,7 @@ export class ChatClient {
         'x-pat-jwt': `Bearer ${this.token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message })
+      body: JSON.stringify({ message, userProfile })
     });
 
     return response;
