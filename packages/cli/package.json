@@ -1,6 +1,6 @@
 {
   "name": "@osaas/cli",
-  "version": "0.15.4",
+  "version": "4.0.0",
   "description": "Open Source Cloud CLI",
   "author": "Eyevinn Technology <work@eyevinn.se>",
   "homepage": "https://www.osaas.io",
