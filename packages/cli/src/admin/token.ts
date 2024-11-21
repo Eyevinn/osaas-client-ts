@@ -30,3 +30,10 @@ export function generatePat(
   const token = signSync(jwtClaims);
   return token;
 }
+
+export function apiKey() {
+  if (!process.env.API_KEY) {
+    throw new Error('API_KEY must be set');
+  }
+  return process.env.API_KEY;
+}

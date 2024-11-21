@@ -2,6 +2,7 @@
 export { Log } from './log';
 export { createFetch, FetchError } from './fetch';
 export { Context } from './context';
+export { Platform } from './platform';
 export {
   createInstance,
   removeInstance,
@@ -20,4 +21,5 @@ export {
   listJobs,
   waitForJobToComplete
 } from './job';
+export * from './platform/maker';
 export * from './errors';

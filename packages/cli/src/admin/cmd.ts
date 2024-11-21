@@ -1,6 +1,11 @@
 import { Command } from 'commander';
 import { generatePat } from './token';
-import { Log } from '@osaas/client-core';
+import {
+  Log,
+  Platform,
+  getOrderIdByName,
+  remakeOrder
+} from '@osaas/client-core';
 import { listInstancesForTenant, removeInstanceForTenant } from './instance';
 import { confirm } from '../user/util';
 import {
@@ -107,6 +112,33 @@ export default function cmdAdmin() {
             `Are you sure you want to remove the subscription for service ${serviceId}? (yes/no) `
           );
           await removeSubscriptionForTenant(tenantId, serviceId, environment);
+        }
+      } catch (err) {
+        console.log((err as Error).message);
+      }
+    });
+  admin
+    .command('remake-order')
+    .description('Remake an order')
+    .option('-y, --yes', 'Skip confirmation')
+    .argument('<orderName>', 'The name of the order to remake')
+    .action(async (orderName, options, command) => {
+      try {
+        const globalOpts = command.optsWithGlobals();
+        const environment = globalOpts?.env || 'prod';
+        const platform = new Platform({ environment });
+
+        Log().info(`Remaking order ${orderName} in ${environment}`);
+        const orderId = await getOrderIdByName(platform, orderName);
+        if (orderId) {
+          if (!options.yes) {
+            await confirm(
+              `Are you sure you want to remake the order '${orderName}'? (yes/no) `
+            );
+          }
+          await remakeOrder(platform, orderId);
+        } else {
+          Log().info(`Order ${orderName} not found`);
         }
       } catch (err) {
         console.log((err as Error).message);
