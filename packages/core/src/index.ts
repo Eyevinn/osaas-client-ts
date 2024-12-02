@@ -10,6 +10,7 @@ export {
   listInstances,
   getPortsForInstance,
   getLogsForInstance,
+  getInstanceHealth,
   instanceValue,
   valueOrSecret
 } from './core';
