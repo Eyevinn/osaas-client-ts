@@ -211,6 +211,25 @@ export async function getLogsForInstance(
   });
 }
 
+export async function getInstanceHealth(
+  context: Context,
+  serviceId: string,
+  name: string,
+  token: string
+) {
+  const service = await getService(context, serviceId);
+  const instanceUrl = new URL(service.apiUrl);
+  const healthUrl = new URL('/health/' + name, instanceUrl);
+
+  const { status } = await createFetch<{ status: string }>(healthUrl, {
+    method: 'GET',
+    headers: {
+      'x-jwt': `Bearer ${token}`
+    }
+  });
+  return status;
+}
+
 export function instanceValue(
   instance: { [key: string]: string },
   key: string
