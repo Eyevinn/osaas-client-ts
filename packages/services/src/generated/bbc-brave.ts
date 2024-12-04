@@ -242,6 +242,22 @@ export type BbcBraveConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Brave
+ *
+ * Brave is a Basic real-time (remote) audio/video editor. It allows LIVE video (and/or audio) to be received, manipulated, and sent elsewhere. Forwarding RTMP from one place to another, mixing two or more inputs or add basic graphics are some example of usage.
+ *
+ * Create a new mixer
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {BbcBraveConfig}} body - Service instance configuration
+ * @returns {BbcBrave} - Service instance
+ * @example
+ * import { Context, createBbcBraveInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createBbcBraveInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createBbcBraveInstance(
   ctx: Context,
   body: BbcBraveConfig

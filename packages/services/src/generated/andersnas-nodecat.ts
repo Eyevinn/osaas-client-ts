@@ -284,6 +284,22 @@ export type AndersnasNodecatConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * NodeCat
+ *
+ * Enhance your app's security with NodeCat, a robust solution for generating and validating Common Access Tokens in a NodeJS environment. Ideal for developers needing reliable token management.
+ *
+ * Create a new nodecat
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {AndersnasNodecatConfig}} body - Service instance configuration
+ * @returns {AndersnasNodecat} - Service instance
+ * @example
+ * import { Context, createAndersnasNodecatInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createAndersnasNodecatInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createAndersnasNodecatInstance(
   ctx: Context,
   body: AndersnasNodecatConfig

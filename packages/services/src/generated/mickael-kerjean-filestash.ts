@@ -300,6 +300,22 @@ export type MickaelKerjeanFilestashConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Filestash
+ *
+ * Transform your data management with Filestash, a versatile file manager that integrates seamlessly with multiple cloud services and protocols. Enjoy blazing speed, user-friendly interfaces, and plugin flexibility.
+ *
+ * Create a new filestash
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {MickaelKerjeanFilestashConfig}} body - Service instance configuration
+ * @returns {MickaelKerjeanFilestash} - Service instance
+ * @example
+ * import { Context, createMickaelKerjeanFilestashInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createMickaelKerjeanFilestashInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createMickaelKerjeanFilestashInstance(
   ctx: Context,
   body: MickaelKerjeanFilestashConfig

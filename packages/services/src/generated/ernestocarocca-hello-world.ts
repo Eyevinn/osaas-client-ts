@@ -284,6 +284,22 @@ export type ErnestocaroccaHelloWorldConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Hello World
+ *
+ * Harness the power of Next.js 14 and NextUI v2 with this feature-rich template. Perfect for creating sleek, dynamic apps with Tailwind CSS and TypeScript. Kickstart your project efficiently today!
+ *
+ * Create a new example
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {ErnestocaroccaHelloWorldConfig}} body - Service instance configuration
+ * @returns {ErnestocaroccaHelloWorld} - Service instance
+ * @example
+ * import { Context, createErnestocaroccaHelloWorldInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createErnestocaroccaHelloWorldInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createErnestocaroccaHelloWorldInstance(
   ctx: Context,
   body: ErnestocaroccaHelloWorldConfig

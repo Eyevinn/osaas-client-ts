@@ -219,6 +219,22 @@ export type ChannelEngineConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * FAST Channel Engine
+ *
+ * Based on VOD2Live Technology you can generate a numerous amounts of FAST channels with a fraction of energy consumption compared to live transcoded FAST channels
+ *
+ * Create a new channel
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {ChannelEngineConfig}} body - Service instance configuration
+ * @returns {ChannelEngine} - Service instance
+ * @example
+ * import { Context, createChannelEngineInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createChannelEngineInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createChannelEngineInstance(
   ctx: Context,
   body: ChannelEngineConfig

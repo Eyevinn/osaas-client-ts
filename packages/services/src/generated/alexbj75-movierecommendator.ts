@@ -284,6 +284,22 @@ export type Alexbj75MovierecommendatorConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * movierecommendator
+ *
+ * Discover new films effortlessly! Enter a movie name and get two personalized recommendations powered by OpenAI. Transform your movie nights with Movie Recommender’s smart suggestions. Try it now!
+ *
+ * Create a new movierecommendator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {Alexbj75MovierecommendatorConfig}} body - Service instance configuration
+ * @returns {Alexbj75Movierecommendator} - Service instance
+ * @example
+ * import { Context, createAlexbj75MovierecommendatorInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createAlexbj75MovierecommendatorInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createAlexbj75MovierecommendatorInstance(
   ctx: Context,
   body: Alexbj75MovierecommendatorConfig

@@ -192,6 +192,26 @@ export type FlyimgFlyimgConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * flyimg
+ * 
+ * An application that allows you to resize, crop, and compress images on the fly. 
+
+By default, Flyimg generates the AVIF image format (when the browser supports it) which provides superior compression compared to other formats.
+
+Additionally, Flyimg also generates the WebP format, along with the impressive MozJPEG compression algorithm to optimize images, other formats are supported also such as PNG and GIF.
+ * 
+ * Create a new flyimg
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {FlyimgFlyimgConfig}} body - Service instance configuration
+ * @returns {FlyimgFlyimg} - Service instance
+ * @example
+ * import { Context, createFlyimgFlyimgInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createFlyimgFlyimgInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createFlyimgFlyimgInstance(
   ctx: Context,
   body: FlyimgFlyimgConfig

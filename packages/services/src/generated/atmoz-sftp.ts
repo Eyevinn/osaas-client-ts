@@ -288,6 +288,23 @@ export type AtmozSftpConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * SFTP Server
+ * 
+ * Effortlessly manage secure file transfers with our user-friendly SFTP server powered by OpenSSH. Ideal for sharing files securely using SSH, it integrates easily with Docker, ensuring both security and simplicity.
+
+ * 
+ * Create a new sftp
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {AtmozSftpConfig}} body - Service instance configuration
+ * @returns {AtmozSftp} - Service instance
+ * @example
+ * import { Context, createAtmozSftpInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createAtmozSftpInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createAtmozSftpInstance(
   ctx: Context,
   body: AtmozSftpConfig

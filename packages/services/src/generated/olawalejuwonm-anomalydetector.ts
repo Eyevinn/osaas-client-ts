@@ -280,6 +280,22 @@ export type OlawalejuwonmAnomalydetectorConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Anomaly Detector
+ *
+ * Safeguard your space with Anomaly Detector, a cutting-edge video surveillance solution. Experience real-time anomaly detection using advanced computer vision, ensuring privacy and reducing false alarms. Enhance security efficiently!
+ *
+ * Create a new anomalydetector
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {OlawalejuwonmAnomalydetectorConfig}} body - Service instance configuration
+ * @returns {OlawalejuwonmAnomalydetector} - Service instance
+ * @example
+ * import { Context, createOlawalejuwonmAnomalydetectorInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createOlawalejuwonmAnomalydetectorInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createOlawalejuwonmAnomalydetectorInstance(
   ctx: Context,
   body: OlawalejuwonmAnomalydetectorConfig

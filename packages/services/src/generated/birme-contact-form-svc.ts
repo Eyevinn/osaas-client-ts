@@ -292,6 +292,22 @@ export type BirmeContactFormSvcConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Contact Form Service
+ *
+ * Streamline your communication with our Contact Form Service! Seamlessly send messages from your website directly to Slack. Easy-to-install, Docker-ready backend ensures you never miss a lead. Try it now!
+ *
+ * Create a new service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {BirmeContactFormSvcConfig}} body - Service instance configuration
+ * @returns {BirmeContactFormSvc} - Service instance
+ * @example
+ * import { Context, createBirmeContactFormSvcInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createBirmeContactFormSvcInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createBirmeContactFormSvcInstance(
   ctx: Context,
   body: BirmeContactFormSvcConfig

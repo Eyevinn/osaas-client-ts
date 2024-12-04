@@ -204,6 +204,22 @@ export type EyevinnFunctionTrimConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Trim Media
+ *
+ * A serverless media function to trim single media file or an ABR bundle of media files and upload the output to an S3 bucket.
+ *
+ * Create a new mediafunction
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnFunctionTrimConfig}} body - Service instance configuration
+ * @returns {EyevinnFunctionTrim} - Service instance
+ * @example
+ * import { Context, createEyevinnFunctionTrimInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnFunctionTrimInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnFunctionTrimInstance(
   ctx: Context,
   body: EyevinnFunctionTrimConfig

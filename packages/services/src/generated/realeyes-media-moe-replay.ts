@@ -280,6 +280,22 @@ export type RealeyesMediaMoeReplayConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * MOE Replay
+ *
+ * Transform live video streams instantly with MOE REPlay. Perfect for creating live HLS manifests on the fly. Enhance your streaming service now!
+ *
+ * Create a new moe-replay
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {RealeyesMediaMoeReplayConfig}} body - Service instance configuration
+ * @returns {RealeyesMediaMoeReplay} - Service instance
+ * @example
+ * import { Context, createRealeyesMediaMoeReplayInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createRealeyesMediaMoeReplayInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createRealeyesMediaMoeReplayInstance(
   ctx: Context,
   body: RealeyesMediaMoeReplayConfig

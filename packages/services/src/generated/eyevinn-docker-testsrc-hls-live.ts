@@ -280,6 +280,22 @@ export type EyevinnDockerTestsrcHlsLiveConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Test Source HLS Live
+ *
+ * Effortlessly create live HLS test streams with the docker-testsrc-hls-live image. Powered by FFmpeg, it's a must-have for developers crafting and testing video applications in real-time streaming environments.
+ *
+ * Create a new testsource
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnDockerTestsrcHlsLiveConfig}} body - Service instance configuration
+ * @returns {EyevinnDockerTestsrcHlsLive} - Service instance
+ * @example
+ * import { Context, createEyevinnDockerTestsrcHlsLiveInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnDockerTestsrcHlsLiveInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnDockerTestsrcHlsLiveInstance(
   ctx: Context,
   body: EyevinnDockerTestsrcHlsLiveConfig

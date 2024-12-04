@@ -16,6 +16,12 @@ interface Service {
   serviceId: string;
   apiUrl: string;
   serviceType: string;
+  serviceMetadata: {
+    title: string;
+    description: string;
+    documentationUrl?: string;
+    instanceNoun: string;
+  };
 }
 
 async function generate(service: Service) {
@@ -47,6 +53,28 @@ export type ${toPascalCase(serviceId)}Config =
     const create = `
 import { Context, createInstance } from "@osaas/client-core";
 
+/**
+ * ${service.serviceMetadata.title}
+ * 
+ * ${service.serviceMetadata.description}
+ * 
+ * Create a new ${service.serviceMetadata.instanceNoun}
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {${toPascalCase(
+   serviceId
+ )}Config}} body - Service instance configuration
+ * @returns {${toPascalCase(serviceId)}} - Service instance
+ * @example
+ * import { Context, create${toPascalCase(
+   serviceId
+ )}Instance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await create${toPascalCase(
+   serviceId
+ )}Instance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function create${toPascalCase(
       serviceId
     )}Instance(ctx: Context, body: ${toPascalCase(

@@ -280,6 +280,22 @@ export type RestorecommercePdfRenderingSrvConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * PDF Rendering Service
+ *
+ * Elevate your documentation with our PDF Rendering Service. Turn any URL into a PDF effortlessly. Ideal for business reports and archives. Join the future of document management today.
+ *
+ * Create a new pdf-rendering-srv
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {RestorecommercePdfRenderingSrvConfig}} body - Service instance configuration
+ * @returns {RestorecommercePdfRenderingSrv} - Service instance
+ * @example
+ * import { Context, createRestorecommercePdfRenderingSrvInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createRestorecommercePdfRenderingSrvInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createRestorecommercePdfRenderingSrvInstance(
   ctx: Context,
   body: RestorecommercePdfRenderingSrvConfig

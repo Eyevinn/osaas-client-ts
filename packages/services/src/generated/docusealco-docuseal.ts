@@ -280,6 +280,22 @@ export type DocusealcoDocusealConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Docuseal
+ *
+ * Streamline your document workflow with DocuSeal, the leading open-source solution for secure, mobile-optimized digital form filling and signing. Perfect for any business needing swift and seamless e-signatures.
+ *
+ * Create a new docuseal
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {DocusealcoDocusealConfig}} body - Service instance configuration
+ * @returns {DocusealcoDocuseal} - Service instance
+ * @example
+ * import { Context, createDocusealcoDocusealInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createDocusealcoDocusealInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createDocusealcoDocusealInstance(
   ctx: Context,
   body: DocusealcoDocusealConfig

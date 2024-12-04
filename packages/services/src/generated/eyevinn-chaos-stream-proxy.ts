@@ -284,6 +284,22 @@ export type EyevinnChaosStreamProxyConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Chaos Stream Proxy
+ *
+ * Chaos Stream Proxy is an open-source tool designed to simulate network impairments in video streaming environments. It acts as a proxy between the client and the streaming server, allowing developers and QA engineers to introduce various network conditions such as latency, jitter, and packet loss to test and improve the resilience and performance of streaming applications. This tool is crucial for ensuring a smooth streaming experience under different network scenarios, making it an invaluable asset for optimizing video delivery in real-world conditions.
+ *
+ * Create a new chaos-stream-proxy
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnChaosStreamProxyConfig}} body - Service instance configuration
+ * @returns {EyevinnChaosStreamProxy} - Service instance
+ * @example
+ * import { Context, createEyevinnChaosStreamProxyInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnChaosStreamProxyInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnChaosStreamProxyInstance(
   ctx: Context,
   body: EyevinnChaosStreamProxyConfig

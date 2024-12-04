@@ -288,6 +288,22 @@ export type PlausibleAnalyticsConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Plausible Analytics
+ *
+ * Elevate your data privacy with Plausible Analytics. Get simple, clutter-free insights without compromising user privacy. Enjoy an easy, lightweight, and privacy-focused Google Analytics alternative!
+ *
+ * Create a new server
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {PlausibleAnalyticsConfig}} body - Service instance configuration
+ * @returns {PlausibleAnalytics} - Service instance
+ * @example
+ * import { Context, createPlausibleAnalyticsInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createPlausibleAnalyticsInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createPlausibleAnalyticsInstance(
   ctx: Context,
   body: PlausibleAnalyticsConfig

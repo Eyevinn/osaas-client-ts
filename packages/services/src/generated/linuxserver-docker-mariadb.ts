@@ -296,6 +296,22 @@ export type LinuxserverDockerMariadbConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * MariaDB
+ *
+ * Unlock the full potential of your database management with LinuxServer.io's MariaDB Docker container. Featuring seamless updates, security enhancements, and multi-platform support, it's the ideal solution for efficient and reliable data storage. Minimize downtime and bandwidth usage, and maximize your productivity. Transform your database experience now!
+ *
+ * Create a new dbserver
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {LinuxserverDockerMariadbConfig}} body - Service instance configuration
+ * @returns {LinuxserverDockerMariadb} - Service instance
+ * @example
+ * import { Context, createLinuxserverDockerMariadbInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createLinuxserverDockerMariadbInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createLinuxserverDockerMariadbInstance(
   ctx: Context,
   body: LinuxserverDockerMariadbConfig

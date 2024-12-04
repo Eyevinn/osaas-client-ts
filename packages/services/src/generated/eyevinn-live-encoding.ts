@@ -292,6 +292,22 @@ export type EyevinnLiveEncodingConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Eyevinn Live Encoding
+ *
+ * Transform your live streaming with Eyevinn Live Encoding: Open-source, ffmpeg-based, and ready for HLS & MPEG-DASH. Streamline now, CDN-ready.
+ *
+ * Create a new encoder
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnLiveEncodingConfig}} body - Service instance configuration
+ * @returns {EyevinnLiveEncoding} - Service instance
+ * @example
+ * import { Context, createEyevinnLiveEncodingInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnLiveEncodingInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnLiveEncodingInstance(
   ctx: Context,
   body: EyevinnLiveEncodingConfig

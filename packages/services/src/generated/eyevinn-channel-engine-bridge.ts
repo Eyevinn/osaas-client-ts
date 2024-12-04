@@ -304,6 +304,22 @@ export type EyevinnChannelEngineBridgeConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Channel Engine Bridge
+ *
+ * Channel Engine Bridge enables seamless pushing of FAST channels from FAST Channel Engine to distribution platforms such as AWS MediaPackage and simplifies the process of pushing channels to a wide range of distribution networks.
+ *
+ * Create a new channel-engine-bridge
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnChannelEngineBridgeConfig}} body - Service instance configuration
+ * @returns {EyevinnChannelEngineBridge} - Service instance
+ * @example
+ * import { Context, createEyevinnChannelEngineBridgeInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnChannelEngineBridgeInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnChannelEngineBridgeInstance(
   ctx: Context,
   body: EyevinnChannelEngineBridgeConfig

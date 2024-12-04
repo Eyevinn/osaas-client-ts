@@ -280,6 +280,22 @@ export type SalesagilitySuitecrmConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Suite CRM
+ *
+ * Transform your business with SuiteCRM 7.14.5, the leading open-source CRM. Seamlessly manage customer relationships, gain full data control, and customize your solution for an unbeatable enterprise edge!
+ *
+ * Create a new suitecrm
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {SalesagilitySuitecrmConfig}} body - Service instance configuration
+ * @returns {SalesagilitySuitecrm} - Service instance
+ * @example
+ * import { Context, createSalesagilitySuitecrmInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createSalesagilitySuitecrmInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createSalesagilitySuitecrmInstance(
   ctx: Context,
   body: SalesagilitySuitecrmConfig

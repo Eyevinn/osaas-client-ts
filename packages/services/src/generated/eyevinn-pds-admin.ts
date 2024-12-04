@@ -284,6 +284,22 @@ export type EyevinnPdsAdminConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * PDS Admin
+ *
+ * Effortlessly manage your Bluesky Personal Data Server with our intuitive admin tool. Optimize your data environment locally or in the cloud with seamless installation and dependable performance.
+ *
+ * Create a new app
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnPdsAdminConfig}} body - Service instance configuration
+ * @returns {EyevinnPdsAdmin} - Service instance
+ * @example
+ * import { Context, createEyevinnPdsAdminInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnPdsAdminInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnPdsAdminInstance(
   ctx: Context,
   body: EyevinnPdsAdminConfig

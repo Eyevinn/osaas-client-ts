@@ -308,6 +308,22 @@ export type EyevinnSgaiAdProxyConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * SGAI Proxy
+ *
+ * Boost viewer engagement with our Server-Guided Ad Insertion Proxy! Automatically embed ads into video streams with precision timing. Enhance monetization effortlessly while maintaining a seamless user experience.
+ *
+ * Create a new proxy
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnSgaiAdProxyConfig}} body - Service instance configuration
+ * @returns {EyevinnSgaiAdProxy} - Service instance
+ * @example
+ * import { Context, createEyevinnSgaiAdProxyInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnSgaiAdProxyInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnSgaiAdProxyInstance(
   ctx: Context,
   body: EyevinnSgaiAdProxyConfig

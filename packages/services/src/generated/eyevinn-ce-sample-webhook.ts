@@ -280,6 +280,22 @@ export type EyevinnCeSampleWebhookConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * FAST Engine Sample Webhook
+ *
+ * Unlock seamless streaming experiences with our example webhook for FAST Channel Engine. Effortlessly integrate with `/loop/nextVod` and `/ads/nextVod` to optimize content delivery and boost viewer engagement.
+ *
+ * Create a new webhooks
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnCeSampleWebhookConfig}} body - Service instance configuration
+ * @returns {EyevinnCeSampleWebhook} - Service instance
+ * @example
+ * import { Context, createEyevinnCeSampleWebhookInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnCeSampleWebhookInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnCeSampleWebhookInstance(
   ctx: Context,
   body: EyevinnCeSampleWebhookConfig

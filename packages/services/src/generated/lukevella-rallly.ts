@@ -292,6 +292,22 @@ export type LukevellaRalllyConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Rallly
+ *
+ * Effortlessly schedule group meetings with Rallly. Create polls to find the best date and time, save time, and avoid endless emails. Perfect for friends, colleagues, and teams, Rallly simplifies organizing events.
+ *
+ * Create a new rallly
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {LukevellaRalllyConfig}} body - Service instance configuration
+ * @returns {LukevellaRallly} - Service instance
+ * @example
+ * import { Context, createLukevellaRalllyInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createLukevellaRalllyInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createLukevellaRalllyInstance(
   ctx: Context,
   body: LukevellaRalllyConfig

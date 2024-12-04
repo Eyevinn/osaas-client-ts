@@ -288,6 +288,22 @@ export type EyevinnSrtWhepConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * SRT WHEP Bridge
+ *
+ * SRT to WHEP application ingests MPEG-TS over SRT stream and outputs to WebRTC using WHEP signaling protocol, supporting MacOS and Ubuntu. No video transcoding, SDP offer/answer exchange focus, and compliance with popular production software. Get yours now!
+ *
+ * Create a new bridge
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnSrtWhepConfig}} body - Service instance configuration
+ * @returns {EyevinnSrtWhep} - Service instance
+ * @example
+ * import { Context, createEyevinnSrtWhepInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnSrtWhepInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnSrtWhepInstance(
   ctx: Context,
   body: EyevinnSrtWhepConfig

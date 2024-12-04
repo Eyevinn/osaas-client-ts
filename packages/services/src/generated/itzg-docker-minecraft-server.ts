@@ -288,6 +288,22 @@ export type ItzgDockerMinecraftServerConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Minecraft Server
+ *
+ * Experience seamless Minecraft server management with our Docker solution! Easily deploy, customize, and scale your servers with robust support for different versions, mods, and plugins. Perfect for dedicated gamers and server admins alike!
+ *
+ * Create a new minecraft-server
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {ItzgDockerMinecraftServerConfig}} body - Service instance configuration
+ * @returns {ItzgDockerMinecraftServer} - Service instance
+ * @example
+ * import { Context, createItzgDockerMinecraftServerInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createItzgDockerMinecraftServerInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createItzgDockerMinecraftServerInstance(
   ctx: Context,
   body: ItzgDockerMinecraftServerConfig

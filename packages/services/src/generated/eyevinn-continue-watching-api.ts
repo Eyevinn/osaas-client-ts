@@ -208,6 +208,22 @@ export type EyevinnContinueWatchingApiConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Continue Watching Service
+ *
+ * A user of a streaming service expects that they can pick up where they left on any of their devices. To handle that you would need to develop a service with endpoints for the application to write and read from. This open source cloud component take care of that and all you need is to have a Redis database running on Redis Cloud for example.
+ *
+ * Create a new service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnContinueWatchingApiConfig}} body - Service instance configuration
+ * @returns {EyevinnContinueWatchingApi} - Service instance
+ * @example
+ * import { Context, createEyevinnContinueWatchingApiInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnContinueWatchingApiInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnContinueWatchingApiInstance(
   ctx: Context,
   body: EyevinnContinueWatchingApiConfig

@@ -280,6 +280,22 @@ export type EyevinnTestAdserverConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Test Adserver
+ *
+ * Eyevinn Test Adserver is the ultimate solution for testing CSAI/SSAI stitching and tracking implementation. Open source, easy to use, and flexible for various use cases. Get it now and experience seamless testing!
+ *
+ * Create a new test-adserver
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnTestAdserverConfig}} body - Service instance configuration
+ * @returns {EyevinnTestAdserver} - Service instance
+ * @example
+ * import { Context, createEyevinnTestAdserverInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnTestAdserverInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnTestAdserverInstance(
   ctx: Context,
   body: EyevinnTestAdserverConfig

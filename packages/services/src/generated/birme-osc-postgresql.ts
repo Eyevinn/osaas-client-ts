@@ -296,6 +296,22 @@ export type BirmeOscPostgresqlConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * PostgreSQL
+ *
+ * Unlock the full potential of your data with the PostgreSQL OSC image, seamlessly integrated for use in Eyevinn Open Source Cloud. Experience robust scalability, high security, and unmatched extensibility.
+ *
+ * Create a new psql-db
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {BirmeOscPostgresqlConfig}} body - Service instance configuration
+ * @returns {BirmeOscPostgresql} - Service instance
+ * @example
+ * import { Context, createBirmeOscPostgresqlInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createBirmeOscPostgresqlInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createBirmeOscPostgresqlInstance(
   ctx: Context,
   body: BirmeOscPostgresqlConfig

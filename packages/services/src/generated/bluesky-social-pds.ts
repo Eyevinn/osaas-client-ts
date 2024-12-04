@@ -296,6 +296,22 @@ export type BlueskySocialPdsConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Bluesky Personal Data Server
+ *
+ * Empower your network with self-hosted Bluesky PDS! Harness the power of AT Protocol to easily manage your data server. Seamless installation, full control, and enhanced security for your social media presence.
+ *
+ * Create a new pds
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {BlueskySocialPdsConfig}} body - Service instance configuration
+ * @returns {BlueskySocialPds} - Service instance
+ * @example
+ * import { Context, createBlueskySocialPdsInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createBlueskySocialPdsInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createBlueskySocialPdsInstance(
   ctx: Context,
   body: BlueskySocialPdsConfig

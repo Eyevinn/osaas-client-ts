@@ -292,6 +292,22 @@ export type EyevinnEncoreCallbackListenerConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Encore Callback Listener
+ *
+ * Encore callback listener is a powerful HTTP server that listens for successful job callbacks, posting jobId and Url on a redis queue. Fully customizable with environment variables. Enhance your project efficiency now! Contact sales@eyevinn.se for further details.
+ *
+ * Create a new callback
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnEncoreCallbackListenerConfig}} body - Service instance configuration
+ * @returns {EyevinnEncoreCallbackListener} - Service instance
+ * @example
+ * import { Context, createEyevinnEncoreCallbackListenerInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnEncoreCallbackListenerInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnEncoreCallbackListenerInstance(
   ctx: Context,
   body: EyevinnEncoreCallbackListenerConfig

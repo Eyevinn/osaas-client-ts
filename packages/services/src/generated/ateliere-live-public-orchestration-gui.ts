@@ -296,6 +296,22 @@ export type AteliereLivePublicOrchestrationGuiConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Ateliere Live GUI
+ *
+ * Ateliere Live GUI is a cutting-edge tool for streamlined development. With Node.js 18.x compatibility and easy Ubuntu installation, it ensures a seamless workflow. Explore the external documentation for enhanced productivity. Get your hands on this game-changer today!
+ *
+ * Create a new orchestration-gui
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {AteliereLivePublicOrchestrationGuiConfig}} body - Service instance configuration
+ * @returns {AteliereLivePublicOrchestrationGui} - Service instance
+ * @example
+ * import { Context, createAteliereLivePublicOrchestrationGuiInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createAteliereLivePublicOrchestrationGuiInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createAteliereLivePublicOrchestrationGuiInstance(
   ctx: Context,
   body: AteliereLivePublicOrchestrationGuiConfig

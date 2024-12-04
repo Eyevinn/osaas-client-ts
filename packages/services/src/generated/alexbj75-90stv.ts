@@ -280,6 +280,22 @@ export type Alexbj7590stvConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * 90stv
+ *
+ * Experience nostalgia with 90stv! Transform your FAST channels into a classic 90s TV viewing adventure, effortlessly with a quick Docker setup. Relive the golden era of television today!
+ *
+ * Create a new 90stv
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {Alexbj7590stvConfig}} body - Service instance configuration
+ * @returns {Alexbj7590stv} - Service instance
+ * @example
+ * import { Context, createAlexbj7590stvInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createAlexbj7590stvInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createAlexbj7590stvInstance(
   ctx: Context,
   body: Alexbj7590stvConfig

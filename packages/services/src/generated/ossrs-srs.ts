@@ -242,6 +242,24 @@ export type OssrsSrsConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Simple Realtime Server
+ * 
+ * Experience high-efficiency video streaming with SRS/6.0. Stream seamlessly with essential features included. 
+Transform your streaming experience now! Explore RTMP, HLS, HTTP-FLV, SRT, MPEG-DASH protocols, and more.
+Get started easily!
+ * 
+ * Create a new srs
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {OssrsSrsConfig}} body - Service instance configuration
+ * @returns {OssrsSrs} - Service instance
+ * @example
+ * import { Context, createOssrsSrsInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createOssrsSrsInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createOssrsSrsInstance(
   ctx: Context,
   body: OssrsSrsConfig

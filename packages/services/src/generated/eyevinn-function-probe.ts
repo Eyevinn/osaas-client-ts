@@ -192,6 +192,22 @@ export type EyevinnFunctionProbeConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Media Probe
+ *
+ * A serverless media function to obtain media information for a media file or media stream.
+ *
+ * Create a new probe
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnFunctionProbeConfig}} body - Service instance configuration
+ * @returns {EyevinnFunctionProbe} - Service instance
+ * @example
+ * import { Context, createEyevinnFunctionProbeInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnFunctionProbeInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnFunctionProbeInstance(
   ctx: Context,
   body: EyevinnFunctionProbeConfig

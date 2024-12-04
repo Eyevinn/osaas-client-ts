@@ -280,6 +280,22 @@ export type DrakkanSftpgoConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * sftpgo
+ *
+ * Introducing SFTPGo - the versatile solution supporting SFTP, HTTP/S, FTP/S, WebDAV & multiple cloud storages. Secure, scalable & easy to manage.
+ *
+ * Create a new ftp-server
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {DrakkanSftpgoConfig}} body - Service instance configuration
+ * @returns {DrakkanSftpgo} - Service instance
+ * @example
+ * import { Context, createDrakkanSftpgoInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createDrakkanSftpgoInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createDrakkanSftpgoInstance(
   ctx: Context,
   body: DrakkanSftpgoConfig

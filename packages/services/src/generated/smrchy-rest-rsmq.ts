@@ -284,6 +284,24 @@ export type SmrchyRestRsmqConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Really Simple Message Queue
+ * 
+ * **Boost Your Productivity with REST rsmq**
+
+Easily integrate with rsmq for efficient message queuing. No security worries, just seamless communication across platforms like php, .net, and more. Maximize performance now!
+ * 
+ * Create a new message-queue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {SmrchyRestRsmqConfig}} body - Service instance configuration
+ * @returns {SmrchyRestRsmq} - Service instance
+ * @example
+ * import { Context, createSmrchyRestRsmqInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createSmrchyRestRsmqInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createSmrchyRestRsmqInstance(
   ctx: Context,
   body: SmrchyRestRsmqConfig

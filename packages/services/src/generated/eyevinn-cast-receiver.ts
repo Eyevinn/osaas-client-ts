@@ -212,6 +212,22 @@ export type EyevinnCastReceiverConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Chromecast receiver
+ *
+ * A basic custom chromecast receiver that can be configured using environment variables. Add your company branding to your own chromecast receiver without writing a single line of code!
+ *
+ * Create a new receiver
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnCastReceiverConfig}} body - Service instance configuration
+ * @returns {EyevinnCastReceiver} - Service instance
+ * @example
+ * import { Context, createEyevinnCastReceiverInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnCastReceiverInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnCastReceiverInstance(
   ctx: Context,
   body: EyevinnCastReceiverConfig

@@ -192,6 +192,22 @@ export type EyevinnRustImageProcessorConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Simple Image Resizer
+ *
+ * An efficient and easy to use image resizer offering an endpoint for scaling image on the fly.
+ *
+ * Create a new resizer
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnRustImageProcessorConfig}} body - Service instance configuration
+ * @returns {EyevinnRustImageProcessor} - Service instance
+ * @example
+ * import { Context, createEyevinnRustImageProcessorInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnRustImageProcessorInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnRustImageProcessorInstance(
   ctx: Context,
   body: EyevinnRustImageProcessorConfig

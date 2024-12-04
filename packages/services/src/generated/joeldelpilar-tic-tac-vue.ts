@@ -280,6 +280,22 @@ export type JoeldelpilarTicTacVueConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Tic Tac Vue
+ *
+ * Discover Tic Tac Vue - the ultimate way to enjoy classic Tic Tac Toe! This engaging game is built with Vue 3, offering smooth gameplay and a modern user interface. Perfect for quick fun!
+ *
+ * Create a new tic-tac-vue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {JoeldelpilarTicTacVueConfig}} body - Service instance configuration
+ * @returns {JoeldelpilarTicTacVue} - Service instance
+ * @example
+ * import { Context, createJoeldelpilarTicTacVueInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createJoeldelpilarTicTacVueInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createJoeldelpilarTicTacVueInstance(
   ctx: Context,
   body: JoeldelpilarTicTacVueConfig

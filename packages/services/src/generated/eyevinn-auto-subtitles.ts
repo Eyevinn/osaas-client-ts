@@ -296,6 +296,22 @@ export type EyevinnAutoSubtitlesConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Subtitle Generator
+ *
+ * Automatically generate subtitles from an input audio or video file using Open AI Whisper.
+ *
+ * Create a new generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnAutoSubtitlesConfig}} body - Service instance configuration
+ * @returns {EyevinnAutoSubtitles} - Service instance
+ * @example
+ * import { Context, createEyevinnAutoSubtitlesInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnAutoSubtitlesInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnAutoSubtitlesInstance(
   ctx: Context,
   body: EyevinnAutoSubtitlesConfig

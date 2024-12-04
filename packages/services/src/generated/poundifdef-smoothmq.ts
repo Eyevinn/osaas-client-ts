@@ -288,6 +288,22 @@ export type PoundifdefSmoothmqConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * SmoothMQ
+ *
+ * Introducing SmoothMQ, the ultimate drop-in replacement for SQS! Enhance your developer experience with a functional UI, observability, tracing, scheduling, and rate-limiting. Run your own private SQS on any cloud effortlessly.
+ *
+ * Create a new message-queue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {PoundifdefSmoothmqConfig}} body - Service instance configuration
+ * @returns {PoundifdefSmoothmq} - Service instance
+ * @example
+ * import { Context, createPoundifdefSmoothmqInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createPoundifdefSmoothmqInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createPoundifdefSmoothmqInstance(
   ctx: Context,
   body: PoundifdefSmoothmqConfig

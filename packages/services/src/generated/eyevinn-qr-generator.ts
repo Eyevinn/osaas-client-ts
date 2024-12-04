@@ -288,6 +288,22 @@ export type EyevinnQrGeneratorConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * QR Code Generator
+ *
+ * Effortlessly create and customize QR codes with dynamic text and logos. Perfect for projects requiring quick updates. Launch your instance and deploy multiple codes seamlessly on the Open Source Cloud.
+ *
+ * Create a new qr-generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnQrGeneratorConfig}} body - Service instance configuration
+ * @returns {EyevinnQrGenerator} - Service instance
+ * @example
+ * import { Context, createEyevinnQrGeneratorInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnQrGeneratorInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnQrGeneratorInstance(
   ctx: Context,
   body: EyevinnQrGeneratorConfig

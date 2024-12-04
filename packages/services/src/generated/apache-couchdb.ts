@@ -284,6 +284,22 @@ export type ApacheCouchdbConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Couch DB
+ *
+ * Unlock seamless data management with Apache CouchDB! Effortlessly scalable and highly available, CouchDB makes storing, retrieving, and syncing data across devices a breeze. Ideal for modern cloud apps!
+ *
+ * Create a new couchdb
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {ApacheCouchdbConfig}} body - Service instance configuration
+ * @returns {ApacheCouchdb} - Service instance
+ * @example
+ * import { Context, createApacheCouchdbInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createApacheCouchdbInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createApacheCouchdbInstance(
   ctx: Context,
   body: ApacheCouchdbConfig

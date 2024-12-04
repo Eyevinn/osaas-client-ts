@@ -284,6 +284,22 @@ export type LogtoIoLogtoConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Logto IAM
+ *
+ * Unlock seamless identity management with Logto! Boost security with SSO, OIDC, and MFA. Our developer-friendly platform supports multi-tenant SaaS, customizable UI, and much more. Elevate your IAM today!
+ *
+ * Create a new manager
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {LogtoIoLogtoConfig}} body - Service instance configuration
+ * @returns {LogtoIoLogto} - Service instance
+ * @example
+ * import { Context, createLogtoIoLogtoInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createLogtoIoLogtoInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createLogtoIoLogtoInstance(
   ctx: Context,
   body: LogtoIoLogtoConfig

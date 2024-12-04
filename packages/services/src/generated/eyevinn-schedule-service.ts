@@ -208,6 +208,22 @@ export type EyevinnScheduleServiceConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * FAST Engine Schedule Service
+ *
+ * A modular service to automatically populate schedules for FAST Engine channels. Uses AWS Dynamo DB as database.
+ *
+ * Create a new scheduler
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnScheduleServiceConfig}} body - Service instance configuration
+ * @returns {EyevinnScheduleService} - Service instance
+ * @example
+ * import { Context, createEyevinnScheduleServiceInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnScheduleServiceInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnScheduleServiceInstance(
   ctx: Context,
   body: EyevinnScheduleServiceConfig

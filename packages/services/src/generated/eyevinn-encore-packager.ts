@@ -320,6 +320,22 @@ export type EyevinnEncorePackagerConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Encore Packager
+ *
+ * Enhance your transcoding workflow with Encore packager! Run as a service, listen for messages on redis queue, and customize packaging events. Boost productivity with this versatile tool.
+ *
+ * Create a new packager
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnEncorePackagerConfig}} body - Service instance configuration
+ * @returns {EyevinnEncorePackager} - Service instance
+ * @example
+ * import { Context, createEyevinnEncorePackagerInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnEncorePackagerInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnEncorePackagerInstance(
   ctx: Context,
   body: EyevinnEncorePackagerConfig

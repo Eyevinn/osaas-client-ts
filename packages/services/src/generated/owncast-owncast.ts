@@ -242,6 +242,22 @@ export type OwncastOwncastConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * owncast
+ *
+ * Revolutionize your live streaming experience with Owncast! Take control over your content, interface, and audience with this self-hosted, open-source platform. Explore the possibilities today.
+ *
+ * Create a new owncast
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {OwncastOwncastConfig}} body - Service instance configuration
+ * @returns {OwncastOwncast} - Service instance
+ * @example
+ * import { Context, createOwncastOwncastInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createOwncastOwncastInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createOwncastOwncastInstance(
   ctx: Context,
   body: OwncastOwncastConfig

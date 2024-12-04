@@ -168,6 +168,22 @@ export type EyevinnPreviewHlsServiceConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * HLS Preview Generator
+ *
+ * A service to generate a preview video (mp4) or an image (png) from an HLS stream
+ *
+ * Create a new preview-generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnPreviewHlsServiceConfig}} body - Service instance configuration
+ * @returns {EyevinnPreviewHlsService} - Service instance
+ * @example
+ * import { Context, createEyevinnPreviewHlsServiceInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnPreviewHlsServiceInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnPreviewHlsServiceInstance(
   ctx: Context,
   body: EyevinnPreviewHlsServiceConfig

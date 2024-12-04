@@ -280,6 +280,22 @@ export type ChambanaNetDockerPodcastgenConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Podcast Generator
+ *
+ * Effortlessly host and manage your podcasts with our Docker container for Podcast Generator. Quick setup and version flexibility let you focus on content creation while we handle the rest.
+ *
+ * Create a new podcast-generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {ChambanaNetDockerPodcastgenConfig}} body - Service instance configuration
+ * @returns {ChambanaNetDockerPodcastgen} - Service instance
+ * @example
+ * import { Context, createChambanaNetDockerPodcastgenInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createChambanaNetDockerPodcastgenInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createChambanaNetDockerPodcastgenInstance(
   ctx: Context,
   body: ChambanaNetDockerPodcastgenConfig

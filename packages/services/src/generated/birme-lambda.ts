@@ -280,6 +280,22 @@ export type BirmeLambdaConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * lambda
+ *
+ * Effortlessly deploy JavaScript/TypeScript code as HTTP-based lambda functions with our simple solution. Just zip, upload, and watch your code run on any HTTP request. Get started quickly with minimal setup!
+ *
+ * Create a new lambda
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {BirmeLambdaConfig}} body - Service instance configuration
+ * @returns {BirmeLambda} - Service instance
+ * @example
+ * import { Context, createBirmeLambdaInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createBirmeLambdaInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createBirmeLambdaInstance(
   ctx: Context,
   body: BirmeLambdaConfig

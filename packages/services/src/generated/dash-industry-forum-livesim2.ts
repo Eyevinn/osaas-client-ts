@@ -280,6 +280,22 @@ export type DashIndustryForumLivesim2Config =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * livesim2
+ *
+ * Elevate your streaming with livesim2, the next-gen DASH Live Source Simulator, offering infinite live streams, flexible content handling, and on-the-fly subtitles in multiple languages. Perfect for testing and demo purposes.
+ *
+ * Create a new livesimulators
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {DashIndustryForumLivesim2Config}} body - Service instance configuration
+ * @returns {DashIndustryForumLivesim2} - Service instance
+ * @example
+ * import { Context, createDashIndustryForumLivesim2Instance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createDashIndustryForumLivesim2Instance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createDashIndustryForumLivesim2Instance(
   ctx: Context,
   body: DashIndustryForumLivesim2Config

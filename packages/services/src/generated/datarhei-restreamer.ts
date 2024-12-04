@@ -242,6 +242,22 @@ export type DatarheiRestreamerConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * restreamer
+ *
+ * Introducing Restreamer: A free, self-hosting solution for seamless live streaming to multiple platforms like YouTube, Twitch, and more. Easy setup, diverse features, hardware support, and GDPR compliance make it a must-have.
+ *
+ * Create a new restreamer
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {DatarheiRestreamerConfig}} body - Service instance configuration
+ * @returns {DatarheiRestreamer} - Service instance
+ * @example
+ * import { Context, createDatarheiRestreamerInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createDatarheiRestreamerInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createDatarheiRestreamerInstance(
   ctx: Context,
   body: DatarheiRestreamerConfig

@@ -280,6 +280,24 @@ export type ValkeyIoValkeyConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * valkey
+ * 
+ * Introducing Valkey: a Redis-compatible high-performance key-value store with wide range support. Build on various systems, extensible plugin system, and TLS support available.
+
+NB! Data persistence not guaranteed
+ * 
+ * Create a new valkey
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {ValkeyIoValkeyConfig}} body - Service instance configuration
+ * @returns {ValkeyIoValkey} - Service instance
+ * @example
+ * import { Context, createValkeyIoValkeyInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createValkeyIoValkeyInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createValkeyIoValkeyInstance(
   ctx: Context,
   body: ValkeyIoValkeyConfig

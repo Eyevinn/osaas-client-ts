@@ -280,6 +280,22 @@ export type EyevinnHlsMonitorConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * HLS Stream Monitor
+ *
+ * Service to monitor one or more HLS-streams for manifest errors and inconsistencies.
+ *
+ * Create a new monitor
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnHlsMonitorConfig}} body - Service instance configuration
+ * @returns {EyevinnHlsMonitor} - Service instance
+ * @example
+ * import { Context, createEyevinnHlsMonitorInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnHlsMonitorInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnHlsMonitorInstance(
   ctx: Context,
   body: EyevinnHlsMonitorConfig

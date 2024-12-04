@@ -242,6 +242,22 @@ export type GwuhaolinLivegoConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Livego
+ *
+ * Experience the power of simplicity and efficiency with our live broadcast server! Easy to install and use, built in pure Golang for high performance. Supports RTMP, AMF, HLS, HTTP-FLV protocols, FLV, TS containers, H264, AAC, MP3 encoding formats. Stream and playback seamlessly with just a few simple steps. Get your hands on this amazing product now!
+ *
+ * Create a new livego
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {GwuhaolinLivegoConfig}} body - Service instance configuration
+ * @returns {GwuhaolinLivego} - Service instance
+ * @example
+ * import { Context, createGwuhaolinLivegoInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createGwuhaolinLivegoInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createGwuhaolinLivegoInstance(
   ctx: Context,
   body: GwuhaolinLivegoConfig

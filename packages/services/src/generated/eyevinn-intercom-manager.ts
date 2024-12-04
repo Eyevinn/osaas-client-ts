@@ -292,6 +292,24 @@ export type EyevinnIntercomManagerConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Intercom
+ * 
+ * Open Source Intercom Solution providing production-grade audio quality and real-time latency. Powered by Symphony Media Bridge open source media server.
+
+Join our Slack community for support and customization. Contact sales@eyevinn.se for further development and support. Visit Eyevinn Technology for innovative video solutions.
+ * 
+ * Create a new system
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnIntercomManagerConfig}} body - Service instance configuration
+ * @returns {EyevinnIntercomManager} - Service instance
+ * @example
+ * import { Context, createEyevinnIntercomManagerInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnIntercomManagerInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnIntercomManagerInstance(
   ctx: Context,
   body: EyevinnIntercomManagerConfig

@@ -280,6 +280,22 @@ export type EyevinnLambdaStitchConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * HLS VOD Stitcher
+ *
+ * A proxy to insert ads in an HLS VOD either using manifest manipulation or HLS interstitials
+ *
+ * Create a new stitcher
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnLambdaStitchConfig}} body - Service instance configuration
+ * @returns {EyevinnLambdaStitch} - Service instance
+ * @example
+ * import { Context, createEyevinnLambdaStitchInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnLambdaStitchInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnLambdaStitchInstance(
   ctx: Context,
   body: EyevinnLambdaStitchConfig

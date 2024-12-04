@@ -280,6 +280,22 @@ export type AnderswassenChaosproxyConfigConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Chaos Stream Proxy Configurator
+ *
+ * Revolutionize your streaming experience with the Chaos Stream Proxy Configurator! Customize HLS streams with precision-timed delays for enhanced content manipulation and control effortlessly.
+ *
+ * Create a new configurator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {AnderswassenChaosproxyConfigConfig}} body - Service instance configuration
+ * @returns {AnderswassenChaosproxyConfig} - Service instance
+ * @example
+ * import { Context, createAnderswassenChaosproxyConfigInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createAnderswassenChaosproxyConfigInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createAnderswassenChaosproxyConfigInstance(
   ctx: Context,
   body: AnderswassenChaosproxyConfigConfig

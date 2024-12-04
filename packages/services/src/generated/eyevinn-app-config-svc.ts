@@ -284,6 +284,22 @@ export type EyevinnAppConfigSvcConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Application Config Service
+ *
+ * Supercharge your application's efficiency by instantly providing configuration values with our Application Configuration Service. Integrate seamlessly with Redis, leverage cache control, and scale effortlessly.
+ *
+ * Create a new config-service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnAppConfigSvcConfig}} body - Service instance configuration
+ * @returns {EyevinnAppConfigSvc} - Service instance
+ * @example
+ * import { Context, createEyevinnAppConfigSvcInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnAppConfigSvcInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnAppConfigSvcInstance(
   ctx: Context,
   body: EyevinnAppConfigSvcConfig

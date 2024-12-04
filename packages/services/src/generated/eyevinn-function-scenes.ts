@@ -168,6 +168,22 @@ export type EyevinnFunctionScenesConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Scene Detect Media Function
+ *
+ * A serverless media function to detect scene changes and extract keyframes in a video file or a stream.
+ *
+ * Create a new mediafunction
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnFunctionScenesConfig}} body - Service instance configuration
+ * @returns {EyevinnFunctionScenes} - Service instance
+ * @example
+ * import { Context, createEyevinnFunctionScenesInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnFunctionScenesInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnFunctionScenesInstance(
   ctx: Context,
   body: EyevinnFunctionScenesConfig

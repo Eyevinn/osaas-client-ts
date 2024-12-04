@@ -300,6 +300,22 @@ export type WordpressWordpressConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Wordpress
+ *
+ * Power your site with WordPress – the core behind 40% of the web. Enjoy seamless installation, robust customization, and unmatched scalability. Elevate your online presence effortlessly today!
+ *
+ * Create a new wordpress
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {WordpressWordpressConfig}} body - Service instance configuration
+ * @returns {WordpressWordpress} - Service instance
+ * @example
+ * import { Context, createWordpressWordpressInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createWordpressWordpressInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createWordpressWordpressInstance(
   ctx: Context,
   body: WordpressWordpressConfig

@@ -280,6 +280,22 @@ export type DrawdbIoDrawdbConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * drawDB
+ *
+ * Effortlessly design and manage your database schema with drawDB. It's a user-friendly online DBER editor that lets you create diagrams and generate SQL without any hassle, all directly in your browser!
+ *
+ * Create a new editor
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {DrawdbIoDrawdbConfig}} body - Service instance configuration
+ * @returns {DrawdbIoDrawdb} - Service instance
+ * @example
+ * import { Context, createDrawdbIoDrawdbInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createDrawdbIoDrawdbInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createDrawdbIoDrawdbInstance(
   ctx: Context,
   body: DrawdbIoDrawdbConfig

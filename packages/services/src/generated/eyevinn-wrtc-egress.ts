@@ -288,6 +288,22 @@ export type EyevinnWrtcEgressConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Symphony Media Bridge WHEP Gateway
+ *
+ * "Streamline your video services with Eyevinn's WebRTC Egress Endpoint Library. Perfect for standardized streaming with WHEP protocol. Enhance your Symphony Media Bridge connections now!"
+ *
+ * Create a new gateway
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnWrtcEgressConfig}} body - Service instance configuration
+ * @returns {EyevinnWrtcEgress} - Service instance
+ * @example
+ * import { Context, createEyevinnWrtcEgressInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnWrtcEgressInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnWrtcEgressInstance(
   ctx: Context,
   body: EyevinnWrtcEgressConfig

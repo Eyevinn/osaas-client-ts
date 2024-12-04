@@ -284,6 +284,22 @@ export type EyevinnWebcastConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Webcaster
+ *
+ * Innovative solution from Eyevinn Technology to broadcast yourself online effortlessly! Includes both frontend and backend.
+ *
+ * Create a new webcaster
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnWebcastConfig}} body - Service instance configuration
+ * @returns {EyevinnWebcast} - Service instance
+ * @example
+ * import { Context, createEyevinnWebcastInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnWebcastInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnWebcastInstance(
   ctx: Context,
   body: EyevinnWebcastConfig

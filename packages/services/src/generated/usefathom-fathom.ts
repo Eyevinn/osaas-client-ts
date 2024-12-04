@@ -288,6 +288,22 @@ export type UsefathomFathomConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Fathom Lite
+ *
+ * Introducing Fathom Lite - the popular, open-source website analytics tool with millions of downloads! Long-term maintenance, bug fixes, and cookie-free tracking set it apart. Get started today!
+ *
+ * Create a new collector
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {UsefathomFathomConfig}} body - Service instance configuration
+ * @returns {UsefathomFathom} - Service instance
+ * @example
+ * import { Context, createUsefathomFathomInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createUsefathomFathomInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createUsefathomFathomInstance(
   ctx: Context,
   body: UsefathomFathomConfig

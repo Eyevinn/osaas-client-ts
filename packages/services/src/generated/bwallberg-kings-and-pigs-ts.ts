@@ -280,6 +280,22 @@ export type BwallbergKingsAndPigsTsConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Kings and Pigs
+ *
+ * Dive into Kings and Pigs, a vibrant 2D TypeScript game! Explore custom ECS architecture & physics with Planck.js. Perfect for TypeScript learners & game enthusiasts. Play now!
+ *
+ * Create a new kings-and-pigs-ts
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {BwallbergKingsAndPigsTsConfig}} body - Service instance configuration
+ * @returns {BwallbergKingsAndPigsTs} - Service instance
+ * @example
+ * import { Context, createBwallbergKingsAndPigsTsInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createBwallbergKingsAndPigsTsInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createBwallbergKingsAndPigsTsInstance(
   ctx: Context,
   body: BwallbergKingsAndPigsTsConfig

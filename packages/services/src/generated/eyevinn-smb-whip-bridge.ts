@@ -296,6 +296,22 @@ export type EyevinnSmbWhipBridgeConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Symphony Media Bridge WHIP Gateway
+ *
+ * Elevate your video streaming with SMB WHIP Bridge! Seamlessly integrate WHIP clients with Symphony Media Bridge SFU for superior media streams.
+ *
+ * Create a new gateway
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {EyevinnSmbWhipBridgeConfig}} body - Service instance configuration
+ * @returns {EyevinnSmbWhipBridge} - Service instance
+ * @example
+ * import { Context, createEyevinnSmbWhipBridgeInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createEyevinnSmbWhipBridgeInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createEyevinnSmbWhipBridgeInstance(
   ctx: Context,
   body: EyevinnSmbWhipBridgeConfig

@@ -280,6 +280,22 @@ export type BirmeCaptchaSvcConfig =
 
 import { Context, createInstance } from '@osaas/client-core';
 
+/**
+ * Captcha Service
+ *
+ * Enhance your security effortlessly with our reliable CAPTCHA Service! Easily generate and verify CAPTCHAs to protect against automated attacks. Quick setup, seamless integration, robust solution!
+ *
+ * Create a new service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {BirmeCaptchaSvcConfig}} body - Service instance configuration
+ * @returns {BirmeCaptchaSvc} - Service instance
+ * @example
+ * import { Context, createBirmeCaptchaSvcInstance } from '@osaas/client-services';
+ *
+ * const ctx = new Context();
+ * const instance = await createBirmeCaptchaSvcInstance(ctx, { name: 'my-instance' });
+ * console.log(instance.url);
+ */
 export async function createBirmeCaptchaSvcInstance(
   ctx: Context,
   body: BirmeCaptchaSvcConfig
