@@ -1,8 +1,8 @@
 {
   "name": "@osaas/client-services",
   "version": "0.1.0",
-  "description": "Open Source Cloud Service Resources",
-  "author": "Eyevinn Technology <work@eyevinn.se>",
+  "description": "Open Web Service Resources",
+  "author": "Eyevinn Open Source Cloud <osc@eyevinn.se>",
   "homepage": "https://www.osaas.io",
   "license": "MIT",
   "main": "lib/index.js",

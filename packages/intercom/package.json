@@ -2,14 +2,14 @@
   "name": "@osaas/client-intercom",
   "version": "0.1.5",
   "description": "Open Source Cloud Client SDK intercom library",
-  "author": "Eyevinn Technology <work@eyevinn.se>",
+  "author": "Eyevinn Open Source Cloud <work@eyevinn.se>",
   "homepage": "https://www.osaas.io",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eyevinn/osaas-client-ts.git"
+    "url": "git+https://github.com/EyevinnOSC/client-ts.git"
   },
   "directories": {
     "lib": "lib"

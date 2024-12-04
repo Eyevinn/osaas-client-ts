@@ -2,7 +2,7 @@
   "name": "@osaas/cli",
   "version": "4.1.1",
   "description": "Open Source Cloud CLI",
-  "author": "Eyevinn Technology <work@eyevinn.se>",
+  "author": "Eyevinn Open Source Cloud <osc@eyevinn.se>",
   "homepage": "https://www.osaas.io",
   "license": "MIT",
   "main": "dist/cli.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eyevinn/osaas-client-ts.git"
+    "url": "git+https://github.com/EyevinnOSC/client-ts.git"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
