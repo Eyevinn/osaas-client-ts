@@ -6,14 +6,22 @@ Automatically generated typed service resources.
 
 ```javascript
 import { Context, Log } from '@osaas/client-core';
-import { createEyevinnTestAdserverInstance } from '@osaas/client-services';
+import {
+  EyevinnTestAdserver,
+  EyevinnTestAdserverConfig,
+  createEyevinnTestAdserverInstance
+} from '@osaas/client-services';
 
 const ctx = new Context();
 
 try {
-  const instance = await createEyevinnTestAdserverInstance(ctx, {
+  const config: EyevinnTestAdserverConfig = {
     name: 'sdk'
-  });
+  };
+  const instance: EyevinnTestAdserver = await createEyevinnTestAdserverInstance(
+    ctx,
+    config
+  );
   console.log(instance.url);
 } catch (err) {
   Log().error(err);
