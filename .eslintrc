@@ -14,5 +14,5 @@
   "rules": {
     "prettier/prettier": "error"
   },
-  "ignorePatterns": ["node_modules/", "lib/", "dist/"]
+  "ignorePatterns": ["node_modules/", "lib/", "dist/", "generated/"]
 }

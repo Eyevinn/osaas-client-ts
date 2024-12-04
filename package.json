@@ -9,7 +9,8 @@
     "packages/transcode",
     "packages/intercom",
     "packages/db",
-    "packages/ai"
+    "packages/ai",
+    "packages/services"
   ],
   "author": "Eyevinn Technology <info@eyevinn.se>",
   "repository": {

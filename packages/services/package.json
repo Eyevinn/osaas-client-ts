@@ -1,0 +1,38 @@
+{
+  "name": "@osaas/client-services",
+  "version": "0.1.0",
+  "description": "Open Source Cloud Service Resources",
+  "author": "Eyevinn Technology <work@eyevinn.se>",
+  "homepage": "https://www.osaas.io",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EyevinnOSC/client-ts.git"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "generate": "ts-node scripts/generate.ts && prettier --write --ignore-unknown .",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "pretty": "prettier --check --ignore-unknown .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@osaas/client-core": "^0.4.0",
+    "chalk": "4.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "openapi-typescript": "5.4.1"
+  }
+}
