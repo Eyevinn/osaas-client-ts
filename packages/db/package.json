@@ -2,14 +2,14 @@
   "name": "@osaas/client-db",
   "version": "0.2.4",
   "description": "Open Source Cloud Client SDK database library",
-  "author": "Eyevinn Technology <work@eyevinn.se>",
+  "author": "Eyevinn Open Source Cloud <osc@eyevinn.se>",
   "homepage": "https://www.osaas.io",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eyevinn/osaas-client-ts.git"
+    "url": "git+https://github.com/EyevinnOSC/client-ts.git"
   },
   "directories": {
     "lib": "lib"

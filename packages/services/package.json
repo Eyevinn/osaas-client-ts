@@ -1,7 +1,7 @@
 {
-  "name": "@osaas/client-transcode",
-  "version": "0.11.4",
-  "description": "Open Source Cloud Client SDK transcode library",
+  "name": "@osaas/client-services",
+  "version": "0.1.0",
+  "description": "Open Web Service Resources",
   "author": "Eyevinn Open Source Cloud <osc@eyevinn.se>",
   "homepage": "https://www.osaas.io",
   "license": "MIT",
@@ -18,18 +18,21 @@
     "lib"
   ],
   "scripts": {
+    "generate": "ts-node scripts/generate.ts && prettier --write --ignore-unknown .",
     "build": "tsc -p tsconfig.json",
     "lint": "eslint .",
     "pretty": "prettier --check --ignore-unknown .",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "jest --passWithNoTests"
+    "test": "jest"
   },
   "dependencies": {
-    "@osaas/client-core": "^0.13.0",
-    "@osaas/client-db": "^0.2.4",
+    "@osaas/client-core": "^0.4.0",
     "chalk": "4.1.2"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "openapi-typescript": "5.4.1"
   }
 }
