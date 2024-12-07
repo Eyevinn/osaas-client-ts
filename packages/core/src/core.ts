@@ -1,5 +1,5 @@
 import { Context, Service } from './context';
-import { UnauthorizedError } from './errors';
+import { InvalidName, UnauthorizedError } from './errors';
 import { FetchError, createFetch } from './fetch';
 import { Log } from './log';
 
@@ -20,6 +20,10 @@ export async function getService(context: Context, serviceId: string) {
   }
   return service;
 }
+
+export const isValidInstanceName = (name: string) => {
+  return /^[a-z0-9]+$/.test(name);
+};
 
 export type Port = {
   externalIp: string;
@@ -57,6 +61,9 @@ export async function createInstance(
   token: string,
   body: any
 ): Promise<any> {
+  if (!isValidInstanceName(body.name)) {
+    throw new InvalidName(body.name);
+  }
   const service = await getService(context, serviceId);
   const instanceUrl = new URL(service.apiUrl);
 

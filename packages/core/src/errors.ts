@@ -9,3 +9,9 @@ export class UnauthorizedError extends Error {
     super('Unauthorized');
   }
 }
+
+export class InvalidName extends Error {
+  constructor(name: string) {
+    super(`Invalid name: ${name}. Only alphanumeric characters are allowed.`);
+  }
+}
