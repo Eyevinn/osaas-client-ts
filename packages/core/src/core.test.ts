@@ -16,9 +16,14 @@ describe('Core functionalities', () => {
 
   test('an instance with an invalid name cannot be created', async () => {
     await expect(
-      createInstance(new Context(), 'eyevinn-test-adserver', 'my-token', {
-        name: 'my-instance'
-      })
+      createInstance(
+        new Context({ personalAccessToken: 'dummy' }),
+        'eyevinn-test-adserver',
+        'my-token',
+        {
+          name: 'my-instance'
+        }
+      )
     ).rejects.toThrow(new InvalidName('my-instance'));
   });
 });
