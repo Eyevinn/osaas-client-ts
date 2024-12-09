@@ -12,3 +12,4 @@ export {
   stopLiveMultiBitrateHLS
 } from './live';
 export { SubtitlingPool } from './subtitling';
+export { createVodPipeline, removeVodPipeline, createVod } from './vodpipeline';
