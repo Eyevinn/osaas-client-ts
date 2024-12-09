@@ -12,7 +12,9 @@ export {
   getLogsForInstance,
   getInstanceHealth,
   instanceValue,
-  valueOrSecret
+  valueOrSecret,
+  isValidInstanceName,
+  waitForInstanceReady
 } from './core';
 export { listSubscriptions, removeSubscription, Subscription } from './admin';
 export {

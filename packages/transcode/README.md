@@ -6,7 +6,8 @@ SDK for transcoding with Encore in Open Source Cloud and transfer result to S3 b
 
 Prerequisites
 
-- An account on [Open Source Cloud](www.osaas.io)
+- An account on [Eyevinn Open Source Cloud](www.osaas.io)
+- Business subscription with 5 services remaining
 
 ```
 npm install --save @osaas/client-transcode
@@ -16,53 +17,20 @@ Example code
 
 ```javascript
 import { Context, Log } from '@osaas/client-core';
-import { QueuePool } from '@osaas/client-transcode';
+import { createVod, createVodPipeline } from '@osaas/client-transcode';
 
 async function main() {
   const ctx = new Context();
 
   try {
-    const pool = new QueuePool({ context: ctx });
-    await pool.init();
-    await pool.transcode(
-      new URL(
-        'https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4'
-      ),
-      new URL('s3://lab-testcontent-store/birme/'),
-      {}
-    );
-    await pool.destroy();
-  } catch (err) {
-    Log().error(err);
-  }
-}
-
-main();
-```
-
-Transcode and create streaming package
-
-```javascript
-import { Context, Log } from '@osaas/client-core';
-import { QueuePool } from '@osaas/client-transcode';
-
-async function main() {
-  const ctx = new Context();
-
-  try {
-    const pool = new QueuePool({ context: ctx, usePackagingQueue: true });
-    await pool.init();
-    await pool.transcode(
-      new URL(
-        'https://testcontent.eyevinn.technology/mp4/stswe-tvplus-promo.mp4'
-      ),
-      new URL('s3://lab-testcontent-store/birme/'),
-      {
-        packageDestination: new URL(
-          's3://lab-testcontent-storate/birme/output/'
-        )
-      }
-    );
+    const ctx = new Context({ environment });
+    Log().info('Creating VOD pipeline');
+    const pipeline = await createVodPipeline(name, ctx);
+    Log().info('VOD pipeline created, starting job to create VOD');
+    const job = await createVod(pipeline, source, ctx);
+    if (job) {
+      Log().info('Created VOD will be available at: ' + job.vodUrl);
+    }
   } catch (err) {
     Log().error(err);
   }
