@@ -1,21 +1,20 @@
 import {
   Context,
   Log,
-  createInstance,
-  getInstance,
   getPortsForInstance,
-  listInstances,
-  removeInstance
+  listInstances
 } from '@osaas/client-core';
-
-export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+import {
+  createValkeyIoValkeyInstance,
+  getValkeyIoValkeyInstance,
+  removeValkeyIoValkeyInstance
+} from '@osaas/client-services';
 
 const SERVICE_ID = 'valkey-io-valkey';
 
 export class ValkeyDb {
   private context: Context;
   private name: string;
-  private token?: string;
   private url?: URL;
 
   constructor({ context, name }: { context: Context; name: string }) {
@@ -32,36 +31,21 @@ export class ValkeyDb {
   }
 
   private async getRedisPort() {
-    if (!this.token) {
-      this.token = await this.context.getServiceAccessToken(SERVICE_ID);
-    }
+    const token = await this.context.getServiceAccessToken(SERVICE_ID);
     const ports = await getPortsForInstance(
       this.context,
       SERVICE_ID,
       this.name,
-      this.token
+      token
     );
     const redisPort = ports.find((port) => port.internalPort == 6379);
     return redisPort;
   }
 
   public async init() {
-    this.token = await this.context.getServiceAccessToken(SERVICE_ID);
-    const instance = await getInstance(
-      this.context,
-      SERVICE_ID,
-      this.name,
-      this.token
-    );
+    const instance = await getValkeyIoValkeyInstance(this.context, this.name);
     if (!instance) {
-      if (
-        !(await createInstance(this.context, SERVICE_ID, this.token, {
-          name: this.name
-        }))
-      ) {
-        throw new Error('Failed to create Valkey instance');
-      }
-      await delay(5000);
+      await createValkeyIoValkeyInstance(this.context, { name: this.name });
     }
     const redisPort = await this.getRedisPort();
     if (redisPort) {
@@ -73,8 +57,7 @@ export class ValkeyDb {
 
   public async destroy() {
     try {
-      this.token = await this.context.getServiceAccessToken(SERVICE_ID);
-      await removeInstance(this.context, SERVICE_ID, this.name, this.token);
+      await removeValkeyIoValkeyInstance(this.context, this.name);
     } catch (err) {
       Log().error((err as Error).message);
     }
