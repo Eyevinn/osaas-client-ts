@@ -139,11 +139,6 @@ export {
   createUsefathomFathomInstance
 } from './generated/usefathom-fathom';
 export {
-  EyevinnWebcast,
-  EyevinnWebcastConfig,
-  createEyevinnWebcastInstance
-} from './generated/eyevinn-webcast';
-export {
   EyevinnEncoreCallbackListener,
   EyevinnEncoreCallbackListenerConfig,
   createEyevinnEncoreCallbackListenerInstance
@@ -194,11 +189,6 @@ export {
   createEyevinnWrtcEgressInstance
 } from './generated/eyevinn-wrtc-egress';
 export {
-  AteliereLivePublicOrchestrationGui,
-  AteliereLivePublicOrchestrationGuiConfig,
-  createAteliereLivePublicOrchestrationGuiInstance
-} from './generated/ateliere-live-public-orchestration-gui';
-export {
   SwaggerApiSwaggerEditor,
   SwaggerApiSwaggerEditorConfig,
   createSwaggerApiSwaggerEditorInstance
@@ -208,11 +198,6 @@ export {
   RealeyesMediaMoeReplayConfig,
   createRealeyesMediaMoeReplayInstance
 } from './generated/realeyes-media-moe-replay';
-export {
-  DrakkanSftpgo,
-  DrakkanSftpgoConfig,
-  createDrakkanSftpgoInstance
-} from './generated/drakkan-sftpgo';
 export {
   ItzgDockerMinecraftServer,
   ItzgDockerMinecraftServerConfig,
@@ -304,11 +289,6 @@ export {
   createBirmeOscPostgresqlInstance
 } from './generated/birme-osc-postgresql';
 export {
-  LukevellaRallly,
-  LukevellaRalllyConfig,
-  createLukevellaRalllyInstance
-} from './generated/lukevella-rallly';
-export {
   SalesagilitySuitecrm,
   SalesagilitySuitecrmConfig,
   createSalesagilitySuitecrmInstance
@@ -363,8 +343,3 @@ export {
   DrawdbIoDrawdbConfig,
   createDrawdbIoDrawdbInstance
 } from './generated/drawdb-io-drawdb';
-export {
-  LogtoIoLogto,
-  LogtoIoLogtoConfig,
-  createLogtoIoLogtoInstance
-} from './generated/logto-io-logto';

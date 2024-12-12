@@ -426,7 +426,11 @@ export type Encore =
 export type EncoreConfig =
   paths['/encoreinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * SVT Encore
@@ -441,7 +445,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEncoreInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEncoreInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEncoreInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEncoreInstance(
@@ -449,5 +453,12 @@ export async function createEncoreInstance(
   body: EncoreConfig
 ): Promise<Encore> {
   const serviceAccessToken = await ctx.getServiceAccessToken('encore');
-  return await createInstance(ctx, 'encore', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'encore',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('encore', instance.name, ctx);
+  return instance;
 }

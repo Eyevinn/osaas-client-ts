@@ -278,7 +278,11 @@ export type OlawalejuwonmAnomalydetector =
 export type OlawalejuwonmAnomalydetectorConfig =
   paths['/anomalydetectorinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Anomaly Detector
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createOlawalejuwonmAnomalydetectorInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createOlawalejuwonmAnomalydetectorInstance(ctx, { name: 'my-instance' });
+ * const instance = await createOlawalejuwonmAnomalydetectorInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createOlawalejuwonmAnomalydetectorInstance(
@@ -303,10 +307,16 @@ export async function createOlawalejuwonmAnomalydetectorInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'olawalejuwonm-anomalydetector'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'olawalejuwonm-anomalydetector',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'olawalejuwonm-anomalydetector',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

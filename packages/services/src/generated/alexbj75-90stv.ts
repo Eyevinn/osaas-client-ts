@@ -278,7 +278,11 @@ export type Alexbj7590stv =
 export type Alexbj7590stvConfig =
   paths['/90stvinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * 90stv
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createAlexbj7590stvInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createAlexbj7590stvInstance(ctx, { name: 'my-instance' });
+ * const instance = await createAlexbj7590stvInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createAlexbj7590stvInstance(
@@ -301,5 +305,12 @@ export async function createAlexbj7590stvInstance(
   body: Alexbj7590stvConfig
 ): Promise<Alexbj7590stv> {
   const serviceAccessToken = await ctx.getServiceAccessToken('alexbj75-90stv');
-  return await createInstance(ctx, 'alexbj75-90stv', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'alexbj75-90stv',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('alexbj75-90stv', instance.name, ctx);
+  return instance;
 }

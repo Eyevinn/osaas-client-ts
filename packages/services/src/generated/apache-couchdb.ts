@@ -282,7 +282,11 @@ export type ApacheCouchdb =
 export type ApacheCouchdbConfig =
   paths['/couchdbinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Couch DB
@@ -297,7 +301,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createApacheCouchdbInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createApacheCouchdbInstance(ctx, { name: 'my-instance' });
+ * const instance = await createApacheCouchdbInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createApacheCouchdbInstance(
@@ -305,5 +309,12 @@ export async function createApacheCouchdbInstance(
   body: ApacheCouchdbConfig
 ): Promise<ApacheCouchdb> {
   const serviceAccessToken = await ctx.getServiceAccessToken('apache-couchdb');
-  return await createInstance(ctx, 'apache-couchdb', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'apache-couchdb',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('apache-couchdb', instance.name, ctx);
+  return instance;
 }

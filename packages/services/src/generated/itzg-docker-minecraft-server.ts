@@ -286,7 +286,11 @@ export type ItzgDockerMinecraftServer =
 export type ItzgDockerMinecraftServerConfig =
   paths['/docker-minecraft-serverinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Minecraft Server
@@ -301,7 +305,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createItzgDockerMinecraftServerInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createItzgDockerMinecraftServerInstance(ctx, { name: 'my-instance' });
+ * const instance = await createItzgDockerMinecraftServerInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createItzgDockerMinecraftServerInstance(
@@ -311,10 +315,16 @@ export async function createItzgDockerMinecraftServerInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'itzg-docker-minecraft-server'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'itzg-docker-minecraft-server',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'itzg-docker-minecraft-server',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

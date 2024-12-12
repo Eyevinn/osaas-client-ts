@@ -190,7 +190,11 @@ export type FlyimgFlyimg =
 export type FlyimgFlyimgConfig =
   paths['/flyimginstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * flyimg
@@ -209,7 +213,7 @@ Additionally, Flyimg also generates the WebP format, along with the impressive M
  * import { Context, createFlyimgFlyimgInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createFlyimgFlyimgInstance(ctx, { name: 'my-instance' });
+ * const instance = await createFlyimgFlyimgInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createFlyimgFlyimgInstance(
@@ -217,5 +221,12 @@ export async function createFlyimgFlyimgInstance(
   body: FlyimgFlyimgConfig
 ): Promise<FlyimgFlyimg> {
   const serviceAccessToken = await ctx.getServiceAccessToken('flyimg-flyimg');
-  return await createInstance(ctx, 'flyimg-flyimg', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'flyimg-flyimg',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('flyimg-flyimg', instance.name, ctx);
+  return instance;
 }

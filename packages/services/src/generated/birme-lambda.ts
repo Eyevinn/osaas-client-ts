@@ -278,7 +278,11 @@ export type BirmeLambda =
 export type BirmeLambdaConfig =
   paths['/lambdainstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * lambda
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createBirmeLambdaInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createBirmeLambdaInstance(ctx, { name: 'my-instance' });
+ * const instance = await createBirmeLambdaInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createBirmeLambdaInstance(
@@ -301,5 +305,12 @@ export async function createBirmeLambdaInstance(
   body: BirmeLambdaConfig
 ): Promise<BirmeLambda> {
   const serviceAccessToken = await ctx.getServiceAccessToken('birme-lambda');
-  return await createInstance(ctx, 'birme-lambda', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'birme-lambda',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('birme-lambda', instance.name, ctx);
+  return instance;
 }

@@ -240,7 +240,11 @@ export type OssrsSrs =
 export type OssrsSrsConfig =
   paths['/srsinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Simple Realtime Server
@@ -257,7 +261,7 @@ Get started easily!
  * import { Context, createOssrsSrsInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createOssrsSrsInstance(ctx, { name: 'my-instance' });
+ * const instance = await createOssrsSrsInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createOssrsSrsInstance(
@@ -265,5 +269,12 @@ export async function createOssrsSrsInstance(
   body: OssrsSrsConfig
 ): Promise<OssrsSrs> {
   const serviceAccessToken = await ctx.getServiceAccessToken('ossrs-srs');
-  return await createInstance(ctx, 'ossrs-srs', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'ossrs-srs',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('ossrs-srs', instance.name, ctx);
+  return instance;
 }

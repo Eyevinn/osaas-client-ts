@@ -286,7 +286,11 @@ export type AtmozSftp =
 export type AtmozSftpConfig =
   paths['/sftpinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * SFTP Server
@@ -302,7 +306,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createAtmozSftpInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createAtmozSftpInstance(ctx, { name: 'my-instance' });
+ * const instance = await createAtmozSftpInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createAtmozSftpInstance(
@@ -310,5 +314,12 @@ export async function createAtmozSftpInstance(
   body: AtmozSftpConfig
 ): Promise<AtmozSftp> {
   const serviceAccessToken = await ctx.getServiceAccessToken('atmoz-sftp');
-  return await createInstance(ctx, 'atmoz-sftp', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'atmoz-sftp',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('atmoz-sftp', instance.name, ctx);
+  return instance;
 }

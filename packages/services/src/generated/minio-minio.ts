@@ -286,7 +286,11 @@ export type MinioMinio =
 export type MinioMinioConfig =
   paths['/minioinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * minio
@@ -301,7 +305,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createMinioMinioInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createMinioMinioInstance(ctx, { name: 'my-instance' });
+ * const instance = await createMinioMinioInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createMinioMinioInstance(
@@ -309,5 +313,12 @@ export async function createMinioMinioInstance(
   body: MinioMinioConfig
 ): Promise<MinioMinio> {
   const serviceAccessToken = await ctx.getServiceAccessToken('minio-minio');
-  return await createInstance(ctx, 'minio-minio', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'minio-minio',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('minio-minio', instance.name, ctx);
+  return instance;
 }

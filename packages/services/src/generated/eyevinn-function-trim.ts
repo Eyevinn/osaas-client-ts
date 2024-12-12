@@ -202,7 +202,11 @@ export type EyevinnFunctionTrim =
 export type EyevinnFunctionTrimConfig =
   paths['/function-triminstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Trim Media
@@ -217,7 +221,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnFunctionTrimInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnFunctionTrimInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnFunctionTrimInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnFunctionTrimInstance(
@@ -227,10 +231,12 @@ export async function createEyevinnFunctionTrimInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-function-trim'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-function-trim',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-function-trim', instance.name, ctx);
+  return instance;
 }

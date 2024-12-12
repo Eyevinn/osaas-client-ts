@@ -282,7 +282,11 @@ export type SwaggerApiSwaggerEditor =
 export type SwaggerApiSwaggerEditorConfig =
   paths['/swagger-editorinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Swagger Editor
@@ -297,7 +301,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createSwaggerApiSwaggerEditorInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createSwaggerApiSwaggerEditorInstance(ctx, { name: 'my-instance' });
+ * const instance = await createSwaggerApiSwaggerEditorInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createSwaggerApiSwaggerEditorInstance(
@@ -307,10 +311,12 @@ export async function createSwaggerApiSwaggerEditorInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'swagger-api-swagger-editor'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'swagger-api-swagger-editor',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('swagger-api-swagger-editor', instance.name, ctx);
+  return instance;
 }

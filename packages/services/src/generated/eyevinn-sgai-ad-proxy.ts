@@ -306,7 +306,11 @@ export type EyevinnSgaiAdProxy =
 export type EyevinnSgaiAdProxyConfig =
   paths['/sgai-ad-proxyinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * SGAI Proxy
@@ -321,7 +325,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnSgaiAdProxyInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnSgaiAdProxyInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnSgaiAdProxyInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnSgaiAdProxyInstance(
@@ -331,10 +335,12 @@ export async function createEyevinnSgaiAdProxyInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-sgai-ad-proxy'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-sgai-ad-proxy',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-sgai-ad-proxy', instance.name, ctx);
+  return instance;
 }

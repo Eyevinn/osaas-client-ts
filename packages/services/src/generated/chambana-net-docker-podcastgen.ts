@@ -278,7 +278,11 @@ export type ChambanaNetDockerPodcastgen =
 export type ChambanaNetDockerPodcastgenConfig =
   paths['/docker-podcastgeninstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Podcast Generator
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createChambanaNetDockerPodcastgenInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createChambanaNetDockerPodcastgenInstance(ctx, { name: 'my-instance' });
+ * const instance = await createChambanaNetDockerPodcastgenInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createChambanaNetDockerPodcastgenInstance(
@@ -303,10 +307,16 @@ export async function createChambanaNetDockerPodcastgenInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'chambana-net-docker-podcastgen'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'chambana-net-docker-podcastgen',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'chambana-net-docker-podcastgen',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

@@ -282,7 +282,11 @@ export type EyevinnPdsAdmin =
 export type EyevinnPdsAdminConfig =
   paths['/pds-admininstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * PDS Admin
@@ -297,7 +301,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnPdsAdminInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnPdsAdminInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnPdsAdminInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnPdsAdminInstance(
@@ -307,10 +311,12 @@ export async function createEyevinnPdsAdminInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-pds-admin'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-pds-admin',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-pds-admin', instance.name, ctx);
+  return instance;
 }

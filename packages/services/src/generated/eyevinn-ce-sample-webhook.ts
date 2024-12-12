@@ -278,7 +278,11 @@ export type EyevinnCeSampleWebhook =
 export type EyevinnCeSampleWebhookConfig =
   paths['/ce-sample-webhookinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * FAST Engine Sample Webhook
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnCeSampleWebhookInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnCeSampleWebhookInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnCeSampleWebhookInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnCeSampleWebhookInstance(
@@ -303,10 +307,12 @@ export async function createEyevinnCeSampleWebhookInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-ce-sample-webhook'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-ce-sample-webhook',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-ce-sample-webhook', instance.name, ctx);
+  return instance;
 }

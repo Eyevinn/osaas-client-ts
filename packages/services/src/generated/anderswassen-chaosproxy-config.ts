@@ -278,7 +278,11 @@ export type AnderswassenChaosproxyConfig =
 export type AnderswassenChaosproxyConfigConfig =
   paths['/chaosproxy-configinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Chaos Stream Proxy Configurator
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createAnderswassenChaosproxyConfigInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createAnderswassenChaosproxyConfigInstance(ctx, { name: 'my-instance' });
+ * const instance = await createAnderswassenChaosproxyConfigInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createAnderswassenChaosproxyConfigInstance(
@@ -303,10 +307,16 @@ export async function createAnderswassenChaosproxyConfigInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'anderswassen-chaosproxy-config'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'anderswassen-chaosproxy-config',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'anderswassen-chaosproxy-config',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

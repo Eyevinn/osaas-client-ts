@@ -294,7 +294,11 @@ export type BlueskySocialPds =
 export type BlueskySocialPdsConfig =
   paths['/pdsinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Bluesky Personal Data Server
@@ -309,7 +313,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createBlueskySocialPdsInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createBlueskySocialPdsInstance(ctx, { name: 'my-instance' });
+ * const instance = await createBlueskySocialPdsInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createBlueskySocialPdsInstance(
@@ -319,10 +323,12 @@ export async function createBlueskySocialPdsInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'bluesky-social-pds'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'bluesky-social-pds',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('bluesky-social-pds', instance.name, ctx);
+  return instance;
 }

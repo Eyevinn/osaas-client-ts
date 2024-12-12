@@ -294,7 +294,11 @@ export type BirmeOscPostgresql =
 export type BirmeOscPostgresqlConfig =
   paths['/osc-postgresqlinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * PostgreSQL
@@ -309,7 +313,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createBirmeOscPostgresqlInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createBirmeOscPostgresqlInstance(ctx, { name: 'my-instance' });
+ * const instance = await createBirmeOscPostgresqlInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createBirmeOscPostgresqlInstance(
@@ -319,10 +323,12 @@ export async function createBirmeOscPostgresqlInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'birme-osc-postgresql'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'birme-osc-postgresql',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('birme-osc-postgresql', instance.name, ctx);
+  return instance;
 }

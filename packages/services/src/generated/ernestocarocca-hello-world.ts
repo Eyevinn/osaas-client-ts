@@ -282,7 +282,11 @@ export type ErnestocaroccaHelloWorld =
 export type ErnestocaroccaHelloWorldConfig =
   paths['/hello-worldinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Hello World
@@ -297,7 +301,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createErnestocaroccaHelloWorldInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createErnestocaroccaHelloWorldInstance(ctx, { name: 'my-instance' });
+ * const instance = await createErnestocaroccaHelloWorldInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createErnestocaroccaHelloWorldInstance(
@@ -307,10 +311,12 @@ export async function createErnestocaroccaHelloWorldInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'ernestocarocca-hello-world'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'ernestocarocca-hello-world',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('ernestocarocca-hello-world', instance.name, ctx);
+  return instance;
 }

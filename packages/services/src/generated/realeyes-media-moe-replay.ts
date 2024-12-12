@@ -278,7 +278,11 @@ export type RealeyesMediaMoeReplay =
 export type RealeyesMediaMoeReplayConfig =
   paths['/moe-replayinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * MOE Replay
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createRealeyesMediaMoeReplayInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createRealeyesMediaMoeReplayInstance(ctx, { name: 'my-instance' });
+ * const instance = await createRealeyesMediaMoeReplayInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createRealeyesMediaMoeReplayInstance(
@@ -303,10 +307,12 @@ export async function createRealeyesMediaMoeReplayInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'realeyes-media-moe-replay'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'realeyes-media-moe-replay',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('realeyes-media-moe-replay', instance.name, ctx);
+  return instance;
 }

@@ -166,7 +166,11 @@ export type EyevinnFunctionScenes =
 export type EyevinnFunctionScenesConfig =
   paths['/function-scenesinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Scene Detect Media Function
@@ -181,7 +185,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnFunctionScenesInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnFunctionScenesInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnFunctionScenesInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnFunctionScenesInstance(
@@ -191,10 +195,12 @@ export async function createEyevinnFunctionScenesInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-function-scenes'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-function-scenes',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-function-scenes', instance.name, ctx);
+  return instance;
 }

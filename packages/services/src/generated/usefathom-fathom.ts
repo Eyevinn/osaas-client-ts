@@ -286,7 +286,11 @@ export type UsefathomFathom =
 export type UsefathomFathomConfig =
   paths['/fathominstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Fathom Lite
@@ -301,7 +305,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createUsefathomFathomInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createUsefathomFathomInstance(ctx, { name: 'my-instance' });
+ * const instance = await createUsefathomFathomInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createUsefathomFathomInstance(
@@ -311,10 +315,12 @@ export async function createUsefathomFathomInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'usefathom-fathom'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'usefathom-fathom',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('usefathom-fathom', instance.name, ctx);
+  return instance;
 }

@@ -298,7 +298,11 @@ export type WordpressWordpress =
 export type WordpressWordpressConfig =
   paths['/wordpressinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Wordpress
@@ -313,7 +317,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createWordpressWordpressInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createWordpressWordpressInstance(ctx, { name: 'my-instance' });
+ * const instance = await createWordpressWordpressInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createWordpressWordpressInstance(
@@ -323,10 +327,12 @@ export async function createWordpressWordpressInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'wordpress-wordpress'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'wordpress-wordpress',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('wordpress-wordpress', instance.name, ctx);
+  return instance;
 }

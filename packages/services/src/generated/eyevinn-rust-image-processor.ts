@@ -190,7 +190,11 @@ export type EyevinnRustImageProcessor =
 export type EyevinnRustImageProcessorConfig =
   paths['/rust-image-processorinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Simple Image Resizer
@@ -205,7 +209,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnRustImageProcessorInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnRustImageProcessorInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnRustImageProcessorInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnRustImageProcessorInstance(
@@ -215,10 +219,16 @@ export async function createEyevinnRustImageProcessorInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-rust-image-processor'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-rust-image-processor',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'eyevinn-rust-image-processor',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

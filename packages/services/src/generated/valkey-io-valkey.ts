@@ -278,7 +278,11 @@ export type ValkeyIoValkey =
 export type ValkeyIoValkeyConfig =
   paths['/valkeyinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * valkey
@@ -295,7 +299,7 @@ NB! Data persistence not guaranteed
  * import { Context, createValkeyIoValkeyInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createValkeyIoValkeyInstance(ctx, { name: 'my-instance' });
+ * const instance = await createValkeyIoValkeyInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createValkeyIoValkeyInstance(
@@ -305,10 +309,12 @@ export async function createValkeyIoValkeyInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'valkey-io-valkey'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'valkey-io-valkey',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('valkey-io-valkey', instance.name, ctx);
+  return instance;
 }

@@ -298,7 +298,11 @@ export type MickaelKerjeanFilestash =
 export type MickaelKerjeanFilestashConfig =
   paths['/filestashinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Filestash
@@ -313,7 +317,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createMickaelKerjeanFilestashInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createMickaelKerjeanFilestashInstance(ctx, { name: 'my-instance' });
+ * const instance = await createMickaelKerjeanFilestashInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createMickaelKerjeanFilestashInstance(
@@ -323,10 +327,12 @@ export async function createMickaelKerjeanFilestashInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'mickael-kerjean-filestash'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'mickael-kerjean-filestash',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('mickael-kerjean-filestash', instance.name, ctx);
+  return instance;
 }

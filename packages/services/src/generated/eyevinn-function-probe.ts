@@ -190,7 +190,11 @@ export type EyevinnFunctionProbe =
 export type EyevinnFunctionProbeConfig =
   paths['/function-probeinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Media Probe
@@ -205,7 +209,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnFunctionProbeInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnFunctionProbeInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnFunctionProbeInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnFunctionProbeInstance(
@@ -215,10 +219,12 @@ export async function createEyevinnFunctionProbeInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-function-probe'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-function-probe',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-function-probe', instance.name, ctx);
+  return instance;
 }

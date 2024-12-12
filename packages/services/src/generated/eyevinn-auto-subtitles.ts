@@ -294,7 +294,11 @@ export type EyevinnAutoSubtitles =
 export type EyevinnAutoSubtitlesConfig =
   paths['/auto-subtitlesinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Subtitle Generator
@@ -309,7 +313,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnAutoSubtitlesInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnAutoSubtitlesInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnAutoSubtitlesInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnAutoSubtitlesInstance(
@@ -319,10 +323,12 @@ export async function createEyevinnAutoSubtitlesInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-auto-subtitles'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-auto-subtitles',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-auto-subtitles', instance.name, ctx);
+  return instance;
 }

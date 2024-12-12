@@ -240,7 +240,11 @@ export type OwncastOwncast =
 export type OwncastOwncastConfig =
   paths['/owncastinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * owncast
@@ -255,7 +259,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createOwncastOwncastInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createOwncastOwncastInstance(ctx, { name: 'my-instance' });
+ * const instance = await createOwncastOwncastInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createOwncastOwncastInstance(
@@ -263,5 +267,12 @@ export async function createOwncastOwncastInstance(
   body: OwncastOwncastConfig
 ): Promise<OwncastOwncast> {
   const serviceAccessToken = await ctx.getServiceAccessToken('owncast-owncast');
-  return await createInstance(ctx, 'owncast-owncast', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'owncast-owncast',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('owncast-owncast', instance.name, ctx);
+  return instance;
 }

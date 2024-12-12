@@ -278,7 +278,11 @@ export type BirmeCaptchaSvc =
 export type BirmeCaptchaSvcConfig =
   paths['/captcha-svcinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Captcha Service
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createBirmeCaptchaSvcInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createBirmeCaptchaSvcInstance(ctx, { name: 'my-instance' });
+ * const instance = await createBirmeCaptchaSvcInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createBirmeCaptchaSvcInstance(
@@ -303,10 +307,12 @@ export async function createBirmeCaptchaSvcInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'birme-captcha-svc'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'birme-captcha-svc',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('birme-captcha-svc', instance.name, ctx);
+  return instance;
 }

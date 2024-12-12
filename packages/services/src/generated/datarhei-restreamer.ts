@@ -240,7 +240,11 @@ export type DatarheiRestreamer =
 export type DatarheiRestreamerConfig =
   paths['/restreamerinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * restreamer
@@ -255,7 +259,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createDatarheiRestreamerInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createDatarheiRestreamerInstance(ctx, { name: 'my-instance' });
+ * const instance = await createDatarheiRestreamerInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createDatarheiRestreamerInstance(
@@ -265,10 +269,12 @@ export async function createDatarheiRestreamerInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'datarhei-restreamer'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'datarhei-restreamer',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('datarhei-restreamer', instance.name, ctx);
+  return instance;
 }

@@ -302,7 +302,11 @@ export type EyevinnChannelEngineBridge =
 export type EyevinnChannelEngineBridgeConfig =
   paths['/channel-engine-bridgeinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Channel Engine Bridge
@@ -317,7 +321,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnChannelEngineBridgeInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnChannelEngineBridgeInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnChannelEngineBridgeInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnChannelEngineBridgeInstance(
@@ -327,10 +331,16 @@ export async function createEyevinnChannelEngineBridgeInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-channel-engine-bridge'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-channel-engine-bridge',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'eyevinn-channel-engine-bridge',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

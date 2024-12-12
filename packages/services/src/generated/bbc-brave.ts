@@ -240,7 +240,11 @@ export type BbcBrave =
 export type BbcBraveConfig =
   paths['/braveinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Brave
@@ -255,7 +259,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createBbcBraveInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createBbcBraveInstance(ctx, { name: 'my-instance' });
+ * const instance = await createBbcBraveInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createBbcBraveInstance(
@@ -263,5 +267,12 @@ export async function createBbcBraveInstance(
   body: BbcBraveConfig
 ): Promise<BbcBrave> {
   const serviceAccessToken = await ctx.getServiceAccessToken('bbc-brave');
-  return await createInstance(ctx, 'bbc-brave', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'bbc-brave',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('bbc-brave', instance.name, ctx);
+  return instance;
 }

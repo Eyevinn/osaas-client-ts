@@ -278,7 +278,11 @@ export type EyevinnDockerTestsrcHlsLive =
 export type EyevinnDockerTestsrcHlsLiveConfig =
   paths['/docker-testsrc-hls-liveinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Test Source HLS Live
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnDockerTestsrcHlsLiveInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnDockerTestsrcHlsLiveInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnDockerTestsrcHlsLiveInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnDockerTestsrcHlsLiveInstance(
@@ -303,10 +307,16 @@ export async function createEyevinnDockerTestsrcHlsLiveInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-docker-testsrc-hls-live'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-docker-testsrc-hls-live',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'eyevinn-docker-testsrc-hls-live',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

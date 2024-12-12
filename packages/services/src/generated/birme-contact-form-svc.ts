@@ -290,7 +290,11 @@ export type BirmeContactFormSvc =
 export type BirmeContactFormSvcConfig =
   paths['/contact-form-svcinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Contact Form Service
@@ -305,7 +309,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createBirmeContactFormSvcInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createBirmeContactFormSvcInstance(ctx, { name: 'my-instance' });
+ * const instance = await createBirmeContactFormSvcInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createBirmeContactFormSvcInstance(
@@ -315,10 +319,12 @@ export async function createBirmeContactFormSvcInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'birme-contact-form-svc'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'birme-contact-form-svc',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('birme-contact-form-svc', instance.name, ctx);
+  return instance;
 }

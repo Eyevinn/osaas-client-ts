@@ -166,7 +166,11 @@ export type EyevinnPreviewHlsService =
 export type EyevinnPreviewHlsServiceConfig =
   paths['/preview-hls-serviceinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * HLS Preview Generator
@@ -181,7 +185,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnPreviewHlsServiceInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnPreviewHlsServiceInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnPreviewHlsServiceInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnPreviewHlsServiceInstance(
@@ -191,10 +195,12 @@ export async function createEyevinnPreviewHlsServiceInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-preview-hls-service'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-preview-hls-service',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-preview-hls-service', instance.name, ctx);
+  return instance;
 }

@@ -286,7 +286,11 @@ export type PoundifdefSmoothmq =
 export type PoundifdefSmoothmqConfig =
   paths['/smoothmqinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * SmoothMQ
@@ -301,7 +305,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createPoundifdefSmoothmqInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createPoundifdefSmoothmqInstance(ctx, { name: 'my-instance' });
+ * const instance = await createPoundifdefSmoothmqInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createPoundifdefSmoothmqInstance(
@@ -311,10 +315,12 @@ export async function createPoundifdefSmoothmqInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'poundifdef-smoothmq'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'poundifdef-smoothmq',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('poundifdef-smoothmq', instance.name, ctx);
+  return instance;
 }

@@ -286,7 +286,11 @@ export type EyevinnWrtcEgress =
 export type EyevinnWrtcEgressConfig =
   paths['/wrtc-egressinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Symphony Media Bridge WHEP Gateway
@@ -301,7 +305,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnWrtcEgressInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnWrtcEgressInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnWrtcEgressInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnWrtcEgressInstance(
@@ -311,10 +315,12 @@ export async function createEyevinnWrtcEgressInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-wrtc-egress'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-wrtc-egress',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-wrtc-egress', instance.name, ctx);
+  return instance;
 }

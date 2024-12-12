@@ -294,7 +294,11 @@ export type LinuxserverDockerMariadb =
 export type LinuxserverDockerMariadbConfig =
   paths['/docker-mariadbinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * MariaDB
@@ -309,7 +313,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createLinuxserverDockerMariadbInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createLinuxserverDockerMariadbInstance(ctx, { name: 'my-instance' });
+ * const instance = await createLinuxserverDockerMariadbInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createLinuxserverDockerMariadbInstance(
@@ -319,10 +323,12 @@ export async function createLinuxserverDockerMariadbInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'linuxserver-docker-mariadb'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'linuxserver-docker-mariadb',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('linuxserver-docker-mariadb', instance.name, ctx);
+  return instance;
 }

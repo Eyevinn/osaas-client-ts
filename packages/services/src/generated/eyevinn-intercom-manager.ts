@@ -290,7 +290,11 @@ export type EyevinnIntercomManager =
 export type EyevinnIntercomManagerConfig =
   paths['/intercom-managerinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Intercom
@@ -307,7 +311,7 @@ Join our Slack community for support and customization. Contact sales@eyevinn.se
  * import { Context, createEyevinnIntercomManagerInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnIntercomManagerInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnIntercomManagerInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnIntercomManagerInstance(
@@ -317,10 +321,12 @@ export async function createEyevinnIntercomManagerInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-intercom-manager'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-intercom-manager',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-intercom-manager', instance.name, ctx);
+  return instance;
 }

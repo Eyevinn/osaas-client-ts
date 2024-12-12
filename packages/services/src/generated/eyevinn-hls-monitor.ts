@@ -278,7 +278,11 @@ export type EyevinnHlsMonitor =
 export type EyevinnHlsMonitorConfig =
   paths['/hls-monitorinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * HLS Stream Monitor
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnHlsMonitorInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnHlsMonitorInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnHlsMonitorInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnHlsMonitorInstance(
@@ -303,10 +307,12 @@ export async function createEyevinnHlsMonitorInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-hls-monitor'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-hls-monitor',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-hls-monitor', instance.name, ctx);
+  return instance;
 }

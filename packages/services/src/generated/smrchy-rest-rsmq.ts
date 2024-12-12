@@ -282,7 +282,11 @@ export type SmrchyRestRsmq =
 export type SmrchyRestRsmqConfig =
   paths['/rest-rsmqinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Really Simple Message Queue
@@ -299,7 +303,7 @@ Easily integrate with rsmq for efficient message queuing. No security worries, j
  * import { Context, createSmrchyRestRsmqInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createSmrchyRestRsmqInstance(ctx, { name: 'my-instance' });
+ * const instance = await createSmrchyRestRsmqInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createSmrchyRestRsmqInstance(
@@ -309,10 +313,12 @@ export async function createSmrchyRestRsmqInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'smrchy-rest-rsmq'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'smrchy-rest-rsmq',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('smrchy-rest-rsmq', instance.name, ctx);
+  return instance;
 }

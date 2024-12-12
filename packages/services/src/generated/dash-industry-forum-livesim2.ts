@@ -278,7 +278,11 @@ export type DashIndustryForumLivesim2 =
 export type DashIndustryForumLivesim2Config =
   paths['/livesim2instance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * livesim2
@@ -293,7 +297,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createDashIndustryForumLivesim2Instance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createDashIndustryForumLivesim2Instance(ctx, { name: 'my-instance' });
+ * const instance = await createDashIndustryForumLivesim2Instance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createDashIndustryForumLivesim2Instance(
@@ -303,10 +307,16 @@ export async function createDashIndustryForumLivesim2Instance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'dash-industry-forum-livesim2'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'dash-industry-forum-livesim2',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'dash-industry-forum-livesim2',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

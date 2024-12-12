@@ -206,7 +206,11 @@ export type EyevinnContinueWatchingApi =
 export type EyevinnContinueWatchingApiConfig =
   paths['/continue-watching-apiinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Continue Watching Service
@@ -221,7 +225,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnContinueWatchingApiInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnContinueWatchingApiInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnContinueWatchingApiInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnContinueWatchingApiInstance(
@@ -231,10 +235,16 @@ export async function createEyevinnContinueWatchingApiInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-continue-watching-api'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-continue-watching-api',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady(
+    'eyevinn-continue-watching-api',
+    instance.name,
+    ctx
+  );
+  return instance;
 }

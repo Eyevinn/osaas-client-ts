@@ -290,7 +290,11 @@ export type EyevinnLiveEncoding =
 export type EyevinnLiveEncodingConfig =
   paths['/live-encodinginstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady
+} from '@osaas/client-core';
 
 /**
  * Eyevinn Live Encoding
@@ -305,7 +309,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnLiveEncodingInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnLiveEncodingInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnLiveEncodingInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnLiveEncodingInstance(
@@ -315,10 +319,12 @@ export async function createEyevinnLiveEncodingInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-live-encoding'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-live-encoding',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-live-encoding', instance.name, ctx);
+  return instance;
 }
