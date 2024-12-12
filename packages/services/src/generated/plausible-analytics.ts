@@ -286,7 +286,12 @@ export type PlausibleAnalytics =
 export type PlausibleAnalyticsConfig =
   paths['/analyticsinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Plausible Analytics
@@ -301,7 +306,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createPlausibleAnalyticsInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createPlausibleAnalyticsInstance(ctx, { name: 'my-instance' });
+ * const instance = await createPlausibleAnalyticsInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createPlausibleAnalyticsInstance(
@@ -311,10 +316,29 @@ export async function createPlausibleAnalyticsInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'plausible-analytics'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'plausible-analytics',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('plausible-analytics', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Plausible Analytics
+ *
+ * Remove a server
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the server to be removed
+ */
+export async function removePlausibleAnalyticsInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'plausible-analytics'
+  );
+  await removeInstance(ctx, 'plausible-analytics', name, serviceAccessToken);
 }

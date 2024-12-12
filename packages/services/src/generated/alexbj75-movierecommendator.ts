@@ -282,7 +282,12 @@ export type Alexbj75Movierecommendator =
 export type Alexbj75MovierecommendatorConfig =
   paths['/movierecommendatorinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * movierecommendator
@@ -297,7 +302,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createAlexbj75MovierecommendatorInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createAlexbj75MovierecommendatorInstance(ctx, { name: 'my-instance' });
+ * const instance = await createAlexbj75MovierecommendatorInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createAlexbj75MovierecommendatorInstance(
@@ -307,10 +312,34 @@ export async function createAlexbj75MovierecommendatorInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'alexbj75-movierecommendator'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'alexbj75-movierecommendator',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('alexbj75-movierecommendator', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * movierecommendator
+ *
+ * Remove a movierecommendator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the movierecommendator to be removed
+ */
+export async function removeAlexbj75MovierecommendatorInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'alexbj75-movierecommendator'
+  );
+  await removeInstance(
+    ctx,
+    'alexbj75-movierecommendator',
+    name,
+    serviceAccessToken
   );
 }

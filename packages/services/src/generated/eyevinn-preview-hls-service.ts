@@ -166,7 +166,12 @@ export type EyevinnPreviewHlsService =
 export type EyevinnPreviewHlsServiceConfig =
   paths['/preview-hls-serviceinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * HLS Preview Generator
@@ -181,7 +186,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnPreviewHlsServiceInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnPreviewHlsServiceInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnPreviewHlsServiceInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnPreviewHlsServiceInstance(
@@ -191,10 +196,34 @@ export async function createEyevinnPreviewHlsServiceInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-preview-hls-service'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-preview-hls-service',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('eyevinn-preview-hls-service', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * HLS Preview Generator
+ *
+ * Remove a preview-generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the preview-generator to be removed
+ */
+export async function removeEyevinnPreviewHlsServiceInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-preview-hls-service'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-preview-hls-service',
+    name,
+    serviceAccessToken
   );
 }

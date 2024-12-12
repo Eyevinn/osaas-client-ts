@@ -206,7 +206,12 @@ export type EyevinnScheduleService =
 export type EyevinnScheduleServiceConfig =
   paths['/schedule-serviceinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * FAST Engine Schedule Service
@@ -221,7 +226,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnScheduleServiceInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnScheduleServiceInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnScheduleServiceInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnScheduleServiceInstance(
@@ -231,10 +236,34 @@ export async function createEyevinnScheduleServiceInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-schedule-service'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-schedule-service',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('eyevinn-schedule-service', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * FAST Engine Schedule Service
+ *
+ * Remove a scheduler
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the scheduler to be removed
+ */
+export async function removeEyevinnScheduleServiceInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-schedule-service'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-schedule-service',
+    name,
+    serviceAccessToken
   );
 }

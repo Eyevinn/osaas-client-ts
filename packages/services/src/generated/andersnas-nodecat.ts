@@ -282,7 +282,12 @@ export type AndersnasNodecat =
 export type AndersnasNodecatConfig =
   paths['/nodecatinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * NodeCat
@@ -297,7 +302,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createAndersnasNodecatInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createAndersnasNodecatInstance(ctx, { name: 'my-instance' });
+ * const instance = await createAndersnasNodecatInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createAndersnasNodecatInstance(
@@ -307,10 +312,29 @@ export async function createAndersnasNodecatInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'andersnas-nodecat'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'andersnas-nodecat',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('andersnas-nodecat', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * NodeCat
+ *
+ * Remove a nodecat
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the nodecat to be removed
+ */
+export async function removeAndersnasNodecatInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'andersnas-nodecat'
+  );
+  await removeInstance(ctx, 'andersnas-nodecat', name, serviceAccessToken);
 }

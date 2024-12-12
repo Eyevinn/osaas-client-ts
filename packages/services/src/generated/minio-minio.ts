@@ -286,7 +286,12 @@ export type MinioMinio =
 export type MinioMinioConfig =
   paths['/minioinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * minio
@@ -301,7 +306,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createMinioMinioInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createMinioMinioInstance(ctx, { name: 'my-instance' });
+ * const instance = await createMinioMinioInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createMinioMinioInstance(
@@ -309,5 +314,27 @@ export async function createMinioMinioInstance(
   body: MinioMinioConfig
 ): Promise<MinioMinio> {
   const serviceAccessToken = await ctx.getServiceAccessToken('minio-minio');
-  return await createInstance(ctx, 'minio-minio', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'minio-minio',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('minio-minio', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * minio
+ *
+ * Remove a objstorage
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the objstorage to be removed
+ */
+export async function removeMinioMinioInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('minio-minio');
+  await removeInstance(ctx, 'minio-minio', name, serviceAccessToken);
 }

@@ -286,7 +286,12 @@ export type EyevinnWrtcEgress =
 export type EyevinnWrtcEgressConfig =
   paths['/wrtc-egressinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Symphony Media Bridge WHEP Gateway
@@ -301,7 +306,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnWrtcEgressInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnWrtcEgressInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnWrtcEgressInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnWrtcEgressInstance(
@@ -311,10 +316,29 @@ export async function createEyevinnWrtcEgressInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-wrtc-egress'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-wrtc-egress',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-wrtc-egress', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Symphony Media Bridge WHEP Gateway
+ *
+ * Remove a gateway
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the gateway to be removed
+ */
+export async function removeEyevinnWrtcEgressInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-wrtc-egress'
+  );
+  await removeInstance(ctx, 'eyevinn-wrtc-egress', name, serviceAccessToken);
 }

@@ -278,7 +278,12 @@ export type RealeyesMediaMoeReplay =
 export type RealeyesMediaMoeReplayConfig =
   paths['/moe-replayinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * MOE Replay
@@ -293,7 +298,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createRealeyesMediaMoeReplayInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createRealeyesMediaMoeReplayInstance(ctx, { name: 'my-instance' });
+ * const instance = await createRealeyesMediaMoeReplayInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createRealeyesMediaMoeReplayInstance(
@@ -303,10 +308,34 @@ export async function createRealeyesMediaMoeReplayInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'realeyes-media-moe-replay'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'realeyes-media-moe-replay',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('realeyes-media-moe-replay', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * MOE Replay
+ *
+ * Remove a moe-replay
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the moe-replay to be removed
+ */
+export async function removeRealeyesMediaMoeReplayInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'realeyes-media-moe-replay'
+  );
+  await removeInstance(
+    ctx,
+    'realeyes-media-moe-replay',
+    name,
+    serviceAccessToken
   );
 }

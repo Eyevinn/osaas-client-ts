@@ -282,7 +282,12 @@ export type EyevinnPdsAdmin =
 export type EyevinnPdsAdminConfig =
   paths['/pds-admininstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * PDS Admin
@@ -297,7 +302,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnPdsAdminInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnPdsAdminInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnPdsAdminInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnPdsAdminInstance(
@@ -307,10 +312,29 @@ export async function createEyevinnPdsAdminInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-pds-admin'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-pds-admin',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-pds-admin', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * PDS Admin
+ *
+ * Remove a app
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the app to be removed
+ */
+export async function removeEyevinnPdsAdminInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-pds-admin'
+  );
+  await removeInstance(ctx, 'eyevinn-pds-admin', name, serviceAccessToken);
 }

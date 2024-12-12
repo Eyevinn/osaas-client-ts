@@ -278,7 +278,12 @@ export type JoeldelpilarTicTacVue =
 export type JoeldelpilarTicTacVueConfig =
   paths['/tic-tac-vueinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Tic Tac Vue
@@ -293,7 +298,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createJoeldelpilarTicTacVueInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createJoeldelpilarTicTacVueInstance(ctx, { name: 'my-instance' });
+ * const instance = await createJoeldelpilarTicTacVueInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createJoeldelpilarTicTacVueInstance(
@@ -303,10 +308,34 @@ export async function createJoeldelpilarTicTacVueInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'joeldelpilar-tic-tac-vue'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'joeldelpilar-tic-tac-vue',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('joeldelpilar-tic-tac-vue', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Tic Tac Vue
+ *
+ * Remove a tic-tac-vue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the tic-tac-vue to be removed
+ */
+export async function removeJoeldelpilarTicTacVueInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'joeldelpilar-tic-tac-vue'
+  );
+  await removeInstance(
+    ctx,
+    'joeldelpilar-tic-tac-vue',
+    name,
+    serviceAccessToken
   );
 }

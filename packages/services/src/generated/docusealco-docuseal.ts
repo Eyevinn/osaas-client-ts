@@ -278,7 +278,12 @@ export type DocusealcoDocuseal =
 export type DocusealcoDocusealConfig =
   paths['/docusealinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Docuseal
@@ -293,7 +298,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createDocusealcoDocusealInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createDocusealcoDocusealInstance(ctx, { name: 'my-instance' });
+ * const instance = await createDocusealcoDocusealInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createDocusealcoDocusealInstance(
@@ -303,10 +308,29 @@ export async function createDocusealcoDocusealInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'docusealco-docuseal'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'docusealco-docuseal',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('docusealco-docuseal', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Docuseal
+ *
+ * Remove a docuseal
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the docuseal to be removed
+ */
+export async function removeDocusealcoDocusealInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'docusealco-docuseal'
+  );
+  await removeInstance(ctx, 'docusealco-docuseal', name, serviceAccessToken);
 }

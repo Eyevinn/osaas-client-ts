@@ -294,7 +294,12 @@ export type LinuxserverDockerMariadb =
 export type LinuxserverDockerMariadbConfig =
   paths['/docker-mariadbinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * MariaDB
@@ -309,7 +314,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createLinuxserverDockerMariadbInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createLinuxserverDockerMariadbInstance(ctx, { name: 'my-instance' });
+ * const instance = await createLinuxserverDockerMariadbInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createLinuxserverDockerMariadbInstance(
@@ -319,10 +324,34 @@ export async function createLinuxserverDockerMariadbInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'linuxserver-docker-mariadb'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'linuxserver-docker-mariadb',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('linuxserver-docker-mariadb', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * MariaDB
+ *
+ * Remove a dbserver
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the dbserver to be removed
+ */
+export async function removeLinuxserverDockerMariadbInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'linuxserver-docker-mariadb'
+  );
+  await removeInstance(
+    ctx,
+    'linuxserver-docker-mariadb',
+    name,
+    serviceAccessToken
   );
 }

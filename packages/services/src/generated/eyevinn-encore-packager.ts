@@ -318,7 +318,12 @@ export type EyevinnEncorePackager =
 export type EyevinnEncorePackagerConfig =
   paths['/encore-packagerinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Encore Packager
@@ -333,7 +338,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnEncorePackagerInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnEncorePackagerInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnEncorePackagerInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnEncorePackagerInstance(
@@ -343,10 +348,34 @@ export async function createEyevinnEncorePackagerInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-encore-packager'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-encore-packager',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('eyevinn-encore-packager', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Encore Packager
+ *
+ * Remove a packager
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the packager to be removed
+ */
+export async function removeEyevinnEncorePackagerInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-encore-packager'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-encore-packager',
+    name,
+    serviceAccessToken
   );
 }

@@ -298,7 +298,12 @@ export type WordpressWordpress =
 export type WordpressWordpressConfig =
   paths['/wordpressinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Wordpress
@@ -313,7 +318,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createWordpressWordpressInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createWordpressWordpressInstance(ctx, { name: 'my-instance' });
+ * const instance = await createWordpressWordpressInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createWordpressWordpressInstance(
@@ -323,10 +328,29 @@ export async function createWordpressWordpressInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'wordpress-wordpress'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'wordpress-wordpress',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('wordpress-wordpress', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Wordpress
+ *
+ * Remove a wordpress
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the wordpress to be removed
+ */
+export async function removeWordpressWordpressInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'wordpress-wordpress'
+  );
+  await removeInstance(ctx, 'wordpress-wordpress', name, serviceAccessToken);
 }

@@ -282,7 +282,12 @@ export type EyevinnChaosStreamProxy =
 export type EyevinnChaosStreamProxyConfig =
   paths['/chaos-stream-proxyinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Chaos Stream Proxy
@@ -297,7 +302,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnChaosStreamProxyInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnChaosStreamProxyInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnChaosStreamProxyInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnChaosStreamProxyInstance(
@@ -307,10 +312,34 @@ export async function createEyevinnChaosStreamProxyInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-chaos-stream-proxy'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-chaos-stream-proxy',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady('eyevinn-chaos-stream-proxy', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Chaos Stream Proxy
+ *
+ * Remove a chaos-stream-proxy
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the chaos-stream-proxy to be removed
+ */
+export async function removeEyevinnChaosStreamProxyInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-chaos-stream-proxy'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-chaos-stream-proxy',
+    name,
+    serviceAccessToken
   );
 }

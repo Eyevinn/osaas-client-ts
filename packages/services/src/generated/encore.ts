@@ -426,7 +426,12 @@ export type Encore =
 export type EncoreConfig =
   paths['/encoreinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * SVT Encore
@@ -441,7 +446,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEncoreInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEncoreInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEncoreInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEncoreInstance(
@@ -449,5 +454,27 @@ export async function createEncoreInstance(
   body: EncoreConfig
 ): Promise<Encore> {
   const serviceAccessToken = await ctx.getServiceAccessToken('encore');
-  return await createInstance(ctx, 'encore', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'encore',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('encore', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * SVT Encore
+ *
+ * Remove a queue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the queue to be removed
+ */
+export async function removeEncoreInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('encore');
+  await removeInstance(ctx, 'encore', name, serviceAccessToken);
 }

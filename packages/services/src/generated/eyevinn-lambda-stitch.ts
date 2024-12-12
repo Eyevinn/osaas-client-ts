@@ -278,7 +278,12 @@ export type EyevinnLambdaStitch =
 export type EyevinnLambdaStitchConfig =
   paths['/lambda-stitchinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * HLS VOD Stitcher
@@ -293,7 +298,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnLambdaStitchInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnLambdaStitchInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnLambdaStitchInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnLambdaStitchInstance(
@@ -303,10 +308,29 @@ export async function createEyevinnLambdaStitchInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-lambda-stitch'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-lambda-stitch',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-lambda-stitch', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * HLS VOD Stitcher
+ *
+ * Remove a stitcher
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the stitcher to be removed
+ */
+export async function removeEyevinnLambdaStitchInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-lambda-stitch'
+  );
+  await removeInstance(ctx, 'eyevinn-lambda-stitch', name, serviceAccessToken);
 }

@@ -217,7 +217,12 @@ export type ChannelEngine =
 export type ChannelEngineConfig =
   paths['/channel']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * FAST Channel Engine
@@ -232,7 +237,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createChannelEngineInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createChannelEngineInstance(ctx, { name: 'my-instance' });
+ * const instance = await createChannelEngineInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createChannelEngineInstance(
@@ -240,5 +245,27 @@ export async function createChannelEngineInstance(
   body: ChannelEngineConfig
 ): Promise<ChannelEngine> {
   const serviceAccessToken = await ctx.getServiceAccessToken('channel-engine');
-  return await createInstance(ctx, 'channel-engine', serviceAccessToken, body);
+  const instance = await createInstance(
+    ctx,
+    'channel-engine',
+    serviceAccessToken,
+    body
+  );
+  await waitForInstanceReady('channel-engine', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * FAST Channel Engine
+ *
+ * Remove a channel
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the channel to be removed
+ */
+export async function removeChannelEngineInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('channel-engine');
+  await removeInstance(ctx, 'channel-engine', name, serviceAccessToken);
 }

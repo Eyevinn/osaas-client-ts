@@ -282,7 +282,12 @@ export type EyevinnAppConfigSvc =
 export type EyevinnAppConfigSvcConfig =
   paths['/app-config-svcinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Application Config Service
@@ -297,7 +302,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnAppConfigSvcInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnAppConfigSvcInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnAppConfigSvcInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnAppConfigSvcInstance(
@@ -307,10 +312,29 @@ export async function createEyevinnAppConfigSvcInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-app-config-svc'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-app-config-svc',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-app-config-svc', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Application Config Service
+ *
+ * Remove a config-service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the config-service to be removed
+ */
+export async function removeEyevinnAppConfigSvcInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-app-config-svc'
+  );
+  await removeInstance(ctx, 'eyevinn-app-config-svc', name, serviceAccessToken);
 }

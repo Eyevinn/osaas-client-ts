@@ -286,7 +286,12 @@ export type EyevinnSrtWhep =
 export type EyevinnSrtWhepConfig =
   paths['/srt-whepinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * SRT WHEP Bridge
@@ -301,7 +306,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnSrtWhepInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnSrtWhepInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnSrtWhepInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnSrtWhepInstance(
@@ -311,10 +316,29 @@ export async function createEyevinnSrtWhepInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-srt-whep'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-srt-whep',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-srt-whep', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * SRT WHEP Bridge
+ *
+ * Remove a bridge
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the bridge to be removed
+ */
+export async function removeEyevinnSrtWhepInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-srt-whep'
+  );
+  await removeInstance(ctx, 'eyevinn-srt-whep', name, serviceAccessToken);
 }

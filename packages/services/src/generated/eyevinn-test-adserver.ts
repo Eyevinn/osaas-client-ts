@@ -278,7 +278,12 @@ export type EyevinnTestAdserver =
 export type EyevinnTestAdserverConfig =
   paths['/test-adserverinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Test Adserver
@@ -293,7 +298,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnTestAdserverInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnTestAdserverInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnTestAdserverInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnTestAdserverInstance(
@@ -303,10 +308,29 @@ export async function createEyevinnTestAdserverInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-test-adserver'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-test-adserver',
     serviceAccessToken,
     body
   );
+  await waitForInstanceReady('eyevinn-test-adserver', instance.name, ctx);
+  return instance;
+}
+
+/**
+ * Test Adserver
+ *
+ * Remove a test-adserver
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the test-adserver to be removed
+ */
+export async function removeEyevinnTestAdserverInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-test-adserver'
+  );
+  await removeInstance(ctx, 'eyevinn-test-adserver', name, serviceAccessToken);
 }

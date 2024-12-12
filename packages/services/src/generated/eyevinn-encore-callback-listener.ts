@@ -290,7 +290,12 @@ export type EyevinnEncoreCallbackListener =
 export type EyevinnEncoreCallbackListenerConfig =
   paths['/encore-callback-listenerinstance']['post']['parameters']['body']['body'];
 
-import { Context, createInstance } from '@osaas/client-core';
+import {
+  Context,
+  createInstance,
+  waitForInstanceReady,
+  removeInstance
+} from '@osaas/client-core';
 
 /**
  * Encore Callback Listener
@@ -305,7 +310,7 @@ import { Context, createInstance } from '@osaas/client-core';
  * import { Context, createEyevinnEncoreCallbackListenerInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createEyevinnEncoreCallbackListenerInstance(ctx, { name: 'my-instance' });
+ * const instance = await createEyevinnEncoreCallbackListenerInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function createEyevinnEncoreCallbackListenerInstance(
@@ -315,10 +320,38 @@ export async function createEyevinnEncoreCallbackListenerInstance(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     'eyevinn-encore-callback-listener'
   );
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     'eyevinn-encore-callback-listener',
     serviceAccessToken,
     body
+  );
+  await waitForInstanceReady(
+    'eyevinn-encore-callback-listener',
+    instance.name,
+    ctx
+  );
+  return instance;
+}
+
+/**
+ * Encore Callback Listener
+ *
+ * Remove a callback
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the callback to be removed
+ */
+export async function removeEyevinnEncoreCallbackListenerInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-encore-callback-listener'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-encore-callback-listener',
+    name,
+    serviceAccessToken
   );
 }
