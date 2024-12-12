@@ -51,7 +51,7 @@ export type ${toPascalCase(serviceId)}Config =
     appendFileSync(`./src/generated/${serviceId}.ts`, config);
 
     const create = `
-import { Context, createInstance } from "@osaas/client-core";
+import { Context, createInstance, waitForInstanceReady } from "@osaas/client-core";
 
 /**
  * ${service.serviceMetadata.title}
@@ -72,7 +72,7 @@ import { Context, createInstance } from "@osaas/client-core";
  * const ctx = new Context();
  * const instance = await create${toPascalCase(
    serviceId
- )}Instance(ctx, { name: 'my-instance' });
+ )}Instance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
 export async function create${toPascalCase(
@@ -83,12 +83,14 @@ export async function create${toPascalCase(
   const serviceAccessToken = await ctx.getServiceAccessToken(
     '${serviceId}'
   );      
-  return await createInstance(
+  const instance = await createInstance(
     ctx,
     '${serviceId}',
     serviceAccessToken,
     body
-  ); 
+  );
+  await waitForInstanceReady('${serviceId}', instance.name, ctx);
+  return instance;
 }      
 `;
     appendFileSync(`./src/generated/${serviceId}.ts`, create);
@@ -154,13 +156,16 @@ jest.mock('@osaas/client-core', () => {
   `;
   writeFileSync('./src/index.test.ts', tests);
 
-  const res = await fetch(new URL('/service', CATALOG_SVC_URL), {
-    headers: {
-      Authorization: `Bearer ${CATALOG_SVC_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    method: 'GET'
-  });
+  const res = await fetch(
+    new URL('/service?filter=status%3DPUBLISHED', CATALOG_SVC_URL),
+    {
+      headers: {
+        Authorization: `Bearer ${CATALOG_SVC_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      method: 'GET'
+    }
+  );
   if (res.ok) {
     const services: Service[] = (await res.json()) as Service[];
     for (const service of services) {
