@@ -169,7 +169,8 @@ export type EyevinnFunctionScenesConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -203,4 +204,26 @@ export async function createEyevinnFunctionScenesInstance(
   );
   await waitForInstanceReady('eyevinn-function-scenes', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Scene Detect Media Function
+ *
+ * Remove a mediafunction
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the mediafunction to be removed
+ */
+export async function removeEyevinnFunctionScenesInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-function-scenes'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-function-scenes',
+    name,
+    serviceAccessToken
+  );
 }

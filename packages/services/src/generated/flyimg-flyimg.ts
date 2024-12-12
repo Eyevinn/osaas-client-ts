@@ -193,7 +193,8 @@ export type FlyimgFlyimgConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -229,4 +230,19 @@ export async function createFlyimgFlyimgInstance(
   );
   await waitForInstanceReady('flyimg-flyimg', instance.name, ctx);
   return instance;
+}
+
+/**
+ * flyimg
+ *
+ * Remove a flyimg
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the flyimg to be removed
+ */
+export async function removeFlyimgFlyimgInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('flyimg-flyimg');
+  await removeInstance(ctx, 'flyimg-flyimg', name, serviceAccessToken);
 }

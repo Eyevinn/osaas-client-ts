@@ -293,7 +293,8 @@ export type BirmeContactFormSvcConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -327,4 +328,21 @@ export async function createBirmeContactFormSvcInstance(
   );
   await waitForInstanceReady('birme-contact-form-svc', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Contact Form Service
+ *
+ * Remove a service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the service to be removed
+ */
+export async function removeBirmeContactFormSvcInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'birme-contact-form-svc'
+  );
+  await removeInstance(ctx, 'birme-contact-form-svc', name, serviceAccessToken);
 }

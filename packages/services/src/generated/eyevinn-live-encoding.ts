@@ -293,7 +293,8 @@ export type EyevinnLiveEncodingConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -327,4 +328,21 @@ export async function createEyevinnLiveEncodingInstance(
   );
   await waitForInstanceReady('eyevinn-live-encoding', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Eyevinn Live Encoding
+ *
+ * Remove a encoder
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the encoder to be removed
+ */
+export async function removeEyevinnLiveEncodingInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-live-encoding'
+  );
+  await removeInstance(ctx, 'eyevinn-live-encoding', name, serviceAccessToken);
 }

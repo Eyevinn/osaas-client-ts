@@ -289,7 +289,8 @@ export type ItzgDockerMinecraftServerConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -327,4 +328,26 @@ export async function createItzgDockerMinecraftServerInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Minecraft Server
+ *
+ * Remove a minecraft-server
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the minecraft-server to be removed
+ */
+export async function removeItzgDockerMinecraftServerInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'itzg-docker-minecraft-server'
+  );
+  await removeInstance(
+    ctx,
+    'itzg-docker-minecraft-server',
+    name,
+    serviceAccessToken
+  );
 }

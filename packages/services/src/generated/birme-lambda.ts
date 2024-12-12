@@ -281,7 +281,8 @@ export type BirmeLambdaConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -313,4 +314,19 @@ export async function createBirmeLambdaInstance(
   );
   await waitForInstanceReady('birme-lambda', instance.name, ctx);
   return instance;
+}
+
+/**
+ * lambda
+ *
+ * Remove a lambda
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the lambda to be removed
+ */
+export async function removeBirmeLambdaInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('birme-lambda');
+  await removeInstance(ctx, 'birme-lambda', name, serviceAccessToken);
 }

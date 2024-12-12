@@ -289,7 +289,8 @@ export type MinioMinioConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -321,4 +322,19 @@ export async function createMinioMinioInstance(
   );
   await waitForInstanceReady('minio-minio', instance.name, ctx);
   return instance;
+}
+
+/**
+ * minio
+ *
+ * Remove a objstorage
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the objstorage to be removed
+ */
+export async function removeMinioMinioInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('minio-minio');
+  await removeInstance(ctx, 'minio-minio', name, serviceAccessToken);
 }

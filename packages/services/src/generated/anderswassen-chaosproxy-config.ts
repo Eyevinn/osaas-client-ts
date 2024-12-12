@@ -281,7 +281,8 @@ export type AnderswassenChaosproxyConfigConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createAnderswassenChaosproxyConfigInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Chaos Stream Proxy Configurator
+ *
+ * Remove a configurator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the configurator to be removed
+ */
+export async function removeAnderswassenChaosproxyConfigInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'anderswassen-chaosproxy-config'
+  );
+  await removeInstance(
+    ctx,
+    'anderswassen-chaosproxy-config',
+    name,
+    serviceAccessToken
+  );
 }

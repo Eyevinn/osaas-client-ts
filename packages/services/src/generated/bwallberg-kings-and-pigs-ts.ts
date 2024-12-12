@@ -281,7 +281,8 @@ export type BwallbergKingsAndPigsTsConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,26 @@ export async function createBwallbergKingsAndPigsTsInstance(
   );
   await waitForInstanceReady('bwallberg-kings-and-pigs-ts', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Kings and Pigs
+ *
+ * Remove a kings-and-pigs-ts
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the kings-and-pigs-ts to be removed
+ */
+export async function removeBwallbergKingsAndPigsTsInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'bwallberg-kings-and-pigs-ts'
+  );
+  await removeInstance(
+    ctx,
+    'bwallberg-kings-and-pigs-ts',
+    name,
+    serviceAccessToken
+  );
 }

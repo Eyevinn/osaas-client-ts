@@ -193,7 +193,8 @@ export type EyevinnRustImageProcessorConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -231,4 +232,26 @@ export async function createEyevinnRustImageProcessorInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Simple Image Resizer
+ *
+ * Remove a resizer
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the resizer to be removed
+ */
+export async function removeEyevinnRustImageProcessorInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-rust-image-processor'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-rust-image-processor',
+    name,
+    serviceAccessToken
+  );
 }

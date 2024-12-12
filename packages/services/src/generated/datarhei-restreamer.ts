@@ -243,7 +243,8 @@ export type DatarheiRestreamerConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -277,4 +278,21 @@ export async function createDatarheiRestreamerInstance(
   );
   await waitForInstanceReady('datarhei-restreamer', instance.name, ctx);
   return instance;
+}
+
+/**
+ * restreamer
+ *
+ * Remove a restreamer
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the restreamer to be removed
+ */
+export async function removeDatarheiRestreamerInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'datarhei-restreamer'
+  );
+  await removeInstance(ctx, 'datarhei-restreamer', name, serviceAccessToken);
 }

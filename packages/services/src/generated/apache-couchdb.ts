@@ -285,7 +285,8 @@ export type ApacheCouchdbConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -317,4 +318,19 @@ export async function createApacheCouchdbInstance(
   );
   await waitForInstanceReady('apache-couchdb', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Couch DB
+ *
+ * Remove a couchdb
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the couchdb to be removed
+ */
+export async function removeApacheCouchdbInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('apache-couchdb');
+  await removeInstance(ctx, 'apache-couchdb', name, serviceAccessToken);
 }

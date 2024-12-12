@@ -281,7 +281,8 @@ export type EyevinnCeSampleWebhookConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,26 @@ export async function createEyevinnCeSampleWebhookInstance(
   );
   await waitForInstanceReady('eyevinn-ce-sample-webhook', instance.name, ctx);
   return instance;
+}
+
+/**
+ * FAST Engine Sample Webhook
+ *
+ * Remove a webhooks
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the webhooks to be removed
+ */
+export async function removeEyevinnCeSampleWebhookInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-ce-sample-webhook'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-ce-sample-webhook',
+    name,
+    serviceAccessToken
+  );
 }

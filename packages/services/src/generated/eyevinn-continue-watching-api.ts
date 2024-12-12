@@ -209,7 +209,8 @@ export type EyevinnContinueWatchingApiConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -247,4 +248,26 @@ export async function createEyevinnContinueWatchingApiInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Continue Watching Service
+ *
+ * Remove a service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the service to be removed
+ */
+export async function removeEyevinnContinueWatchingApiInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-continue-watching-api'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-continue-watching-api',
+    name,
+    serviceAccessToken
+  );
 }

@@ -289,7 +289,8 @@ export type EyevinnQrGeneratorConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -323,4 +324,21 @@ export async function createEyevinnQrGeneratorInstance(
   );
   await waitForInstanceReady('eyevinn-qr-generator', instance.name, ctx);
   return instance;
+}
+
+/**
+ * QR Code Generator
+ *
+ * Remove a qr-generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the qr-generator to be removed
+ */
+export async function removeEyevinnQrGeneratorInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-qr-generator'
+  );
+  await removeInstance(ctx, 'eyevinn-qr-generator', name, serviceAccessToken);
 }

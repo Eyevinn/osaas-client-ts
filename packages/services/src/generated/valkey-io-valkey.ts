@@ -281,7 +281,8 @@ export type ValkeyIoValkeyConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -317,4 +318,21 @@ export async function createValkeyIoValkeyInstance(
   );
   await waitForInstanceReady('valkey-io-valkey', instance.name, ctx);
   return instance;
+}
+
+/**
+ * valkey
+ *
+ * Remove a valkey
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the valkey to be removed
+ */
+export async function removeValkeyIoValkeyInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'valkey-io-valkey'
+  );
+  await removeInstance(ctx, 'valkey-io-valkey', name, serviceAccessToken);
 }

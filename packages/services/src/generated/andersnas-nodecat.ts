@@ -285,7 +285,8 @@ export type AndersnasNodecatConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,21 @@ export async function createAndersnasNodecatInstance(
   );
   await waitForInstanceReady('andersnas-nodecat', instance.name, ctx);
   return instance;
+}
+
+/**
+ * NodeCat
+ *
+ * Remove a nodecat
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the nodecat to be removed
+ */
+export async function removeAndersnasNodecatInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'andersnas-nodecat'
+  );
+  await removeInstance(ctx, 'andersnas-nodecat', name, serviceAccessToken);
 }

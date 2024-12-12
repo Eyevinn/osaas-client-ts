@@ -289,7 +289,8 @@ export type EyevinnSrtWhepConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -323,4 +324,21 @@ export async function createEyevinnSrtWhepInstance(
   );
   await waitForInstanceReady('eyevinn-srt-whep', instance.name, ctx);
   return instance;
+}
+
+/**
+ * SRT WHEP Bridge
+ *
+ * Remove a bridge
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the bridge to be removed
+ */
+export async function removeEyevinnSrtWhepInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-srt-whep'
+  );
+  await removeInstance(ctx, 'eyevinn-srt-whep', name, serviceAccessToken);
 }

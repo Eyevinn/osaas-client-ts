@@ -193,7 +193,8 @@ export type EyevinnFunctionProbeConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -227,4 +228,21 @@ export async function createEyevinnFunctionProbeInstance(
   );
   await waitForInstanceReady('eyevinn-function-probe', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Media Probe
+ *
+ * Remove a probe
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the probe to be removed
+ */
+export async function removeEyevinnFunctionProbeInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-function-probe'
+  );
+  await removeInstance(ctx, 'eyevinn-function-probe', name, serviceAccessToken);
 }

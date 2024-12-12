@@ -285,7 +285,8 @@ export type Alexbj75MovierecommendatorConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createAlexbj75MovierecommendatorInstance(
   );
   await waitForInstanceReady('alexbj75-movierecommendator', instance.name, ctx);
   return instance;
+}
+
+/**
+ * movierecommendator
+ *
+ * Remove a movierecommendator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the movierecommendator to be removed
+ */
+export async function removeAlexbj75MovierecommendatorInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'alexbj75-movierecommendator'
+  );
+  await removeInstance(
+    ctx,
+    'alexbj75-movierecommendator',
+    name,
+    serviceAccessToken
+  );
 }

@@ -321,7 +321,8 @@ export type EyevinnEncorePackagerConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -355,4 +356,26 @@ export async function createEyevinnEncorePackagerInstance(
   );
   await waitForInstanceReady('eyevinn-encore-packager', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Encore Packager
+ *
+ * Remove a packager
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the packager to be removed
+ */
+export async function removeEyevinnEncorePackagerInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-encore-packager'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-encore-packager',
+    name,
+    serviceAccessToken
+  );
 }

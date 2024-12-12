@@ -281,7 +281,8 @@ export type EyevinnDockerTestsrcHlsLiveConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createEyevinnDockerTestsrcHlsLiveInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Test Source HLS Live
+ *
+ * Remove a testsource
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the testsource to be removed
+ */
+export async function removeEyevinnDockerTestsrcHlsLiveInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-docker-testsrc-hls-live'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-docker-testsrc-hls-live',
+    name,
+    serviceAccessToken
+  );
 }

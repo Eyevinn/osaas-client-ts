@@ -205,7 +205,8 @@ export type EyevinnFunctionTrimConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -239,4 +240,21 @@ export async function createEyevinnFunctionTrimInstance(
   );
   await waitForInstanceReady('eyevinn-function-trim', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Trim Media
+ *
+ * Remove a mediafunction
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the mediafunction to be removed
+ */
+export async function removeEyevinnFunctionTrimInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-function-trim'
+  );
+  await removeInstance(ctx, 'eyevinn-function-trim', name, serviceAccessToken);
 }

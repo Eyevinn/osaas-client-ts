@@ -281,7 +281,8 @@ export type DocusealcoDocusealConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,21 @@ export async function createDocusealcoDocusealInstance(
   );
   await waitForInstanceReady('docusealco-docuseal', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Docuseal
+ *
+ * Remove a docuseal
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the docuseal to be removed
+ */
+export async function removeDocusealcoDocusealInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'docusealco-docuseal'
+  );
+  await removeInstance(ctx, 'docusealco-docuseal', name, serviceAccessToken);
 }

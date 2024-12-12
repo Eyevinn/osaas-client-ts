@@ -281,7 +281,8 @@ export type BirmeCaptchaSvcConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,21 @@ export async function createBirmeCaptchaSvcInstance(
   );
   await waitForInstanceReady('birme-captcha-svc', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Captcha Service
+ *
+ * Remove a service
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the service to be removed
+ */
+export async function removeBirmeCaptchaSvcInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'birme-captcha-svc'
+  );
+  await removeInstance(ctx, 'birme-captcha-svc', name, serviceAccessToken);
 }

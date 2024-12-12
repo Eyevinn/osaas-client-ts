@@ -301,7 +301,8 @@ export type MickaelKerjeanFilestashConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -335,4 +336,26 @@ export async function createMickaelKerjeanFilestashInstance(
   );
   await waitForInstanceReady('mickael-kerjean-filestash', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Filestash
+ *
+ * Remove a filestash
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the filestash to be removed
+ */
+export async function removeMickaelKerjeanFilestashInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'mickael-kerjean-filestash'
+  );
+  await removeInstance(
+    ctx,
+    'mickael-kerjean-filestash',
+    name,
+    serviceAccessToken
+  );
 }

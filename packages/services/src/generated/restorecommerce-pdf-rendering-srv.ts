@@ -281,7 +281,8 @@ export type RestorecommercePdfRenderingSrvConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createRestorecommercePdfRenderingSrvInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * PDF Rendering Service
+ *
+ * Remove a pdf-rendering-srv
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the pdf-rendering-srv to be removed
+ */
+export async function removeRestorecommercePdfRenderingSrvInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'restorecommerce-pdf-rendering-srv'
+  );
+  await removeInstance(
+    ctx,
+    'restorecommerce-pdf-rendering-srv',
+    name,
+    serviceAccessToken
+  );
 }

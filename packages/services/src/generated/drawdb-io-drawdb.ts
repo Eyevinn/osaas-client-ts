@@ -281,7 +281,8 @@ export type DrawdbIoDrawdbConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,21 @@ export async function createDrawdbIoDrawdbInstance(
   );
   await waitForInstanceReady('drawdb-io-drawdb', instance.name, ctx);
   return instance;
+}
+
+/**
+ * drawDB
+ *
+ * Remove a editor
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the editor to be removed
+ */
+export async function removeDrawdbIoDrawdbInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'drawdb-io-drawdb'
+  );
+  await removeInstance(ctx, 'drawdb-io-drawdb', name, serviceAccessToken);
 }

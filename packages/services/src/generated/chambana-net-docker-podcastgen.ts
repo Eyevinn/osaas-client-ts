@@ -281,7 +281,8 @@ export type ChambanaNetDockerPodcastgenConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createChambanaNetDockerPodcastgenInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Podcast Generator
+ *
+ * Remove a podcast-generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the podcast-generator to be removed
+ */
+export async function removeChambanaNetDockerPodcastgenInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'chambana-net-docker-podcastgen'
+  );
+  await removeInstance(
+    ctx,
+    'chambana-net-docker-podcastgen',
+    name,
+    serviceAccessToken
+  );
 }

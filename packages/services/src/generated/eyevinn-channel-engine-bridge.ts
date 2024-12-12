@@ -305,7 +305,8 @@ export type EyevinnChannelEngineBridgeConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -343,4 +344,26 @@ export async function createEyevinnChannelEngineBridgeInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Channel Engine Bridge
+ *
+ * Remove a channel-engine-bridge
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the channel-engine-bridge to be removed
+ */
+export async function removeEyevinnChannelEngineBridgeInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-channel-engine-bridge'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-channel-engine-bridge',
+    name,
+    serviceAccessToken
+  );
 }

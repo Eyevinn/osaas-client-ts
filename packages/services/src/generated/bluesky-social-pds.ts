@@ -297,7 +297,8 @@ export type BlueskySocialPdsConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -331,4 +332,21 @@ export async function createBlueskySocialPdsInstance(
   );
   await waitForInstanceReady('bluesky-social-pds', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Bluesky Personal Data Server
+ *
+ * Remove a pds
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the pds to be removed
+ */
+export async function removeBlueskySocialPdsInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'bluesky-social-pds'
+  );
+  await removeInstance(ctx, 'bluesky-social-pds', name, serviceAccessToken);
 }

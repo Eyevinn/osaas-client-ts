@@ -285,7 +285,8 @@ export type SmrchyRestRsmqConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -321,4 +322,21 @@ export async function createSmrchyRestRsmqInstance(
   );
   await waitForInstanceReady('smrchy-rest-rsmq', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Really Simple Message Queue
+ *
+ * Remove a message-queue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the message-queue to be removed
+ */
+export async function removeSmrchyRestRsmqInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'smrchy-rest-rsmq'
+  );
+  await removeInstance(ctx, 'smrchy-rest-rsmq', name, serviceAccessToken);
 }

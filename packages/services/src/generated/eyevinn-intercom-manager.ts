@@ -293,7 +293,8 @@ export type EyevinnIntercomManagerConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -329,4 +330,26 @@ export async function createEyevinnIntercomManagerInstance(
   );
   await waitForInstanceReady('eyevinn-intercom-manager', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Intercom
+ *
+ * Remove a system
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the system to be removed
+ */
+export async function removeEyevinnIntercomManagerInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-intercom-manager'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-intercom-manager',
+    name,
+    serviceAccessToken
+  );
 }

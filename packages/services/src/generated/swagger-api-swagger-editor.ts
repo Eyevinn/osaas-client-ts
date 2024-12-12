@@ -285,7 +285,8 @@ export type SwaggerApiSwaggerEditorConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createSwaggerApiSwaggerEditorInstance(
   );
   await waitForInstanceReady('swagger-api-swagger-editor', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Swagger Editor
+ *
+ * Remove a editor
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the editor to be removed
+ */
+export async function removeSwaggerApiSwaggerEditorInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'swagger-api-swagger-editor'
+  );
+  await removeInstance(
+    ctx,
+    'swagger-api-swagger-editor',
+    name,
+    serviceAccessToken
+  );
 }

@@ -220,7 +220,8 @@ export type ChannelEngineConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -252,4 +253,19 @@ export async function createChannelEngineInstance(
   );
   await waitForInstanceReady('channel-engine', instance.name, ctx);
   return instance;
+}
+
+/**
+ * FAST Channel Engine
+ *
+ * Remove a channel
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the channel to be removed
+ */
+export async function removeChannelEngineInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('channel-engine');
+  await removeInstance(ctx, 'channel-engine', name, serviceAccessToken);
 }

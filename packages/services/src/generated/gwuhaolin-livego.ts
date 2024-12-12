@@ -243,7 +243,8 @@ export type GwuhaolinLivegoConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -277,4 +278,21 @@ export async function createGwuhaolinLivegoInstance(
   );
   await waitForInstanceReady('gwuhaolin-livego', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Livego
+ *
+ * Remove a livego
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the livego to be removed
+ */
+export async function removeGwuhaolinLivegoInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'gwuhaolin-livego'
+  );
+  await removeInstance(ctx, 'gwuhaolin-livego', name, serviceAccessToken);
 }

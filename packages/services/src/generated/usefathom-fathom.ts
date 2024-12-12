@@ -289,7 +289,8 @@ export type UsefathomFathomConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -323,4 +324,21 @@ export async function createUsefathomFathomInstance(
   );
   await waitForInstanceReady('usefathom-fathom', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Fathom Lite
+ *
+ * Remove a collector
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the collector to be removed
+ */
+export async function removeUsefathomFathomInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'usefathom-fathom'
+  );
+  await removeInstance(ctx, 'usefathom-fathom', name, serviceAccessToken);
 }

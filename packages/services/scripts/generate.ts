@@ -51,7 +51,7 @@ export type ${toPascalCase(serviceId)}Config =
     appendFileSync(`./src/generated/${serviceId}.ts`, config);
 
     const create = `
-import { Context, createInstance, waitForInstanceReady } from "@osaas/client-core";
+import { Context, createInstance, waitForInstanceReady, removeInstance } from "@osaas/client-core";
 
 /**
  * ${service.serviceMetadata.title}
@@ -91,13 +91,33 @@ export async function create${toPascalCase(
   );
   await waitForInstanceReady('${serviceId}', instance.name, ctx);
   return instance;
-}      
+}
+
+/**
+ * ${service.serviceMetadata.title}
+ * 
+ * Remove a ${service.serviceMetadata.instanceNoun}
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the ${
+   service.serviceMetadata.instanceNoun
+ } to be removed
+ */
+export async function remove${toPascalCase(
+      serviceId
+    )}Instance(ctx: Context, name: string): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    '${serviceId}'
+  );
+  await removeInstance(ctx, '${serviceId}', name, serviceAccessToken);
+}
 `;
     appendFileSync(`./src/generated/${serviceId}.ts`, create);
 
     const indexTs = `export { ${toPascalCase(serviceId)},\n ${toPascalCase(
       serviceId
     )}Config,\n create${toPascalCase(
+      serviceId
+    )}Instance,\n remove${toPascalCase(
       serviceId
     )}Instance } from './generated/${serviceId}';\n`;
     appendFileSync('./src/index.ts', indexTs);

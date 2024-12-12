@@ -243,7 +243,8 @@ export type OssrsSrsConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -277,4 +278,19 @@ export async function createOssrsSrsInstance(
   );
   await waitForInstanceReady('ossrs-srs', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Simple Realtime Server
+ *
+ * Remove a srs
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the srs to be removed
+ */
+export async function removeOssrsSrsInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('ossrs-srs');
+  await removeInstance(ctx, 'ossrs-srs', name, serviceAccessToken);
 }

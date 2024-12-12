@@ -289,7 +289,8 @@ export type PlausibleAnalyticsConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -323,4 +324,21 @@ export async function createPlausibleAnalyticsInstance(
   );
   await waitForInstanceReady('plausible-analytics', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Plausible Analytics
+ *
+ * Remove a server
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the server to be removed
+ */
+export async function removePlausibleAnalyticsInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'plausible-analytics'
+  );
+  await removeInstance(ctx, 'plausible-analytics', name, serviceAccessToken);
 }

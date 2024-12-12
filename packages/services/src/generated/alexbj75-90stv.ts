@@ -281,7 +281,8 @@ export type Alexbj7590stvConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -313,4 +314,19 @@ export async function createAlexbj7590stvInstance(
   );
   await waitForInstanceReady('alexbj75-90stv', instance.name, ctx);
   return instance;
+}
+
+/**
+ * 90stv
+ *
+ * Remove a 90stv
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the 90stv to be removed
+ */
+export async function removeAlexbj7590stvInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('alexbj75-90stv');
+  await removeInstance(ctx, 'alexbj75-90stv', name, serviceAccessToken);
 }

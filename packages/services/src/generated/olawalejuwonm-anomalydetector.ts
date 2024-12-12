@@ -281,7 +281,8 @@ export type OlawalejuwonmAnomalydetectorConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createOlawalejuwonmAnomalydetectorInstance(
     ctx
   );
   return instance;
+}
+
+/**
+ * Anomaly Detector
+ *
+ * Remove a anomalydetector
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the anomalydetector to be removed
+ */
+export async function removeOlawalejuwonmAnomalydetectorInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'olawalejuwonm-anomalydetector'
+  );
+  await removeInstance(
+    ctx,
+    'olawalejuwonm-anomalydetector',
+    name,
+    serviceAccessToken
+  );
 }

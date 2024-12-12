@@ -309,7 +309,8 @@ export type EyevinnSgaiAdProxyConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -343,4 +344,21 @@ export async function createEyevinnSgaiAdProxyInstance(
   );
   await waitForInstanceReady('eyevinn-sgai-ad-proxy', instance.name, ctx);
   return instance;
+}
+
+/**
+ * SGAI Proxy
+ *
+ * Remove a proxy
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the proxy to be removed
+ */
+export async function removeEyevinnSgaiAdProxyInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-sgai-ad-proxy'
+  );
+  await removeInstance(ctx, 'eyevinn-sgai-ad-proxy', name, serviceAccessToken);
 }

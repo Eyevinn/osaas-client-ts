@@ -305,7 +305,8 @@ export type EyevinnEncoreTransferConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -339,4 +340,26 @@ export async function createEyevinnEncoreTransferInstance(
   );
   await waitForInstanceReady('eyevinn-encore-transfer', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Encore Transfer
+ *
+ * Remove a encore-transfer
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the encore-transfer to be removed
+ */
+export async function removeEyevinnEncoreTransferInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-encore-transfer'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-encore-transfer',
+    name,
+    serviceAccessToken
+  );
 }

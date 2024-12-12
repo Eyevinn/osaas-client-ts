@@ -281,7 +281,8 @@ export type EyevinnHlsMonitorConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,21 @@ export async function createEyevinnHlsMonitorInstance(
   );
   await waitForInstanceReady('eyevinn-hls-monitor', instance.name, ctx);
   return instance;
+}
+
+/**
+ * HLS Stream Monitor
+ *
+ * Remove a monitor
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the monitor to be removed
+ */
+export async function removeEyevinnHlsMonitorInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-hls-monitor'
+  );
+  await removeInstance(ctx, 'eyevinn-hls-monitor', name, serviceAccessToken);
 }

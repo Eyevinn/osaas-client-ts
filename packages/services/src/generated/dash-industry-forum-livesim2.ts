@@ -281,7 +281,8 @@ export type DashIndustryForumLivesim2Config =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createDashIndustryForumLivesim2Instance(
     ctx
   );
   return instance;
+}
+
+/**
+ * livesim2
+ *
+ * Remove a livesimulators
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the livesimulators to be removed
+ */
+export async function removeDashIndustryForumLivesim2Instance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'dash-industry-forum-livesim2'
+  );
+  await removeInstance(
+    ctx,
+    'dash-industry-forum-livesim2',
+    name,
+    serviceAccessToken
+  );
 }

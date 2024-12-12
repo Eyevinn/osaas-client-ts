@@ -285,7 +285,8 @@ export type ErnestocaroccaHelloWorldConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -319,4 +320,26 @@ export async function createErnestocaroccaHelloWorldInstance(
   );
   await waitForInstanceReady('ernestocarocca-hello-world', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Hello World
+ *
+ * Remove a example
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the example to be removed
+ */
+export async function removeErnestocaroccaHelloWorldInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'ernestocarocca-hello-world'
+  );
+  await removeInstance(
+    ctx,
+    'ernestocarocca-hello-world',
+    name,
+    serviceAccessToken
+  );
 }

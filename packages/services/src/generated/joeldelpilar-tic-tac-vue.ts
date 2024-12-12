@@ -281,7 +281,8 @@ export type JoeldelpilarTicTacVueConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,26 @@ export async function createJoeldelpilarTicTacVueInstance(
   );
   await waitForInstanceReady('joeldelpilar-tic-tac-vue', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Tic Tac Vue
+ *
+ * Remove a tic-tac-vue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the tic-tac-vue to be removed
+ */
+export async function removeJoeldelpilarTicTacVueInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'joeldelpilar-tic-tac-vue'
+  );
+  await removeInstance(
+    ctx,
+    'joeldelpilar-tic-tac-vue',
+    name,
+    serviceAccessToken
+  );
 }

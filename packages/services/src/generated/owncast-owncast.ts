@@ -243,7 +243,8 @@ export type OwncastOwncastConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -275,4 +276,19 @@ export async function createOwncastOwncastInstance(
   );
   await waitForInstanceReady('owncast-owncast', instance.name, ctx);
   return instance;
+}
+
+/**
+ * owncast
+ *
+ * Remove a owncast
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the owncast to be removed
+ */
+export async function removeOwncastOwncastInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('owncast-owncast');
+  await removeInstance(ctx, 'owncast-owncast', name, serviceAccessToken);
 }

@@ -289,7 +289,8 @@ export type PoundifdefSmoothmqConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -323,4 +324,21 @@ export async function createPoundifdefSmoothmqInstance(
   );
   await waitForInstanceReady('poundifdef-smoothmq', instance.name, ctx);
   return instance;
+}
+
+/**
+ * SmoothMQ
+ *
+ * Remove a message-queue
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the message-queue to be removed
+ */
+export async function removePoundifdefSmoothmqInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'poundifdef-smoothmq'
+  );
+  await removeInstance(ctx, 'poundifdef-smoothmq', name, serviceAccessToken);
 }

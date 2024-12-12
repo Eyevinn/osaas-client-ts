@@ -213,7 +213,8 @@ export type EyevinnCastReceiverConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -247,4 +248,21 @@ export async function createEyevinnCastReceiverInstance(
   );
   await waitForInstanceReady('eyevinn-cast-receiver', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Chromecast receiver
+ *
+ * Remove a receiver
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the receiver to be removed
+ */
+export async function removeEyevinnCastReceiverInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-cast-receiver'
+  );
+  await removeInstance(ctx, 'eyevinn-cast-receiver', name, serviceAccessToken);
 }

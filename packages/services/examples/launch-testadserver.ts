@@ -1,5 +1,8 @@
 import { Context, Log } from '@osaas/client-core';
-import { createEyevinnTestAdserverInstance } from '../src/index';
+import {
+  createEyevinnTestAdserverInstance,
+  removeEyevinnTestAdserverInstance
+} from '../src/index';
 
 async function main() {
   const ctx = new Context();
@@ -9,6 +12,7 @@ async function main() {
       name: 'sdk'
     });
     console.log(instance.url);
+    await removeEyevinnTestAdserverInstance(ctx, instance.name);
   } catch (err) {
     Log().error(err);
   }

@@ -297,7 +297,8 @@ export type EyevinnSmbWhipBridgeConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -331,4 +332,26 @@ export async function createEyevinnSmbWhipBridgeInstance(
   );
   await waitForInstanceReady('eyevinn-smb-whip-bridge', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Symphony Media Bridge WHIP Gateway
+ *
+ * Remove a gateway
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the gateway to be removed
+ */
+export async function removeEyevinnSmbWhipBridgeInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-smb-whip-bridge'
+  );
+  await removeInstance(
+    ctx,
+    'eyevinn-smb-whip-bridge',
+    name,
+    serviceAccessToken
+  );
 }

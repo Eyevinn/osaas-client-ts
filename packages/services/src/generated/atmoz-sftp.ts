@@ -289,7 +289,8 @@ export type AtmozSftpConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -322,4 +323,19 @@ export async function createAtmozSftpInstance(
   );
   await waitForInstanceReady('atmoz-sftp', instance.name, ctx);
   return instance;
+}
+
+/**
+ * SFTP Server
+ *
+ * Remove a sftp
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the sftp to be removed
+ */
+export async function removeAtmozSftpInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('atmoz-sftp');
+  await removeInstance(ctx, 'atmoz-sftp', name, serviceAccessToken);
 }

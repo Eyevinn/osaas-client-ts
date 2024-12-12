@@ -297,7 +297,8 @@ export type EyevinnAutoSubtitlesConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -331,4 +332,21 @@ export async function createEyevinnAutoSubtitlesInstance(
   );
   await waitForInstanceReady('eyevinn-auto-subtitles', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Subtitle Generator
+ *
+ * Remove a generator
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the generator to be removed
+ */
+export async function removeEyevinnAutoSubtitlesInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-auto-subtitles'
+  );
+  await removeInstance(ctx, 'eyevinn-auto-subtitles', name, serviceAccessToken);
 }

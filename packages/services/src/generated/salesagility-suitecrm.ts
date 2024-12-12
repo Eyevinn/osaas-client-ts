@@ -281,7 +281,8 @@ export type SalesagilitySuitecrmConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -315,4 +316,21 @@ export async function createSalesagilitySuitecrmInstance(
   );
   await waitForInstanceReady('salesagility-suitecrm', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Suite CRM
+ *
+ * Remove a suitecrm
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the suitecrm to be removed
+ */
+export async function removeSalesagilitySuitecrmInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'salesagility-suitecrm'
+  );
+  await removeInstance(ctx, 'salesagility-suitecrm', name, serviceAccessToken);
 }

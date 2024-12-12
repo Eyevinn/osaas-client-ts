@@ -243,7 +243,8 @@ export type BbcBraveConfig =
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance
 } from '@osaas/client-core';
 
 /**
@@ -275,4 +276,19 @@ export async function createBbcBraveInstance(
   );
   await waitForInstanceReady('bbc-brave', instance.name, ctx);
   return instance;
+}
+
+/**
+ * Brave
+ *
+ * Remove a mixer
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the mixer to be removed
+ */
+export async function removeBbcBraveInstance(
+  ctx: Context,
+  name: string
+): Promise<void> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('bbc-brave');
+  await removeInstance(ctx, 'bbc-brave', name, serviceAccessToken);
 }
