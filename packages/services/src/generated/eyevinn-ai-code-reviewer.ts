@@ -15,14 +15,14 @@ export interface paths {
       };
     };
   };
-  '/fathominstance': {
-    /** List all running fathom instances */
+  '/ai-code-reviewerinstance': {
+    /** List all running ai-code-reviewer instances */
     get: {
       responses: {
         /** Default Response */
         200: {
           schema: {
-            /** @description Name of the fathom instance */
+            /** @description Name of the ai-code-reviewer instance */
             name: string;
             /** @description URL to instance API */
             url: string;
@@ -40,8 +40,8 @@ export interface paths {
                 url: string;
               };
             };
-            AdminEmail: string;
-            AdminPassword: string;
+            OpenAiApiKey: string;
+            AssistantId?: string;
           }[];
         };
         /** Default Response */
@@ -53,15 +53,15 @@ export interface paths {
         };
       };
     };
-    /** Launch a new fathom instance */
+    /** Launch a new ai-code-reviewer instance */
     post: {
       parameters: {
         body: {
           body?: {
-            /** @description Name of the fathom instance */
+            /** @description Name of the ai-code-reviewer instance */
             name: string;
-            AdminEmail: string;
-            AdminPassword: string;
+            OpenAiApiKey: string;
+            AssistantId?: string;
           };
         };
       };
@@ -69,7 +69,7 @@ export interface paths {
         /** Default Response */
         200: {
           schema: {
-            /** @description Name of the fathom instance */
+            /** @description Name of the ai-code-reviewer instance */
             name: string;
             /** @description URL to instance API */
             url: string;
@@ -87,8 +87,8 @@ export interface paths {
                 url: string;
               };
             };
-            AdminEmail: string;
-            AdminPassword: string;
+            OpenAiApiKey: string;
+            AssistantId?: string;
           };
         };
         /** Default Response */
@@ -115,12 +115,12 @@ export interface paths {
       };
     };
   };
-  '/fathominstance/{id}': {
-    /** Obtain status and resource URLs for an fathom instance */
+  '/ai-code-reviewerinstance/{id}': {
+    /** Obtain status and resource URLs for an ai-code-reviewer instance */
     get: {
       parameters: {
         path: {
-          /** Name of the fathom instance */
+          /** Name of the ai-code-reviewer instance */
           id: string;
         };
       };
@@ -128,7 +128,7 @@ export interface paths {
         /** Default Response */
         200: {
           schema: {
-            /** @description Name of the fathom instance */
+            /** @description Name of the ai-code-reviewer instance */
             name: string;
             /** @description URL to instance API */
             url: string;
@@ -146,8 +146,8 @@ export interface paths {
                 url: string;
               };
             };
-            AdminEmail: string;
-            AdminPassword: string;
+            OpenAiApiKey: string;
+            AssistantId?: string;
           };
         };
         /** Default Response */
@@ -166,11 +166,11 @@ export interface paths {
         };
       };
     };
-    /** Stop and remove an fathom instance */
+    /** Stop and remove an ai-code-reviewer instance */
     delete: {
       parameters: {
         path: {
-          /** Name of the fathom instance */
+          /** Name of the ai-code-reviewer instance */
           id: string;
         };
       };
@@ -190,11 +190,11 @@ export interface paths {
     };
   };
   '/health/{id}': {
-    /** Return status of fathom instance */
+    /** Return status of ai-code-reviewer instance */
     get: {
       parameters: {
         path: {
-          /** Name of the fathom instance */
+          /** Name of the ai-code-reviewer instance */
           id: string;
         };
       };
@@ -217,7 +217,7 @@ export interface paths {
     };
   };
   '/logs/{id}': {
-    /** Return the latest logs from the fathom instance */
+    /** Return the latest logs from the ai-code-reviewer instance */
     get: {
       parameters: {
         query: {
@@ -225,7 +225,7 @@ export interface paths {
           sinceSeconds?: number;
         };
         path: {
-          /** Name of the fathom instance */
+          /** Name of the ai-code-reviewer instance */
           id: string;
         };
       };
@@ -245,11 +245,11 @@ export interface paths {
     };
   };
   '/ports/{id}': {
-    /** Return the exposed extra ports for fathom instance */
+    /** Return the exposed extra ports for ai-code-reviewer instance */
     get: {
       parameters: {
         path: {
-          /** Name of the fathom instance */
+          /** Name of the ai-code-reviewer instance */
           id: string;
         };
       };
@@ -280,11 +280,11 @@ export interface operations {}
 
 export interface external {}
 
-export type UsefathomFathom =
-  paths['/fathominstance/{id}']['get']['responses']['200']['schema'];
+export type EyevinnAiCodeReviewer =
+  paths['/ai-code-reviewerinstance/{id}']['get']['responses']['200']['schema'];
 
-export type UsefathomFathomConfig =
-  paths['/fathominstance']['post']['parameters']['body']['body'];
+export type EyevinnAiCodeReviewerConfig =
+  paths['/ai-code-reviewerinstance']['post']['parameters']['body']['body'];
 
 import {
   Context,
@@ -295,67 +295,77 @@ import {
 } from '@osaas/client-core';
 
 /**
- * Create a new Fathom Lite instance
+ * Create a new AI Code Reviewer instance
  *
- * @description Introducing Fathom Lite - the popular, open-source website analytics tool with millions of downloads! Long-term maintenance, bug fixes, and cookie-free tracking set it apart. Get started today!
+ * @description Elevate your code quality with AI Code Reviewer! Leverage AI to review your code effortlessly, ensuring top-notch quality. Integrate easily with your cloud setup for seamless code enhancement.
  * @param {Context} context - Open Source Cloud configuration context
- * @param {UsefathomFathomConfig}} body - Service instance configuration
- * @returns {UsefathomFathom} - Service instance
+ * @param {EyevinnAiCodeReviewerConfig}} body - Service instance configuration
+ * @returns {EyevinnAiCodeReviewer} - Service instance
  * @example
- * import { Context, createUsefathomFathomInstance } from '@osaas/client-services';
+ * import { Context, createEyevinnAiCodeReviewerInstance } from '@osaas/client-services';
  *
  * const ctx = new Context();
- * const instance = await createUsefathomFathomInstance(ctx, { name: 'myinstance' });
+ * const instance = await createEyevinnAiCodeReviewerInstance(ctx, { name: 'myinstance' });
  * console.log(instance.url);
  */
-export async function createUsefathomFathomInstance(
+export async function createEyevinnAiCodeReviewerInstance(
   ctx: Context,
-  body: UsefathomFathomConfig
-): Promise<UsefathomFathom> {
+  body: EyevinnAiCodeReviewerConfig
+): Promise<EyevinnAiCodeReviewer> {
   const serviceAccessToken = await ctx.getServiceAccessToken(
-    'usefathom-fathom'
+    'eyevinn-ai-code-reviewer'
   );
   const instance = await createInstance(
     ctx,
-    'usefathom-fathom',
+    'eyevinn-ai-code-reviewer',
     serviceAccessToken,
     body
   );
-  await waitForInstanceReady('usefathom-fathom', instance.name, ctx);
+  await waitForInstanceReady('eyevinn-ai-code-reviewer', instance.name, ctx);
   return instance;
 }
 
 /**
- * Remove a Fathom Lite instance
+ * Remove a AI Code Reviewer instance
  *
- * @description Introducing Fathom Lite - the popular, open-source website analytics tool with millions of downloads! Long-term maintenance, bug fixes, and cookie-free tracking set it apart. Get started today!
+ * @description Elevate your code quality with AI Code Reviewer! Leverage AI to review your code effortlessly, ensuring top-notch quality. Integrate easily with your cloud setup for seamless code enhancement.
  * @param {Context} context - Open Source Cloud configuration context
- * @param {string} name - Name of the collector to be removed
+ * @param {string} name - Name of the code-reviewer to be removed
  */
-export async function removeUsefathomFathomInstance(
+export async function removeEyevinnAiCodeReviewerInstance(
   ctx: Context,
   name: string
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken(
-    'usefathom-fathom'
+    'eyevinn-ai-code-reviewer'
   );
-  await removeInstance(ctx, 'usefathom-fathom', name, serviceAccessToken);
+  await removeInstance(
+    ctx,
+    'eyevinn-ai-code-reviewer',
+    name,
+    serviceAccessToken
+  );
 }
 
 /**
- * Get a Fathom Lite instance
+ * Get a AI Code Reviewer instance
  *
- * @description Introducing Fathom Lite - the popular, open-source website analytics tool with millions of downloads! Long-term maintenance, bug fixes, and cookie-free tracking set it apart. Get started today!
+ * @description Elevate your code quality with AI Code Reviewer! Leverage AI to review your code effortlessly, ensuring top-notch quality. Integrate easily with your cloud setup for seamless code enhancement.
  * @param {Context} context - Open Source Cloud configuration context
- * @param {string} name - Name of the collector to be retrieved
- * @returns {UsefathomFathom} - Service instance
+ * @param {string} name - Name of the code-reviewer to be retrieved
+ * @returns {EyevinnAiCodeReviewer} - Service instance
  */
-export async function getUsefathomFathomInstance(
+export async function getEyevinnAiCodeReviewerInstance(
   ctx: Context,
   name: string
-): Promise<UsefathomFathom> {
+): Promise<EyevinnAiCodeReviewer> {
   const serviceAccessToken = await ctx.getServiceAccessToken(
-    'usefathom-fathom'
+    'eyevinn-ai-code-reviewer'
   );
-  return await getInstance(ctx, 'usefathom-fathom', name, serviceAccessToken);
+  return await getInstance(
+    ctx,
+    'eyevinn-ai-code-reviewer',
+    name,
+    serviceAccessToken
+  );
 }

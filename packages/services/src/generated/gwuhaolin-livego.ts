@@ -244,15 +244,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Livego
+ * Create a new Livego instance
  *
- * Experience the power of simplicity and efficiency with our live broadcast server! Easy to install and use, built in pure Golang for high performance. Supports RTMP, AMF, HLS, HTTP-FLV protocols, FLV, TS containers, H264, AAC, MP3 encoding formats. Stream and playback seamlessly with just a few simple steps. Get your hands on this amazing product now!
- *
- * Create a new livego
+ * @description Experience the power of simplicity and efficiency with our live broadcast server! Easy to install and use, built in pure Golang for high performance. Supports RTMP, AMF, HLS, HTTP-FLV protocols, FLV, TS containers, H264, AAC, MP3 encoding formats. Stream and playback seamlessly with just a few simple steps. Get your hands on this amazing product now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {GwuhaolinLivegoConfig}} body - Service instance configuration
  * @returns {GwuhaolinLivego} - Service instance
@@ -281,9 +280,9 @@ export async function createGwuhaolinLivegoInstance(
 }
 
 /**
- * Livego
+ * Remove a Livego instance
  *
- * Remove a livego
+ * @description Experience the power of simplicity and efficiency with our live broadcast server! Easy to install and use, built in pure Golang for high performance. Supports RTMP, AMF, HLS, HTTP-FLV protocols, FLV, TS containers, H264, AAC, MP3 encoding formats. Stream and playback seamlessly with just a few simple steps. Get your hands on this amazing product now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the livego to be removed
  */
@@ -295,4 +294,22 @@ export async function removeGwuhaolinLivegoInstance(
     'gwuhaolin-livego'
   );
   await removeInstance(ctx, 'gwuhaolin-livego', name, serviceAccessToken);
+}
+
+/**
+ * Get a Livego instance
+ *
+ * @description Experience the power of simplicity and efficiency with our live broadcast server! Easy to install and use, built in pure Golang for high performance. Supports RTMP, AMF, HLS, HTTP-FLV protocols, FLV, TS containers, H264, AAC, MP3 encoding formats. Stream and playback seamlessly with just a few simple steps. Get your hands on this amazing product now!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the livego to be retrieved
+ * @returns {GwuhaolinLivego} - Service instance
+ */
+export async function getGwuhaolinLivegoInstance(
+  ctx: Context,
+  name: string
+): Promise<GwuhaolinLivego> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'gwuhaolin-livego'
+  );
+  return await getInstance(ctx, 'gwuhaolin-livego', name, serviceAccessToken);
 }

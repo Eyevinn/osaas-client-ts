@@ -290,15 +290,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * SRT WHEP Bridge
+ * Create a new SRT WHEP Bridge instance
  *
- * SRT to WHEP application ingests MPEG-TS over SRT stream and outputs to WebRTC using WHEP signaling protocol, supporting MacOS and Ubuntu. No video transcoding, SDP offer/answer exchange focus, and compliance with popular production software. Get yours now!
- *
- * Create a new bridge
+ * @description SRT to WHEP application ingests MPEG-TS over SRT stream and outputs to WebRTC using WHEP signaling protocol, supporting MacOS and Ubuntu. No video transcoding, SDP offer/answer exchange focus, and compliance with popular production software. Get yours now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnSrtWhepConfig}} body - Service instance configuration
  * @returns {EyevinnSrtWhep} - Service instance
@@ -327,9 +326,9 @@ export async function createEyevinnSrtWhepInstance(
 }
 
 /**
- * SRT WHEP Bridge
+ * Remove a SRT WHEP Bridge instance
  *
- * Remove a bridge
+ * @description SRT to WHEP application ingests MPEG-TS over SRT stream and outputs to WebRTC using WHEP signaling protocol, supporting MacOS and Ubuntu. No video transcoding, SDP offer/answer exchange focus, and compliance with popular production software. Get yours now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the bridge to be removed
  */
@@ -341,4 +340,22 @@ export async function removeEyevinnSrtWhepInstance(
     'eyevinn-srt-whep'
   );
   await removeInstance(ctx, 'eyevinn-srt-whep', name, serviceAccessToken);
+}
+
+/**
+ * Get a SRT WHEP Bridge instance
+ *
+ * @description SRT to WHEP application ingests MPEG-TS over SRT stream and outputs to WebRTC using WHEP signaling protocol, supporting MacOS and Ubuntu. No video transcoding, SDP offer/answer exchange focus, and compliance with popular production software. Get yours now!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the bridge to be retrieved
+ * @returns {EyevinnSrtWhep} - Service instance
+ */
+export async function getEyevinnSrtWhepInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnSrtWhep> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-srt-whep'
+  );
+  return await getInstance(ctx, 'eyevinn-srt-whep', name, serviceAccessToken);
 }

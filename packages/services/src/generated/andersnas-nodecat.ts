@@ -286,15 +286,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * NodeCat
+ * Create a new NodeCat instance
  *
- * Enhance your app's security with NodeCat, a robust solution for generating and validating Common Access Tokens in a NodeJS environment. Ideal for developers needing reliable token management.
- *
- * Create a new nodecat
+ * @description Enhance your app's security with NodeCat, a robust solution for generating and validating Common Access Tokens in a NodeJS environment. Ideal for developers needing reliable token management.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {AndersnasNodecatConfig}} body - Service instance configuration
  * @returns {AndersnasNodecat} - Service instance
@@ -323,9 +322,9 @@ export async function createAndersnasNodecatInstance(
 }
 
 /**
- * NodeCat
+ * Remove a NodeCat instance
  *
- * Remove a nodecat
+ * @description Enhance your app's security with NodeCat, a robust solution for generating and validating Common Access Tokens in a NodeJS environment. Ideal for developers needing reliable token management.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the nodecat to be removed
  */
@@ -337,4 +336,22 @@ export async function removeAndersnasNodecatInstance(
     'andersnas-nodecat'
   );
   await removeInstance(ctx, 'andersnas-nodecat', name, serviceAccessToken);
+}
+
+/**
+ * Get a NodeCat instance
+ *
+ * @description Enhance your app's security with NodeCat, a robust solution for generating and validating Common Access Tokens in a NodeJS environment. Ideal for developers needing reliable token management.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the nodecat to be retrieved
+ * @returns {AndersnasNodecat} - Service instance
+ */
+export async function getAndersnasNodecatInstance(
+  ctx: Context,
+  name: string
+): Promise<AndersnasNodecat> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'andersnas-nodecat'
+  );
+  return await getInstance(ctx, 'andersnas-nodecat', name, serviceAccessToken);
 }

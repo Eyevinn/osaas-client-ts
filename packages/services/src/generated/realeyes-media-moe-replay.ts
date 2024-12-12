@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * MOE Replay
+ * Create a new MOE Replay instance
  *
- * Transform live video streams instantly with MOE REPlay. Perfect for creating live HLS manifests on the fly. Enhance your streaming service now!
- *
- * Create a new moe-replay
+ * @description Transform live video streams instantly with MOE REPlay. Perfect for creating live HLS manifests on the fly. Enhance your streaming service now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {RealeyesMediaMoeReplayConfig}} body - Service instance configuration
  * @returns {RealeyesMediaMoeReplay} - Service instance
@@ -319,9 +318,9 @@ export async function createRealeyesMediaMoeReplayInstance(
 }
 
 /**
- * MOE Replay
+ * Remove a MOE Replay instance
  *
- * Remove a moe-replay
+ * @description Transform live video streams instantly with MOE REPlay. Perfect for creating live HLS manifests on the fly. Enhance your streaming service now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the moe-replay to be removed
  */
@@ -333,6 +332,29 @@ export async function removeRealeyesMediaMoeReplayInstance(
     'realeyes-media-moe-replay'
   );
   await removeInstance(
+    ctx,
+    'realeyes-media-moe-replay',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a MOE Replay instance
+ *
+ * @description Transform live video streams instantly with MOE REPlay. Perfect for creating live HLS manifests on the fly. Enhance your streaming service now!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the moe-replay to be retrieved
+ * @returns {RealeyesMediaMoeReplay} - Service instance
+ */
+export async function getRealeyesMediaMoeReplayInstance(
+  ctx: Context,
+  name: string
+): Promise<RealeyesMediaMoeReplay> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'realeyes-media-moe-replay'
+  );
+  return await getInstance(
     ctx,
     'realeyes-media-moe-replay',
     name,

@@ -221,15 +221,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * FAST Channel Engine
+ * Create a new FAST Channel Engine instance
  *
- * Based on VOD2Live Technology you can generate a numerous amounts of FAST channels with a fraction of energy consumption compared to live transcoded FAST channels
- *
- * Create a new channel
+ * @description Based on VOD2Live Technology you can generate a numerous amounts of FAST channels with a fraction of energy consumption compared to live transcoded FAST channels
  * @param {Context} context - Open Source Cloud configuration context
  * @param {ChannelEngineConfig}} body - Service instance configuration
  * @returns {ChannelEngine} - Service instance
@@ -256,9 +255,9 @@ export async function createChannelEngineInstance(
 }
 
 /**
- * FAST Channel Engine
+ * Remove a FAST Channel Engine instance
  *
- * Remove a channel
+ * @description Based on VOD2Live Technology you can generate a numerous amounts of FAST channels with a fraction of energy consumption compared to live transcoded FAST channels
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the channel to be removed
  */
@@ -268,4 +267,20 @@ export async function removeChannelEngineInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('channel-engine');
   await removeInstance(ctx, 'channel-engine', name, serviceAccessToken);
+}
+
+/**
+ * Get a FAST Channel Engine instance
+ *
+ * @description Based on VOD2Live Technology you can generate a numerous amounts of FAST channels with a fraction of energy consumption compared to live transcoded FAST channels
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the channel to be retrieved
+ * @returns {ChannelEngine} - Service instance
+ */
+export async function getChannelEngineInstance(
+  ctx: Context,
+  name: string
+): Promise<ChannelEngine> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('channel-engine');
+  return await getInstance(ctx, 'channel-engine', name, serviceAccessToken);
 }

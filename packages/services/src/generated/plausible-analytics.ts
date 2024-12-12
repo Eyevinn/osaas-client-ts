@@ -290,15 +290,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Plausible Analytics
+ * Create a new Plausible Analytics instance
  *
- * Elevate your data privacy with Plausible Analytics. Get simple, clutter-free insights without compromising user privacy. Enjoy an easy, lightweight, and privacy-focused Google Analytics alternative!
- *
- * Create a new server
+ * @description Elevate your data privacy with Plausible Analytics. Get simple, clutter-free insights without compromising user privacy. Enjoy an easy, lightweight, and privacy-focused Google Analytics alternative!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {PlausibleAnalyticsConfig}} body - Service instance configuration
  * @returns {PlausibleAnalytics} - Service instance
@@ -327,9 +326,9 @@ export async function createPlausibleAnalyticsInstance(
 }
 
 /**
- * Plausible Analytics
+ * Remove a Plausible Analytics instance
  *
- * Remove a server
+ * @description Elevate your data privacy with Plausible Analytics. Get simple, clutter-free insights without compromising user privacy. Enjoy an easy, lightweight, and privacy-focused Google Analytics alternative!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the server to be removed
  */
@@ -341,4 +340,27 @@ export async function removePlausibleAnalyticsInstance(
     'plausible-analytics'
   );
   await removeInstance(ctx, 'plausible-analytics', name, serviceAccessToken);
+}
+
+/**
+ * Get a Plausible Analytics instance
+ *
+ * @description Elevate your data privacy with Plausible Analytics. Get simple, clutter-free insights without compromising user privacy. Enjoy an easy, lightweight, and privacy-focused Google Analytics alternative!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the server to be retrieved
+ * @returns {PlausibleAnalytics} - Service instance
+ */
+export async function getPlausibleAnalyticsInstance(
+  ctx: Context,
+  name: string
+): Promise<PlausibleAnalytics> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'plausible-analytics'
+  );
+  return await getInstance(
+    ctx,
+    'plausible-analytics',
+    name,
+    serviceAccessToken
+  );
 }

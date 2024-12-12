@@ -286,15 +286,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Couch DB
+ * Create a new Couch DB instance
  *
- * Unlock seamless data management with Apache CouchDB! Effortlessly scalable and highly available, CouchDB makes storing, retrieving, and syncing data across devices a breeze. Ideal for modern cloud apps!
- *
- * Create a new couchdb
+ * @description Unlock seamless data management with Apache CouchDB! Effortlessly scalable and highly available, CouchDB makes storing, retrieving, and syncing data across devices a breeze. Ideal for modern cloud apps!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {ApacheCouchdbConfig}} body - Service instance configuration
  * @returns {ApacheCouchdb} - Service instance
@@ -321,9 +320,9 @@ export async function createApacheCouchdbInstance(
 }
 
 /**
- * Couch DB
+ * Remove a Couch DB instance
  *
- * Remove a couchdb
+ * @description Unlock seamless data management with Apache CouchDB! Effortlessly scalable and highly available, CouchDB makes storing, retrieving, and syncing data across devices a breeze. Ideal for modern cloud apps!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the couchdb to be removed
  */
@@ -333,4 +332,20 @@ export async function removeApacheCouchdbInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('apache-couchdb');
   await removeInstance(ctx, 'apache-couchdb', name, serviceAccessToken);
+}
+
+/**
+ * Get a Couch DB instance
+ *
+ * @description Unlock seamless data management with Apache CouchDB! Effortlessly scalable and highly available, CouchDB makes storing, retrieving, and syncing data across devices a breeze. Ideal for modern cloud apps!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the couchdb to be retrieved
+ * @returns {ApacheCouchdb} - Service instance
+ */
+export async function getApacheCouchdbInstance(
+  ctx: Context,
+  name: string
+): Promise<ApacheCouchdb> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('apache-couchdb');
+  return await getInstance(ctx, 'apache-couchdb', name, serviceAccessToken);
 }

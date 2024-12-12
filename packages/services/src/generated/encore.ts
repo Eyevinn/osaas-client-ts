@@ -430,15 +430,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * SVT Encore
+ * Create a new SVT Encore instance
  *
- * SVT Encore is an open-source video transcoding system for efficient cloud-based video processing. It offers scalable, automated transcoding to optimize video workflows for various platforms, supporting multiple formats and codecs. With a focus on cost-effectiveness and flexibility, Encore is ideal for broadcasters and content creators needing dynamic scaling and reliable performance in their video production and distribution processes.
- *
- * Create a new queue
+ * @description SVT Encore is an open-source video transcoding system for efficient cloud-based video processing. It offers scalable, automated transcoding to optimize video workflows for various platforms, supporting multiple formats and codecs. With a focus on cost-effectiveness and flexibility, Encore is ideal for broadcasters and content creators needing dynamic scaling and reliable performance in their video production and distribution processes.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EncoreConfig}} body - Service instance configuration
  * @returns {Encore} - Service instance
@@ -465,9 +464,9 @@ export async function createEncoreInstance(
 }
 
 /**
- * SVT Encore
+ * Remove a SVT Encore instance
  *
- * Remove a queue
+ * @description SVT Encore is an open-source video transcoding system for efficient cloud-based video processing. It offers scalable, automated transcoding to optimize video workflows for various platforms, supporting multiple formats and codecs. With a focus on cost-effectiveness and flexibility, Encore is ideal for broadcasters and content creators needing dynamic scaling and reliable performance in their video production and distribution processes.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the queue to be removed
  */
@@ -477,4 +476,20 @@ export async function removeEncoreInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('encore');
   await removeInstance(ctx, 'encore', name, serviceAccessToken);
+}
+
+/**
+ * Get a SVT Encore instance
+ *
+ * @description SVT Encore is an open-source video transcoding system for efficient cloud-based video processing. It offers scalable, automated transcoding to optimize video workflows for various platforms, supporting multiple formats and codecs. With a focus on cost-effectiveness and flexibility, Encore is ideal for broadcasters and content creators needing dynamic scaling and reliable performance in their video production and distribution processes.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the queue to be retrieved
+ * @returns {Encore} - Service instance
+ */
+export async function getEncoreInstance(
+  ctx: Context,
+  name: string
+): Promise<Encore> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('encore');
+  return await getInstance(ctx, 'encore', name, serviceAccessToken);
 }

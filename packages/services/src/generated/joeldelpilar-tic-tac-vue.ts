@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Tic Tac Vue
+ * Create a new Tic Tac Vue instance
  *
- * Discover Tic Tac Vue - the ultimate way to enjoy classic Tic Tac Toe! This engaging game is built with Vue 3, offering smooth gameplay and a modern user interface. Perfect for quick fun!
- *
- * Create a new tic-tac-vue
+ * @description Discover Tic Tac Vue - the ultimate way to enjoy classic Tic Tac Toe! This engaging game is built with Vue 3, offering smooth gameplay and a modern user interface. Perfect for quick fun!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {JoeldelpilarTicTacVueConfig}} body - Service instance configuration
  * @returns {JoeldelpilarTicTacVue} - Service instance
@@ -319,9 +318,9 @@ export async function createJoeldelpilarTicTacVueInstance(
 }
 
 /**
- * Tic Tac Vue
+ * Remove a Tic Tac Vue instance
  *
- * Remove a tic-tac-vue
+ * @description Discover Tic Tac Vue - the ultimate way to enjoy classic Tic Tac Toe! This engaging game is built with Vue 3, offering smooth gameplay and a modern user interface. Perfect for quick fun!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the tic-tac-vue to be removed
  */
@@ -333,6 +332,29 @@ export async function removeJoeldelpilarTicTacVueInstance(
     'joeldelpilar-tic-tac-vue'
   );
   await removeInstance(
+    ctx,
+    'joeldelpilar-tic-tac-vue',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Tic Tac Vue instance
+ *
+ * @description Discover Tic Tac Vue - the ultimate way to enjoy classic Tic Tac Toe! This engaging game is built with Vue 3, offering smooth gameplay and a modern user interface. Perfect for quick fun!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the tic-tac-vue to be retrieved
+ * @returns {JoeldelpilarTicTacVue} - Service instance
+ */
+export async function getJoeldelpilarTicTacVueInstance(
+  ctx: Context,
+  name: string
+): Promise<JoeldelpilarTicTacVue> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'joeldelpilar-tic-tac-vue'
+  );
+  return await getInstance(
     ctx,
     'joeldelpilar-tic-tac-vue',
     name,

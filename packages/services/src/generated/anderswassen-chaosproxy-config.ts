@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Chaos Stream Proxy Configurator
+ * Create a new Chaos Stream Proxy Configurator instance
  *
- * Revolutionize your streaming experience with the Chaos Stream Proxy Configurator! Customize HLS streams with precision-timed delays for enhanced content manipulation and control effortlessly.
- *
- * Create a new configurator
+ * @description Revolutionize your streaming experience with the Chaos Stream Proxy Configurator! Customize HLS streams with precision-timed delays for enhanced content manipulation and control effortlessly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {AnderswassenChaosproxyConfigConfig}} body - Service instance configuration
  * @returns {AnderswassenChaosproxyConfig} - Service instance
@@ -323,9 +322,9 @@ export async function createAnderswassenChaosproxyConfigInstance(
 }
 
 /**
- * Chaos Stream Proxy Configurator
+ * Remove a Chaos Stream Proxy Configurator instance
  *
- * Remove a configurator
+ * @description Revolutionize your streaming experience with the Chaos Stream Proxy Configurator! Customize HLS streams with precision-timed delays for enhanced content manipulation and control effortlessly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the configurator to be removed
  */
@@ -337,6 +336,29 @@ export async function removeAnderswassenChaosproxyConfigInstance(
     'anderswassen-chaosproxy-config'
   );
   await removeInstance(
+    ctx,
+    'anderswassen-chaosproxy-config',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Chaos Stream Proxy Configurator instance
+ *
+ * @description Revolutionize your streaming experience with the Chaos Stream Proxy Configurator! Customize HLS streams with precision-timed delays for enhanced content manipulation and control effortlessly.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the configurator to be retrieved
+ * @returns {AnderswassenChaosproxyConfig} - Service instance
+ */
+export async function getAnderswassenChaosproxyConfigInstance(
+  ctx: Context,
+  name: string
+): Promise<AnderswassenChaosproxyConfig> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'anderswassen-chaosproxy-config'
+  );
+  return await getInstance(
     ctx,
     'anderswassen-chaosproxy-config',
     name,

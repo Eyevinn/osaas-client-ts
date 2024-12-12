@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Docuseal
+ * Create a new Docuseal instance
  *
- * Streamline your document workflow with DocuSeal, the leading open-source solution for secure, mobile-optimized digital form filling and signing. Perfect for any business needing swift and seamless e-signatures.
- *
- * Create a new docuseal
+ * @description Streamline your document workflow with DocuSeal, the leading open-source solution for secure, mobile-optimized digital form filling and signing. Perfect for any business needing swift and seamless e-signatures.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {DocusealcoDocusealConfig}} body - Service instance configuration
  * @returns {DocusealcoDocuseal} - Service instance
@@ -319,9 +318,9 @@ export async function createDocusealcoDocusealInstance(
 }
 
 /**
- * Docuseal
+ * Remove a Docuseal instance
  *
- * Remove a docuseal
+ * @description Streamline your document workflow with DocuSeal, the leading open-source solution for secure, mobile-optimized digital form filling and signing. Perfect for any business needing swift and seamless e-signatures.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the docuseal to be removed
  */
@@ -333,4 +332,27 @@ export async function removeDocusealcoDocusealInstance(
     'docusealco-docuseal'
   );
   await removeInstance(ctx, 'docusealco-docuseal', name, serviceAccessToken);
+}
+
+/**
+ * Get a Docuseal instance
+ *
+ * @description Streamline your document workflow with DocuSeal, the leading open-source solution for secure, mobile-optimized digital form filling and signing. Perfect for any business needing swift and seamless e-signatures.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the docuseal to be retrieved
+ * @returns {DocusealcoDocuseal} - Service instance
+ */
+export async function getDocusealcoDocusealInstance(
+  ctx: Context,
+  name: string
+): Promise<DocusealcoDocuseal> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'docusealco-docuseal'
+  );
+  return await getInstance(
+    ctx,
+    'docusealco-docuseal',
+    name,
+    serviceAccessToken
+  );
 }

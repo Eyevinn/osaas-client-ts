@@ -306,15 +306,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Channel Engine Bridge
+ * Create a new Channel Engine Bridge instance
  *
- * Channel Engine Bridge enables seamless pushing of FAST channels from FAST Channel Engine to distribution platforms such as AWS MediaPackage and simplifies the process of pushing channels to a wide range of distribution networks.
- *
- * Create a new channel-engine-bridge
+ * @description Channel Engine Bridge enables seamless pushing of FAST channels from FAST Channel Engine to distribution platforms such as AWS MediaPackage and simplifies the process of pushing channels to a wide range of distribution networks.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnChannelEngineBridgeConfig}} body - Service instance configuration
  * @returns {EyevinnChannelEngineBridge} - Service instance
@@ -347,9 +346,9 @@ export async function createEyevinnChannelEngineBridgeInstance(
 }
 
 /**
- * Channel Engine Bridge
+ * Remove a Channel Engine Bridge instance
  *
- * Remove a channel-engine-bridge
+ * @description Channel Engine Bridge enables seamless pushing of FAST channels from FAST Channel Engine to distribution platforms such as AWS MediaPackage and simplifies the process of pushing channels to a wide range of distribution networks.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the channel-engine-bridge to be removed
  */
@@ -361,6 +360,29 @@ export async function removeEyevinnChannelEngineBridgeInstance(
     'eyevinn-channel-engine-bridge'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-channel-engine-bridge',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Channel Engine Bridge instance
+ *
+ * @description Channel Engine Bridge enables seamless pushing of FAST channels from FAST Channel Engine to distribution platforms such as AWS MediaPackage and simplifies the process of pushing channels to a wide range of distribution networks.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the channel-engine-bridge to be retrieved
+ * @returns {EyevinnChannelEngineBridge} - Service instance
+ */
+export async function getEyevinnChannelEngineBridgeInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnChannelEngineBridge> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-channel-engine-bridge'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-channel-engine-bridge',
     name,

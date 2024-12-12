@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * PDF Rendering Service
+ * Create a new PDF Rendering Service instance
  *
- * Elevate your documentation with our PDF Rendering Service. Turn any URL into a PDF effortlessly. Ideal for business reports and archives. Join the future of document management today.
- *
- * Create a new pdf-rendering-srv
+ * @description Elevate your documentation with our PDF Rendering Service. Turn any URL into a PDF effortlessly. Ideal for business reports and archives. Join the future of document management today.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {RestorecommercePdfRenderingSrvConfig}} body - Service instance configuration
  * @returns {RestorecommercePdfRenderingSrv} - Service instance
@@ -323,9 +322,9 @@ export async function createRestorecommercePdfRenderingSrvInstance(
 }
 
 /**
- * PDF Rendering Service
+ * Remove a PDF Rendering Service instance
  *
- * Remove a pdf-rendering-srv
+ * @description Elevate your documentation with our PDF Rendering Service. Turn any URL into a PDF effortlessly. Ideal for business reports and archives. Join the future of document management today.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the pdf-rendering-srv to be removed
  */
@@ -337,6 +336,29 @@ export async function removeRestorecommercePdfRenderingSrvInstance(
     'restorecommerce-pdf-rendering-srv'
   );
   await removeInstance(
+    ctx,
+    'restorecommerce-pdf-rendering-srv',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a PDF Rendering Service instance
+ *
+ * @description Elevate your documentation with our PDF Rendering Service. Turn any URL into a PDF effortlessly. Ideal for business reports and archives. Join the future of document management today.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the pdf-rendering-srv to be retrieved
+ * @returns {RestorecommercePdfRenderingSrv} - Service instance
+ */
+export async function getRestorecommercePdfRenderingSrvInstance(
+  ctx: Context,
+  name: string
+): Promise<RestorecommercePdfRenderingSrv> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'restorecommerce-pdf-rendering-srv'
+  );
+  return await getInstance(
     ctx,
     'restorecommerce-pdf-rendering-srv',
     name,

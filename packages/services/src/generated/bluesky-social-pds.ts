@@ -298,15 +298,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Bluesky Personal Data Server
+ * Create a new Bluesky Personal Data Server instance
  *
- * Empower your network with self-hosted Bluesky PDS! Harness the power of AT Protocol to easily manage your data server. Seamless installation, full control, and enhanced security for your social media presence.
- *
- * Create a new pds
+ * @description Empower your network with self-hosted Bluesky PDS! Harness the power of AT Protocol to easily manage your data server. Seamless installation, full control, and enhanced security for your social media presence.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {BlueskySocialPdsConfig}} body - Service instance configuration
  * @returns {BlueskySocialPds} - Service instance
@@ -335,9 +334,9 @@ export async function createBlueskySocialPdsInstance(
 }
 
 /**
- * Bluesky Personal Data Server
+ * Remove a Bluesky Personal Data Server instance
  *
- * Remove a pds
+ * @description Empower your network with self-hosted Bluesky PDS! Harness the power of AT Protocol to easily manage your data server. Seamless installation, full control, and enhanced security for your social media presence.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the pds to be removed
  */
@@ -349,4 +348,22 @@ export async function removeBlueskySocialPdsInstance(
     'bluesky-social-pds'
   );
   await removeInstance(ctx, 'bluesky-social-pds', name, serviceAccessToken);
+}
+
+/**
+ * Get a Bluesky Personal Data Server instance
+ *
+ * @description Empower your network with self-hosted Bluesky PDS! Harness the power of AT Protocol to easily manage your data server. Seamless installation, full control, and enhanced security for your social media presence.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the pds to be retrieved
+ * @returns {BlueskySocialPds} - Service instance
+ */
+export async function getBlueskySocialPdsInstance(
+  ctx: Context,
+  name: string
+): Promise<BlueskySocialPds> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'bluesky-social-pds'
+  );
+  return await getInstance(ctx, 'bluesky-social-pds', name, serviceAccessToken);
 }

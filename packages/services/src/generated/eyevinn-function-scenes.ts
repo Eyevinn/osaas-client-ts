@@ -170,15 +170,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Scene Detect Media Function
+ * Create a new Scene Detect Media Function instance
  *
- * A serverless media function to detect scene changes and extract keyframes in a video file or a stream.
- *
- * Create a new mediafunction
+ * @description A serverless media function to detect scene changes and extract keyframes in a video file or a stream.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnFunctionScenesConfig}} body - Service instance configuration
  * @returns {EyevinnFunctionScenes} - Service instance
@@ -207,9 +206,9 @@ export async function createEyevinnFunctionScenesInstance(
 }
 
 /**
- * Scene Detect Media Function
+ * Remove a Scene Detect Media Function instance
  *
- * Remove a mediafunction
+ * @description A serverless media function to detect scene changes and extract keyframes in a video file or a stream.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the mediafunction to be removed
  */
@@ -221,6 +220,29 @@ export async function removeEyevinnFunctionScenesInstance(
     'eyevinn-function-scenes'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-function-scenes',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Scene Detect Media Function instance
+ *
+ * @description A serverless media function to detect scene changes and extract keyframes in a video file or a stream.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the mediafunction to be retrieved
+ * @returns {EyevinnFunctionScenes} - Service instance
+ */
+export async function getEyevinnFunctionScenesInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnFunctionScenes> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-function-scenes'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-function-scenes',
     name,

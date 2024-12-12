@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Anomaly Detector
+ * Create a new Anomaly Detector instance
  *
- * Safeguard your space with Anomaly Detector, a cutting-edge video surveillance solution. Experience real-time anomaly detection using advanced computer vision, ensuring privacy and reducing false alarms. Enhance security efficiently!
- *
- * Create a new anomalydetector
+ * @description Safeguard your space with Anomaly Detector, a cutting-edge video surveillance solution. Experience real-time anomaly detection using advanced computer vision, ensuring privacy and reducing false alarms. Enhance security efficiently!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {OlawalejuwonmAnomalydetectorConfig}} body - Service instance configuration
  * @returns {OlawalejuwonmAnomalydetector} - Service instance
@@ -323,9 +322,9 @@ export async function createOlawalejuwonmAnomalydetectorInstance(
 }
 
 /**
- * Anomaly Detector
+ * Remove a Anomaly Detector instance
  *
- * Remove a anomalydetector
+ * @description Safeguard your space with Anomaly Detector, a cutting-edge video surveillance solution. Experience real-time anomaly detection using advanced computer vision, ensuring privacy and reducing false alarms. Enhance security efficiently!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the anomalydetector to be removed
  */
@@ -337,6 +336,29 @@ export async function removeOlawalejuwonmAnomalydetectorInstance(
     'olawalejuwonm-anomalydetector'
   );
   await removeInstance(
+    ctx,
+    'olawalejuwonm-anomalydetector',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Anomaly Detector instance
+ *
+ * @description Safeguard your space with Anomaly Detector, a cutting-edge video surveillance solution. Experience real-time anomaly detection using advanced computer vision, ensuring privacy and reducing false alarms. Enhance security efficiently!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the anomalydetector to be retrieved
+ * @returns {OlawalejuwonmAnomalydetector} - Service instance
+ */
+export async function getOlawalejuwonmAnomalydetectorInstance(
+  ctx: Context,
+  name: string
+): Promise<OlawalejuwonmAnomalydetector> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'olawalejuwonm-anomalydetector'
+  );
+  return await getInstance(
     ctx,
     'olawalejuwonm-anomalydetector',
     name,

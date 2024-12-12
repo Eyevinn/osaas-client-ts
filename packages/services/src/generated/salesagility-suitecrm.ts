@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Suite CRM
+ * Create a new Suite CRM instance
  *
- * Transform your business with SuiteCRM 7.14.5, the leading open-source CRM. Seamlessly manage customer relationships, gain full data control, and customize your solution for an unbeatable enterprise edge!
- *
- * Create a new suitecrm
+ * @description Transform your business with SuiteCRM 7.14.5, the leading open-source CRM. Seamlessly manage customer relationships, gain full data control, and customize your solution for an unbeatable enterprise edge!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {SalesagilitySuitecrmConfig}} body - Service instance configuration
  * @returns {SalesagilitySuitecrm} - Service instance
@@ -319,9 +318,9 @@ export async function createSalesagilitySuitecrmInstance(
 }
 
 /**
- * Suite CRM
+ * Remove a Suite CRM instance
  *
- * Remove a suitecrm
+ * @description Transform your business with SuiteCRM 7.14.5, the leading open-source CRM. Seamlessly manage customer relationships, gain full data control, and customize your solution for an unbeatable enterprise edge!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the suitecrm to be removed
  */
@@ -333,4 +332,27 @@ export async function removeSalesagilitySuitecrmInstance(
     'salesagility-suitecrm'
   );
   await removeInstance(ctx, 'salesagility-suitecrm', name, serviceAccessToken);
+}
+
+/**
+ * Get a Suite CRM instance
+ *
+ * @description Transform your business with SuiteCRM 7.14.5, the leading open-source CRM. Seamlessly manage customer relationships, gain full data control, and customize your solution for an unbeatable enterprise edge!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the suitecrm to be retrieved
+ * @returns {SalesagilitySuitecrm} - Service instance
+ */
+export async function getSalesagilitySuitecrmInstance(
+  ctx: Context,
+  name: string
+): Promise<SalesagilitySuitecrm> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'salesagility-suitecrm'
+  );
+  return await getInstance(
+    ctx,
+    'salesagility-suitecrm',
+    name,
+    serviceAccessToken
+  );
 }

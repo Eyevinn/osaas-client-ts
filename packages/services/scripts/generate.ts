@@ -51,14 +51,12 @@ export type ${toPascalCase(serviceId)}Config =
     appendFileSync(`./src/generated/${serviceId}.ts`, config);
 
     const create = `
-import { Context, createInstance, waitForInstanceReady, removeInstance } from "@osaas/client-core";
+import { Context, createInstance, waitForInstanceReady, removeInstance, getInstance } from "@osaas/client-core";
 
 /**
- * ${service.serviceMetadata.title}
+ * Create a new ${service.serviceMetadata.title} instance
  * 
- * ${service.serviceMetadata.description}
- * 
- * Create a new ${service.serviceMetadata.instanceNoun}
+ * @description ${service.serviceMetadata.description}
  * @param {Context} context - Open Source Cloud configuration context
  * @param {${toPascalCase(
    serviceId
@@ -94,9 +92,9 @@ export async function create${toPascalCase(
 }
 
 /**
- * ${service.serviceMetadata.title}
+ * Remove a ${service.serviceMetadata.title} instance
  * 
- * Remove a ${service.serviceMetadata.instanceNoun}
+ * @description ${service.serviceMetadata.description}
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the ${
    service.serviceMetadata.instanceNoun
@@ -110,6 +108,25 @@ export async function remove${toPascalCase(
   );
   await removeInstance(ctx, '${serviceId}', name, serviceAccessToken);
 }
+
+/**
+ * Get a ${service.serviceMetadata.title} instance
+ * 
+ * @description ${service.serviceMetadata.description}
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the ${
+   service.serviceMetadata.instanceNoun
+ } to be retrieved
+ * @returns {${toPascalCase(serviceId)}} - Service instance
+ */
+export async function get${toPascalCase(
+      serviceId
+    )}Instance(ctx: Context, name: string): Promise<${toPascalCase(
+      serviceId
+    )}> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('${serviceId}');
+  return await getInstance(ctx, '${serviceId}', name, serviceAccessToken);
+}
 `;
     appendFileSync(`./src/generated/${serviceId}.ts`, create);
 
@@ -117,7 +134,7 @@ export async function remove${toPascalCase(
       serviceId
     )}Config,\n create${toPascalCase(
       serviceId
-    )}Instance,\n remove${toPascalCase(
+    )}Instance,\n remove${toPascalCase(serviceId)}Instance,\n get${toPascalCase(
       serviceId
     )}Instance } from './generated/${serviceId}';\n`;
     appendFileSync('./src/index.ts', indexTs);

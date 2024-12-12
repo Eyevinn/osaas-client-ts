@@ -170,15 +170,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * HLS Preview Generator
+ * Create a new HLS Preview Generator instance
  *
- * A service to generate a preview video (mp4) or an image (png) from an HLS stream
- *
- * Create a new preview-generator
+ * @description A service to generate a preview video (mp4) or an image (png) from an HLS stream
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnPreviewHlsServiceConfig}} body - Service instance configuration
  * @returns {EyevinnPreviewHlsService} - Service instance
@@ -207,9 +206,9 @@ export async function createEyevinnPreviewHlsServiceInstance(
 }
 
 /**
- * HLS Preview Generator
+ * Remove a HLS Preview Generator instance
  *
- * Remove a preview-generator
+ * @description A service to generate a preview video (mp4) or an image (png) from an HLS stream
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the preview-generator to be removed
  */
@@ -221,6 +220,29 @@ export async function removeEyevinnPreviewHlsServiceInstance(
     'eyevinn-preview-hls-service'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-preview-hls-service',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a HLS Preview Generator instance
+ *
+ * @description A service to generate a preview video (mp4) or an image (png) from an HLS stream
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the preview-generator to be retrieved
+ * @returns {EyevinnPreviewHlsService} - Service instance
+ */
+export async function getEyevinnPreviewHlsServiceInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnPreviewHlsService> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-preview-hls-service'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-preview-hls-service',
     name,

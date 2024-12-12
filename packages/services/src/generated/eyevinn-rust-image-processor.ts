@@ -194,15 +194,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Simple Image Resizer
+ * Create a new Simple Image Resizer instance
  *
- * An efficient and easy to use image resizer offering an endpoint for scaling image on the fly.
- *
- * Create a new resizer
+ * @description An efficient and easy to use image resizer offering an endpoint for scaling image on the fly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnRustImageProcessorConfig}} body - Service instance configuration
  * @returns {EyevinnRustImageProcessor} - Service instance
@@ -235,9 +234,9 @@ export async function createEyevinnRustImageProcessorInstance(
 }
 
 /**
- * Simple Image Resizer
+ * Remove a Simple Image Resizer instance
  *
- * Remove a resizer
+ * @description An efficient and easy to use image resizer offering an endpoint for scaling image on the fly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the resizer to be removed
  */
@@ -249,6 +248,29 @@ export async function removeEyevinnRustImageProcessorInstance(
     'eyevinn-rust-image-processor'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-rust-image-processor',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Simple Image Resizer instance
+ *
+ * @description An efficient and easy to use image resizer offering an endpoint for scaling image on the fly.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the resizer to be retrieved
+ * @returns {EyevinnRustImageProcessor} - Service instance
+ */
+export async function getEyevinnRustImageProcessorInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnRustImageProcessor> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-rust-image-processor'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-rust-image-processor',
     name,

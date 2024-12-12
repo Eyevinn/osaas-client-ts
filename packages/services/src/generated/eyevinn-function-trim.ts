@@ -206,15 +206,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Trim Media
+ * Create a new Trim Media instance
  *
- * A serverless media function to trim single media file or an ABR bundle of media files and upload the output to an S3 bucket.
- *
- * Create a new mediafunction
+ * @description A serverless media function to trim single media file or an ABR bundle of media files and upload the output to an S3 bucket.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnFunctionTrimConfig}} body - Service instance configuration
  * @returns {EyevinnFunctionTrim} - Service instance
@@ -243,9 +242,9 @@ export async function createEyevinnFunctionTrimInstance(
 }
 
 /**
- * Trim Media
+ * Remove a Trim Media instance
  *
- * Remove a mediafunction
+ * @description A serverless media function to trim single media file or an ABR bundle of media files and upload the output to an S3 bucket.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the mediafunction to be removed
  */
@@ -257,4 +256,27 @@ export async function removeEyevinnFunctionTrimInstance(
     'eyevinn-function-trim'
   );
   await removeInstance(ctx, 'eyevinn-function-trim', name, serviceAccessToken);
+}
+
+/**
+ * Get a Trim Media instance
+ *
+ * @description A serverless media function to trim single media file or an ABR bundle of media files and upload the output to an S3 bucket.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the mediafunction to be retrieved
+ * @returns {EyevinnFunctionTrim} - Service instance
+ */
+export async function getEyevinnFunctionTrimInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnFunctionTrim> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-function-trim'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-function-trim',
+    name,
+    serviceAccessToken
+  );
 }

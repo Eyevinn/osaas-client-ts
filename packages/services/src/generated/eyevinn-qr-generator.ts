@@ -290,15 +290,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * QR Code Generator
+ * Create a new QR Code Generator instance
  *
- * Effortlessly create and customize QR codes with dynamic text and logos. Perfect for projects requiring quick updates. Launch your instance and deploy multiple codes seamlessly on the Open Source Cloud.
- *
- * Create a new qr-generator
+ * @description Effortlessly create and customize QR codes with dynamic text and logos. Perfect for projects requiring quick updates. Launch your instance and deploy multiple codes seamlessly on the Open Source Cloud.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnQrGeneratorConfig}} body - Service instance configuration
  * @returns {EyevinnQrGenerator} - Service instance
@@ -327,9 +326,9 @@ export async function createEyevinnQrGeneratorInstance(
 }
 
 /**
- * QR Code Generator
+ * Remove a QR Code Generator instance
  *
- * Remove a qr-generator
+ * @description Effortlessly create and customize QR codes with dynamic text and logos. Perfect for projects requiring quick updates. Launch your instance and deploy multiple codes seamlessly on the Open Source Cloud.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the qr-generator to be removed
  */
@@ -341,4 +340,27 @@ export async function removeEyevinnQrGeneratorInstance(
     'eyevinn-qr-generator'
   );
   await removeInstance(ctx, 'eyevinn-qr-generator', name, serviceAccessToken);
+}
+
+/**
+ * Get a QR Code Generator instance
+ *
+ * @description Effortlessly create and customize QR codes with dynamic text and logos. Perfect for projects requiring quick updates. Launch your instance and deploy multiple codes seamlessly on the Open Source Cloud.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the qr-generator to be retrieved
+ * @returns {EyevinnQrGenerator} - Service instance
+ */
+export async function getEyevinnQrGeneratorInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnQrGenerator> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-qr-generator'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-qr-generator',
+    name,
+    serviceAccessToken
+  );
 }

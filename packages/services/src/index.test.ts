@@ -1477,3 +1477,25 @@ describe('createDrawdbIoDrawdbInstance', () => {
     );
   });
 });
+
+describe('createEyevinnAiCodeReviewerInstance', () => {
+  it('should call createInstance', async () => {
+    const ctx = new Context();
+    const body = { name: 'sdk' };
+    await sdk.createEyevinnAiCodeReviewerInstance(ctx, body as any);
+    expect(ctx.getServiceAccessToken).toHaveBeenCalledWith(
+      'eyevinn-ai-code-reviewer'
+    );
+    expect(createInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-ai-code-reviewer',
+      'token',
+      body
+    );
+    expect(waitForInstanceReady).toHaveBeenCalledWith(
+      'eyevinn-ai-code-reviewer',
+      'sdk',
+      ctx
+    );
+  });
+});

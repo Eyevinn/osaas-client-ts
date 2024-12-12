@@ -298,15 +298,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Subtitle Generator
+ * Create a new Subtitle Generator instance
  *
- * Automatically generate subtitles from an input audio or video file using Open AI Whisper.
- *
- * Create a new generator
+ * @description Automatically generate subtitles from an input audio or video file using Open AI Whisper.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnAutoSubtitlesConfig}} body - Service instance configuration
  * @returns {EyevinnAutoSubtitles} - Service instance
@@ -335,9 +334,9 @@ export async function createEyevinnAutoSubtitlesInstance(
 }
 
 /**
- * Subtitle Generator
+ * Remove a Subtitle Generator instance
  *
- * Remove a generator
+ * @description Automatically generate subtitles from an input audio or video file using Open AI Whisper.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the generator to be removed
  */
@@ -349,4 +348,27 @@ export async function removeEyevinnAutoSubtitlesInstance(
     'eyevinn-auto-subtitles'
   );
   await removeInstance(ctx, 'eyevinn-auto-subtitles', name, serviceAccessToken);
+}
+
+/**
+ * Get a Subtitle Generator instance
+ *
+ * @description Automatically generate subtitles from an input audio or video file using Open AI Whisper.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the generator to be retrieved
+ * @returns {EyevinnAutoSubtitles} - Service instance
+ */
+export async function getEyevinnAutoSubtitlesInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnAutoSubtitles> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-auto-subtitles'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-auto-subtitles',
+    name,
+    serviceAccessToken
+  );
 }

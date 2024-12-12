@@ -302,15 +302,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Wordpress
+ * Create a new Wordpress instance
  *
- * Power your site with WordPress – the core behind 40% of the web. Enjoy seamless installation, robust customization, and unmatched scalability. Elevate your online presence effortlessly today!
- *
- * Create a new wordpress
+ * @description Power your site with WordPress – the core behind 40% of the web. Enjoy seamless installation, robust customization, and unmatched scalability. Elevate your online presence effortlessly today!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {WordpressWordpressConfig}} body - Service instance configuration
  * @returns {WordpressWordpress} - Service instance
@@ -339,9 +338,9 @@ export async function createWordpressWordpressInstance(
 }
 
 /**
- * Wordpress
+ * Remove a Wordpress instance
  *
- * Remove a wordpress
+ * @description Power your site with WordPress – the core behind 40% of the web. Enjoy seamless installation, robust customization, and unmatched scalability. Elevate your online presence effortlessly today!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the wordpress to be removed
  */
@@ -353,4 +352,27 @@ export async function removeWordpressWordpressInstance(
     'wordpress-wordpress'
   );
   await removeInstance(ctx, 'wordpress-wordpress', name, serviceAccessToken);
+}
+
+/**
+ * Get a Wordpress instance
+ *
+ * @description Power your site with WordPress – the core behind 40% of the web. Enjoy seamless installation, robust customization, and unmatched scalability. Elevate your online presence effortlessly today!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the wordpress to be retrieved
+ * @returns {WordpressWordpress} - Service instance
+ */
+export async function getWordpressWordpressInstance(
+  ctx: Context,
+  name: string
+): Promise<WordpressWordpress> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'wordpress-wordpress'
+  );
+  return await getInstance(
+    ctx,
+    'wordpress-wordpress',
+    name,
+    serviceAccessToken
+  );
 }

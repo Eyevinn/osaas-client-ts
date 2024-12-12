@@ -322,15 +322,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Encore Packager
+ * Create a new Encore Packager instance
  *
- * Enhance your transcoding workflow with Encore packager! Run as a service, listen for messages on redis queue, and customize packaging events. Boost productivity with this versatile tool.
- *
- * Create a new packager
+ * @description Enhance your transcoding workflow with Encore packager! Run as a service, listen for messages on redis queue, and customize packaging events. Boost productivity with this versatile tool.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnEncorePackagerConfig}} body - Service instance configuration
  * @returns {EyevinnEncorePackager} - Service instance
@@ -359,9 +358,9 @@ export async function createEyevinnEncorePackagerInstance(
 }
 
 /**
- * Encore Packager
+ * Remove a Encore Packager instance
  *
- * Remove a packager
+ * @description Enhance your transcoding workflow with Encore packager! Run as a service, listen for messages on redis queue, and customize packaging events. Boost productivity with this versatile tool.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the packager to be removed
  */
@@ -373,6 +372,29 @@ export async function removeEyevinnEncorePackagerInstance(
     'eyevinn-encore-packager'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-encore-packager',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Encore Packager instance
+ *
+ * @description Enhance your transcoding workflow with Encore packager! Run as a service, listen for messages on redis queue, and customize packaging events. Boost productivity with this versatile tool.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the packager to be retrieved
+ * @returns {EyevinnEncorePackager} - Service instance
+ */
+export async function getEyevinnEncorePackagerInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnEncorePackager> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-encore-packager'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-encore-packager',
     name,

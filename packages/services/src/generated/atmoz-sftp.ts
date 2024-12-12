@@ -290,16 +290,15 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * SFTP Server
+ * Create a new SFTP Server instance
  * 
- * Effortlessly manage secure file transfers with our user-friendly SFTP server powered by OpenSSH. Ideal for sharing files securely using SSH, it integrates easily with Docker, ensuring both security and simplicity.
+ * @description Effortlessly manage secure file transfers with our user-friendly SFTP server powered by OpenSSH. Ideal for sharing files securely using SSH, it integrates easily with Docker, ensuring both security and simplicity.
 
- * 
- * Create a new sftp
  * @param {Context} context - Open Source Cloud configuration context
  * @param {AtmozSftpConfig}} body - Service instance configuration
  * @returns {AtmozSftp} - Service instance
@@ -326,9 +325,10 @@ export async function createAtmozSftpInstance(
 }
 
 /**
- * SFTP Server
- *
- * Remove a sftp
+ * Remove a SFTP Server instance
+ * 
+ * @description Effortlessly manage secure file transfers with our user-friendly SFTP server powered by OpenSSH. Ideal for sharing files securely using SSH, it integrates easily with Docker, ensuring both security and simplicity.
+
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the sftp to be removed
  */
@@ -338,4 +338,21 @@ export async function removeAtmozSftpInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('atmoz-sftp');
   await removeInstance(ctx, 'atmoz-sftp', name, serviceAccessToken);
+}
+
+/**
+ * Get a SFTP Server instance
+ * 
+ * @description Effortlessly manage secure file transfers with our user-friendly SFTP server powered by OpenSSH. Ideal for sharing files securely using SSH, it integrates easily with Docker, ensuring both security and simplicity.
+
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the sftp to be retrieved
+ * @returns {AtmozSftp} - Service instance
+ */
+export async function getAtmozSftpInstance(
+  ctx: Context,
+  name: string
+): Promise<AtmozSftp> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('atmoz-sftp');
+  return await getInstance(ctx, 'atmoz-sftp', name, serviceAccessToken);
 }

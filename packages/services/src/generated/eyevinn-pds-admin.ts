@@ -286,15 +286,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * PDS Admin
+ * Create a new PDS Admin instance
  *
- * Effortlessly manage your Bluesky Personal Data Server with our intuitive admin tool. Optimize your data environment locally or in the cloud with seamless installation and dependable performance.
- *
- * Create a new app
+ * @description Effortlessly manage your Bluesky Personal Data Server with our intuitive admin tool. Optimize your data environment locally or in the cloud with seamless installation and dependable performance.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnPdsAdminConfig}} body - Service instance configuration
  * @returns {EyevinnPdsAdmin} - Service instance
@@ -323,9 +322,9 @@ export async function createEyevinnPdsAdminInstance(
 }
 
 /**
- * PDS Admin
+ * Remove a PDS Admin instance
  *
- * Remove a app
+ * @description Effortlessly manage your Bluesky Personal Data Server with our intuitive admin tool. Optimize your data environment locally or in the cloud with seamless installation and dependable performance.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the app to be removed
  */
@@ -337,4 +336,22 @@ export async function removeEyevinnPdsAdminInstance(
     'eyevinn-pds-admin'
   );
   await removeInstance(ctx, 'eyevinn-pds-admin', name, serviceAccessToken);
+}
+
+/**
+ * Get a PDS Admin instance
+ *
+ * @description Effortlessly manage your Bluesky Personal Data Server with our intuitive admin tool. Optimize your data environment locally or in the cloud with seamless installation and dependable performance.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the app to be retrieved
+ * @returns {EyevinnPdsAdmin} - Service instance
+ */
+export async function getEyevinnPdsAdminInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnPdsAdmin> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-pds-admin'
+  );
+  return await getInstance(ctx, 'eyevinn-pds-admin', name, serviceAccessToken);
 }

@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * HLS Stream Monitor
+ * Create a new HLS Stream Monitor instance
  *
- * Service to monitor one or more HLS-streams for manifest errors and inconsistencies.
- *
- * Create a new monitor
+ * @description Service to monitor one or more HLS-streams for manifest errors and inconsistencies.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnHlsMonitorConfig}} body - Service instance configuration
  * @returns {EyevinnHlsMonitor} - Service instance
@@ -319,9 +318,9 @@ export async function createEyevinnHlsMonitorInstance(
 }
 
 /**
- * HLS Stream Monitor
+ * Remove a HLS Stream Monitor instance
  *
- * Remove a monitor
+ * @description Service to monitor one or more HLS-streams for manifest errors and inconsistencies.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the monitor to be removed
  */
@@ -333,4 +332,27 @@ export async function removeEyevinnHlsMonitorInstance(
     'eyevinn-hls-monitor'
   );
   await removeInstance(ctx, 'eyevinn-hls-monitor', name, serviceAccessToken);
+}
+
+/**
+ * Get a HLS Stream Monitor instance
+ *
+ * @description Service to monitor one or more HLS-streams for manifest errors and inconsistencies.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the monitor to be retrieved
+ * @returns {EyevinnHlsMonitor} - Service instance
+ */
+export async function getEyevinnHlsMonitorInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnHlsMonitor> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-hls-monitor'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-hls-monitor',
+    name,
+    serviceAccessToken
+  );
 }

@@ -210,15 +210,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * FAST Engine Schedule Service
+ * Create a new FAST Engine Schedule Service instance
  *
- * A modular service to automatically populate schedules for FAST Engine channels. Uses AWS Dynamo DB as database.
- *
- * Create a new scheduler
+ * @description A modular service to automatically populate schedules for FAST Engine channels. Uses AWS Dynamo DB as database.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnScheduleServiceConfig}} body - Service instance configuration
  * @returns {EyevinnScheduleService} - Service instance
@@ -247,9 +246,9 @@ export async function createEyevinnScheduleServiceInstance(
 }
 
 /**
- * FAST Engine Schedule Service
+ * Remove a FAST Engine Schedule Service instance
  *
- * Remove a scheduler
+ * @description A modular service to automatically populate schedules for FAST Engine channels. Uses AWS Dynamo DB as database.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the scheduler to be removed
  */
@@ -261,6 +260,29 @@ export async function removeEyevinnScheduleServiceInstance(
     'eyevinn-schedule-service'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-schedule-service',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a FAST Engine Schedule Service instance
+ *
+ * @description A modular service to automatically populate schedules for FAST Engine channels. Uses AWS Dynamo DB as database.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the scheduler to be retrieved
+ * @returns {EyevinnScheduleService} - Service instance
+ */
+export async function getEyevinnScheduleServiceInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnScheduleService> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-schedule-service'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-schedule-service',
     name,

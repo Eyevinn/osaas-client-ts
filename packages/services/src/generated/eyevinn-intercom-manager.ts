@@ -294,17 +294,16 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Intercom
+ * Create a new Intercom instance
  * 
- * Open Source Intercom Solution providing production-grade audio quality and real-time latency. Powered by Symphony Media Bridge open source media server.
+ * @description Open Source Intercom Solution providing production-grade audio quality and real-time latency. Powered by Symphony Media Bridge open source media server.
 
 Join our Slack community for support and customization. Contact sales@eyevinn.se for further development and support. Visit Eyevinn Technology for innovative video solutions.
- * 
- * Create a new system
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnIntercomManagerConfig}} body - Service instance configuration
  * @returns {EyevinnIntercomManager} - Service instance
@@ -333,9 +332,11 @@ export async function createEyevinnIntercomManagerInstance(
 }
 
 /**
- * Intercom
- *
- * Remove a system
+ * Remove a Intercom instance
+ * 
+ * @description Open Source Intercom Solution providing production-grade audio quality and real-time latency. Powered by Symphony Media Bridge open source media server.
+
+Join our Slack community for support and customization. Contact sales@eyevinn.se for further development and support. Visit Eyevinn Technology for innovative video solutions.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the system to be removed
  */
@@ -347,6 +348,31 @@ export async function removeEyevinnIntercomManagerInstance(
     'eyevinn-intercom-manager'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-intercom-manager',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Intercom instance
+ * 
+ * @description Open Source Intercom Solution providing production-grade audio quality and real-time latency. Powered by Symphony Media Bridge open source media server.
+
+Join our Slack community for support and customization. Contact sales@eyevinn.se for further development and support. Visit Eyevinn Technology for innovative video solutions.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the system to be retrieved
+ * @returns {EyevinnIntercomManager} - Service instance
+ */
+export async function getEyevinnIntercomManagerInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnIntercomManager> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-intercom-manager'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-intercom-manager',
     name,

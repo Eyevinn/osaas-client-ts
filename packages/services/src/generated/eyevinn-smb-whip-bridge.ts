@@ -298,15 +298,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Symphony Media Bridge WHIP Gateway
+ * Create a new Symphony Media Bridge WHIP Gateway instance
  *
- * Elevate your video streaming with SMB WHIP Bridge! Seamlessly integrate WHIP clients with Symphony Media Bridge SFU for superior media streams.
- *
- * Create a new gateway
+ * @description Elevate your video streaming with SMB WHIP Bridge! Seamlessly integrate WHIP clients with Symphony Media Bridge SFU for superior media streams.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnSmbWhipBridgeConfig}} body - Service instance configuration
  * @returns {EyevinnSmbWhipBridge} - Service instance
@@ -335,9 +334,9 @@ export async function createEyevinnSmbWhipBridgeInstance(
 }
 
 /**
- * Symphony Media Bridge WHIP Gateway
+ * Remove a Symphony Media Bridge WHIP Gateway instance
  *
- * Remove a gateway
+ * @description Elevate your video streaming with SMB WHIP Bridge! Seamlessly integrate WHIP clients with Symphony Media Bridge SFU for superior media streams.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the gateway to be removed
  */
@@ -349,6 +348,29 @@ export async function removeEyevinnSmbWhipBridgeInstance(
     'eyevinn-smb-whip-bridge'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-smb-whip-bridge',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Symphony Media Bridge WHIP Gateway instance
+ *
+ * @description Elevate your video streaming with SMB WHIP Bridge! Seamlessly integrate WHIP clients with Symphony Media Bridge SFU for superior media streams.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the gateway to be retrieved
+ * @returns {EyevinnSmbWhipBridge} - Service instance
+ */
+export async function getEyevinnSmbWhipBridgeInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnSmbWhipBridge> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-smb-whip-bridge'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-smb-whip-bridge',
     name,

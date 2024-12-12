@@ -286,15 +286,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Hello World
+ * Create a new Hello World instance
  *
- * Harness the power of Next.js 14 and NextUI v2 with this feature-rich template. Perfect for creating sleek, dynamic apps with Tailwind CSS and TypeScript. Kickstart your project efficiently today!
- *
- * Create a new example
+ * @description Harness the power of Next.js 14 and NextUI v2 with this feature-rich template. Perfect for creating sleek, dynamic apps with Tailwind CSS and TypeScript. Kickstart your project efficiently today!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {ErnestocaroccaHelloWorldConfig}} body - Service instance configuration
  * @returns {ErnestocaroccaHelloWorld} - Service instance
@@ -323,9 +322,9 @@ export async function createErnestocaroccaHelloWorldInstance(
 }
 
 /**
- * Hello World
+ * Remove a Hello World instance
  *
- * Remove a example
+ * @description Harness the power of Next.js 14 and NextUI v2 with this feature-rich template. Perfect for creating sleek, dynamic apps with Tailwind CSS and TypeScript. Kickstart your project efficiently today!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the example to be removed
  */
@@ -337,6 +336,29 @@ export async function removeErnestocaroccaHelloWorldInstance(
     'ernestocarocca-hello-world'
   );
   await removeInstance(
+    ctx,
+    'ernestocarocca-hello-world',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Hello World instance
+ *
+ * @description Harness the power of Next.js 14 and NextUI v2 with this feature-rich template. Perfect for creating sleek, dynamic apps with Tailwind CSS and TypeScript. Kickstart your project efficiently today!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the example to be retrieved
+ * @returns {ErnestocaroccaHelloWorld} - Service instance
+ */
+export async function getErnestocaroccaHelloWorldInstance(
+  ctx: Context,
+  name: string
+): Promise<ErnestocaroccaHelloWorld> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'ernestocarocca-hello-world'
+  );
+  return await getInstance(
     ctx,
     'ernestocarocca-hello-world',
     name,
