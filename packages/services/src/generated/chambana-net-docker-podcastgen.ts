@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Podcast Generator
+ * Create a new Podcast Generator instance
  *
- * Effortlessly host and manage your podcasts with our Docker container for Podcast Generator. Quick setup and version flexibility let you focus on content creation while we handle the rest.
- *
- * Create a new podcast-generator
+ * @description Effortlessly host and manage your podcasts with our Docker container for Podcast Generator. Quick setup and version flexibility let you focus on content creation while we handle the rest.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {ChambanaNetDockerPodcastgenConfig}} body - Service instance configuration
  * @returns {ChambanaNetDockerPodcastgen} - Service instance
@@ -323,9 +322,9 @@ export async function createChambanaNetDockerPodcastgenInstance(
 }
 
 /**
- * Podcast Generator
+ * Remove a Podcast Generator instance
  *
- * Remove a podcast-generator
+ * @description Effortlessly host and manage your podcasts with our Docker container for Podcast Generator. Quick setup and version flexibility let you focus on content creation while we handle the rest.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the podcast-generator to be removed
  */
@@ -337,6 +336,29 @@ export async function removeChambanaNetDockerPodcastgenInstance(
     'chambana-net-docker-podcastgen'
   );
   await removeInstance(
+    ctx,
+    'chambana-net-docker-podcastgen',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Podcast Generator instance
+ *
+ * @description Effortlessly host and manage your podcasts with our Docker container for Podcast Generator. Quick setup and version flexibility let you focus on content creation while we handle the rest.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the podcast-generator to be retrieved
+ * @returns {ChambanaNetDockerPodcastgen} - Service instance
+ */
+export async function getChambanaNetDockerPodcastgenInstance(
+  ctx: Context,
+  name: string
+): Promise<ChambanaNetDockerPodcastgen> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'chambana-net-docker-podcastgen'
+  );
+  return await getInstance(
     ctx,
     'chambana-net-docker-podcastgen',
     name,

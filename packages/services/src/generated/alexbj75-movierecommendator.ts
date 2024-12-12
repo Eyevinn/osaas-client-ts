@@ -286,15 +286,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * movierecommendator
+ * Create a new movierecommendator instance
  *
- * Discover new films effortlessly! Enter a movie name and get two personalized recommendations powered by OpenAI. Transform your movie nights with Movie Recommender’s smart suggestions. Try it now!
- *
- * Create a new movierecommendator
+ * @description Discover new films effortlessly! Enter a movie name and get two personalized recommendations powered by OpenAI. Transform your movie nights with Movie Recommender’s smart suggestions. Try it now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {Alexbj75MovierecommendatorConfig}} body - Service instance configuration
  * @returns {Alexbj75Movierecommendator} - Service instance
@@ -323,9 +322,9 @@ export async function createAlexbj75MovierecommendatorInstance(
 }
 
 /**
- * movierecommendator
+ * Remove a movierecommendator instance
  *
- * Remove a movierecommendator
+ * @description Discover new films effortlessly! Enter a movie name and get two personalized recommendations powered by OpenAI. Transform your movie nights with Movie Recommender’s smart suggestions. Try it now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the movierecommendator to be removed
  */
@@ -337,6 +336,29 @@ export async function removeAlexbj75MovierecommendatorInstance(
     'alexbj75-movierecommendator'
   );
   await removeInstance(
+    ctx,
+    'alexbj75-movierecommendator',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a movierecommendator instance
+ *
+ * @description Discover new films effortlessly! Enter a movie name and get two personalized recommendations powered by OpenAI. Transform your movie nights with Movie Recommender’s smart suggestions. Try it now!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the movierecommendator to be retrieved
+ * @returns {Alexbj75Movierecommendator} - Service instance
+ */
+export async function getAlexbj75MovierecommendatorInstance(
+  ctx: Context,
+  name: string
+): Promise<Alexbj75Movierecommendator> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'alexbj75-movierecommendator'
+  );
+  return await getInstance(
     ctx,
     'alexbj75-movierecommendator',
     name,

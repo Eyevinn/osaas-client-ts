@@ -286,15 +286,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Application Config Service
+ * Create a new Application Config Service instance
  *
- * Supercharge your application's efficiency by instantly providing configuration values with our Application Configuration Service. Integrate seamlessly with Redis, leverage cache control, and scale effortlessly.
- *
- * Create a new config-service
+ * @description Supercharge your application's efficiency by instantly providing configuration values with our Application Configuration Service. Integrate seamlessly with Redis, leverage cache control, and scale effortlessly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnAppConfigSvcConfig}} body - Service instance configuration
  * @returns {EyevinnAppConfigSvc} - Service instance
@@ -323,9 +322,9 @@ export async function createEyevinnAppConfigSvcInstance(
 }
 
 /**
- * Application Config Service
+ * Remove a Application Config Service instance
  *
- * Remove a config-service
+ * @description Supercharge your application's efficiency by instantly providing configuration values with our Application Configuration Service. Integrate seamlessly with Redis, leverage cache control, and scale effortlessly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the config-service to be removed
  */
@@ -337,4 +336,27 @@ export async function removeEyevinnAppConfigSvcInstance(
     'eyevinn-app-config-svc'
   );
   await removeInstance(ctx, 'eyevinn-app-config-svc', name, serviceAccessToken);
+}
+
+/**
+ * Get a Application Config Service instance
+ *
+ * @description Supercharge your application's efficiency by instantly providing configuration values with our Application Configuration Service. Integrate seamlessly with Redis, leverage cache control, and scale effortlessly.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the config-service to be retrieved
+ * @returns {EyevinnAppConfigSvc} - Service instance
+ */
+export async function getEyevinnAppConfigSvcInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnAppConfigSvc> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-app-config-svc'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-app-config-svc',
+    name,
+    serviceAccessToken
+  );
 }

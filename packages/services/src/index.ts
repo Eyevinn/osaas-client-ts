@@ -6,413 +6,489 @@ export {
   ChannelEngine,
   ChannelEngineConfig,
   createChannelEngineInstance,
-  removeChannelEngineInstance
+  removeChannelEngineInstance,
+  getChannelEngineInstance
 } from './generated/channel-engine';
 export {
   Encore,
   EncoreConfig,
   createEncoreInstance,
-  removeEncoreInstance
+  removeEncoreInstance,
+  getEncoreInstance
 } from './generated/encore';
 export {
   EyevinnTestAdserver,
   EyevinnTestAdserverConfig,
   createEyevinnTestAdserverInstance,
-  removeEyevinnTestAdserverInstance
+  removeEyevinnTestAdserverInstance,
+  getEyevinnTestAdserverInstance
 } from './generated/eyevinn-test-adserver';
 export {
   EyevinnChaosStreamProxy,
   EyevinnChaosStreamProxyConfig,
   createEyevinnChaosStreamProxyInstance,
-  removeEyevinnChaosStreamProxyInstance
+  removeEyevinnChaosStreamProxyInstance,
+  getEyevinnChaosStreamProxyInstance
 } from './generated/eyevinn-chaos-stream-proxy';
 export {
   EyevinnChannelEngineBridge,
   EyevinnChannelEngineBridgeConfig,
   createEyevinnChannelEngineBridgeInstance,
-  removeEyevinnChannelEngineBridgeInstance
+  removeEyevinnChannelEngineBridgeInstance,
+  getEyevinnChannelEngineBridgeInstance
 } from './generated/eyevinn-channel-engine-bridge';
 export {
   EyevinnAutoSubtitles,
   EyevinnAutoSubtitlesConfig,
   createEyevinnAutoSubtitlesInstance,
-  removeEyevinnAutoSubtitlesInstance
+  removeEyevinnAutoSubtitlesInstance,
+  getEyevinnAutoSubtitlesInstance
 } from './generated/eyevinn-auto-subtitles';
 export {
   EyevinnLambdaStitch,
   EyevinnLambdaStitchConfig,
   createEyevinnLambdaStitchInstance,
-  removeEyevinnLambdaStitchInstance
+  removeEyevinnLambdaStitchInstance,
+  getEyevinnLambdaStitchInstance
 } from './generated/eyevinn-lambda-stitch';
 export {
   EyevinnFunctionScenes,
   EyevinnFunctionScenesConfig,
   createEyevinnFunctionScenesInstance,
-  removeEyevinnFunctionScenesInstance
+  removeEyevinnFunctionScenesInstance,
+  getEyevinnFunctionScenesInstance
 } from './generated/eyevinn-function-scenes';
 export {
   EyevinnPreviewHlsService,
   EyevinnPreviewHlsServiceConfig,
   createEyevinnPreviewHlsServiceInstance,
-  removeEyevinnPreviewHlsServiceInstance
+  removeEyevinnPreviewHlsServiceInstance,
+  getEyevinnPreviewHlsServiceInstance
 } from './generated/eyevinn-preview-hls-service';
 export {
   EyevinnHlsMonitor,
   EyevinnHlsMonitorConfig,
   createEyevinnHlsMonitorInstance,
-  removeEyevinnHlsMonitorInstance
+  removeEyevinnHlsMonitorInstance,
+  getEyevinnHlsMonitorInstance
 } from './generated/eyevinn-hls-monitor';
 export {
   EyevinnCastReceiver,
   EyevinnCastReceiverConfig,
   createEyevinnCastReceiverInstance,
-  removeEyevinnCastReceiverInstance
+  removeEyevinnCastReceiverInstance,
+  getEyevinnCastReceiverInstance
 } from './generated/eyevinn-cast-receiver';
 export {
   EyevinnFunctionProbe,
   EyevinnFunctionProbeConfig,
   createEyevinnFunctionProbeInstance,
-  removeEyevinnFunctionProbeInstance
+  removeEyevinnFunctionProbeInstance,
+  getEyevinnFunctionProbeInstance
 } from './generated/eyevinn-function-probe';
 export {
   EyevinnScheduleService,
   EyevinnScheduleServiceConfig,
   createEyevinnScheduleServiceInstance,
-  removeEyevinnScheduleServiceInstance
+  removeEyevinnScheduleServiceInstance,
+  getEyevinnScheduleServiceInstance
 } from './generated/eyevinn-schedule-service';
 export {
   EyevinnRustImageProcessor,
   EyevinnRustImageProcessorConfig,
   createEyevinnRustImageProcessorInstance,
-  removeEyevinnRustImageProcessorInstance
+  removeEyevinnRustImageProcessorInstance,
+  getEyevinnRustImageProcessorInstance
 } from './generated/eyevinn-rust-image-processor';
 export {
   EyevinnContinueWatchingApi,
   EyevinnContinueWatchingApiConfig,
   createEyevinnContinueWatchingApiInstance,
-  removeEyevinnContinueWatchingApiInstance
+  removeEyevinnContinueWatchingApiInstance,
+  getEyevinnContinueWatchingApiInstance
 } from './generated/eyevinn-continue-watching-api';
 export {
   FlyimgFlyimg,
   FlyimgFlyimgConfig,
   createFlyimgFlyimgInstance,
-  removeFlyimgFlyimgInstance
+  removeFlyimgFlyimgInstance,
+  getFlyimgFlyimgInstance
 } from './generated/flyimg-flyimg';
 export {
   RestorecommercePdfRenderingSrv,
   RestorecommercePdfRenderingSrvConfig,
   createRestorecommercePdfRenderingSrvInstance,
-  removeRestorecommercePdfRenderingSrvInstance
+  removeRestorecommercePdfRenderingSrvInstance,
+  getRestorecommercePdfRenderingSrvInstance
 } from './generated/restorecommerce-pdf-rendering-srv';
 export {
   BbcBrave,
   BbcBraveConfig,
   createBbcBraveInstance,
-  removeBbcBraveInstance
+  removeBbcBraveInstance,
+  getBbcBraveInstance
 } from './generated/bbc-brave';
 export {
   EyevinnFunctionTrim,
   EyevinnFunctionTrimConfig,
   createEyevinnFunctionTrimInstance,
-  removeEyevinnFunctionTrimInstance
+  removeEyevinnFunctionTrimInstance,
+  getEyevinnFunctionTrimInstance
 } from './generated/eyevinn-function-trim';
 export {
   DatarheiRestreamer,
   DatarheiRestreamerConfig,
   createDatarheiRestreamerInstance,
-  removeDatarheiRestreamerInstance
+  removeDatarheiRestreamerInstance,
+  getDatarheiRestreamerInstance
 } from './generated/datarhei-restreamer';
 export {
   OwncastOwncast,
   OwncastOwncastConfig,
   createOwncastOwncastInstance,
-  removeOwncastOwncastInstance
+  removeOwncastOwncastInstance,
+  getOwncastOwncastInstance
 } from './generated/owncast-owncast';
 export {
   OssrsSrs,
   OssrsSrsConfig,
   createOssrsSrsInstance,
-  removeOssrsSrsInstance
+  removeOssrsSrsInstance,
+  getOssrsSrsInstance
 } from './generated/ossrs-srs';
 export {
   GwuhaolinLivego,
   GwuhaolinLivegoConfig,
   createGwuhaolinLivegoInstance,
-  removeGwuhaolinLivegoInstance
+  removeGwuhaolinLivegoInstance,
+  getGwuhaolinLivegoInstance
 } from './generated/gwuhaolin-livego';
 export {
   EyevinnIntercomManager,
   EyevinnIntercomManagerConfig,
   createEyevinnIntercomManagerInstance,
-  removeEyevinnIntercomManagerInstance
+  removeEyevinnIntercomManagerInstance,
+  getEyevinnIntercomManagerInstance
 } from './generated/eyevinn-intercom-manager';
 export {
   ValkeyIoValkey,
   ValkeyIoValkeyConfig,
   createValkeyIoValkeyInstance,
-  removeValkeyIoValkeyInstance
+  removeValkeyIoValkeyInstance,
+  getValkeyIoValkeyInstance
 } from './generated/valkey-io-valkey';
 export {
   EyevinnSrtWhep,
   EyevinnSrtWhepConfig,
   createEyevinnSrtWhepInstance,
-  removeEyevinnSrtWhepInstance
+  removeEyevinnSrtWhepInstance,
+  getEyevinnSrtWhepInstance
 } from './generated/eyevinn-srt-whep';
 export {
   DashIndustryForumLivesim2,
   DashIndustryForumLivesim2Config,
   createDashIndustryForumLivesim2Instance,
-  removeDashIndustryForumLivesim2Instance
+  removeDashIndustryForumLivesim2Instance,
+  getDashIndustryForumLivesim2Instance
 } from './generated/dash-industry-forum-livesim2';
 export {
   UsefathomFathom,
   UsefathomFathomConfig,
   createUsefathomFathomInstance,
-  removeUsefathomFathomInstance
+  removeUsefathomFathomInstance,
+  getUsefathomFathomInstance
 } from './generated/usefathom-fathom';
 export {
   EyevinnEncoreCallbackListener,
   EyevinnEncoreCallbackListenerConfig,
   createEyevinnEncoreCallbackListenerInstance,
-  removeEyevinnEncoreCallbackListenerInstance
+  removeEyevinnEncoreCallbackListenerInstance,
+  getEyevinnEncoreCallbackListenerInstance
 } from './generated/eyevinn-encore-callback-listener';
 export {
   EyevinnEncorePackager,
   EyevinnEncorePackagerConfig,
   createEyevinnEncorePackagerInstance,
-  removeEyevinnEncorePackagerInstance
+  removeEyevinnEncorePackagerInstance,
+  getEyevinnEncorePackagerInstance
 } from './generated/eyevinn-encore-packager';
 export {
   SmrchyRestRsmq,
   SmrchyRestRsmqConfig,
   createSmrchyRestRsmqInstance,
-  removeSmrchyRestRsmqInstance
+  removeSmrchyRestRsmqInstance,
+  getSmrchyRestRsmqInstance
 } from './generated/smrchy-rest-rsmq';
 export {
   MinioMinio,
   MinioMinioConfig,
   createMinioMinioInstance,
-  removeMinioMinioInstance
+  removeMinioMinioInstance,
+  getMinioMinioInstance
 } from './generated/minio-minio';
 export {
   PoundifdefSmoothmq,
   PoundifdefSmoothmqConfig,
   createPoundifdefSmoothmqInstance,
-  removePoundifdefSmoothmqInstance
+  removePoundifdefSmoothmqInstance,
+  getPoundifdefSmoothmqInstance
 } from './generated/poundifdef-smoothmq';
 export {
   EyevinnEncoreTransfer,
   EyevinnEncoreTransferConfig,
   createEyevinnEncoreTransferInstance,
-  removeEyevinnEncoreTransferInstance
+  removeEyevinnEncoreTransferInstance,
+  getEyevinnEncoreTransferInstance
 } from './generated/eyevinn-encore-transfer';
 export {
   EyevinnLiveEncoding,
   EyevinnLiveEncodingConfig,
   createEyevinnLiveEncodingInstance,
-  removeEyevinnLiveEncodingInstance
+  removeEyevinnLiveEncodingInstance,
+  getEyevinnLiveEncodingInstance
 } from './generated/eyevinn-live-encoding';
 export {
   BwallbergKingsAndPigsTs,
   BwallbergKingsAndPigsTsConfig,
   createBwallbergKingsAndPigsTsInstance,
-  removeBwallbergKingsAndPigsTsInstance
+  removeBwallbergKingsAndPigsTsInstance,
+  getBwallbergKingsAndPigsTsInstance
 } from './generated/bwallberg-kings-and-pigs-ts';
 export {
   EyevinnSmbWhipBridge,
   EyevinnSmbWhipBridgeConfig,
   createEyevinnSmbWhipBridgeInstance,
-  removeEyevinnSmbWhipBridgeInstance
+  removeEyevinnSmbWhipBridgeInstance,
+  getEyevinnSmbWhipBridgeInstance
 } from './generated/eyevinn-smb-whip-bridge';
 export {
   EyevinnWrtcEgress,
   EyevinnWrtcEgressConfig,
   createEyevinnWrtcEgressInstance,
-  removeEyevinnWrtcEgressInstance
+  removeEyevinnWrtcEgressInstance,
+  getEyevinnWrtcEgressInstance
 } from './generated/eyevinn-wrtc-egress';
 export {
   SwaggerApiSwaggerEditor,
   SwaggerApiSwaggerEditorConfig,
   createSwaggerApiSwaggerEditorInstance,
-  removeSwaggerApiSwaggerEditorInstance
+  removeSwaggerApiSwaggerEditorInstance,
+  getSwaggerApiSwaggerEditorInstance
 } from './generated/swagger-api-swagger-editor';
 export {
   RealeyesMediaMoeReplay,
   RealeyesMediaMoeReplayConfig,
   createRealeyesMediaMoeReplayInstance,
-  removeRealeyesMediaMoeReplayInstance
+  removeRealeyesMediaMoeReplayInstance,
+  getRealeyesMediaMoeReplayInstance
 } from './generated/realeyes-media-moe-replay';
 export {
   ItzgDockerMinecraftServer,
   ItzgDockerMinecraftServerConfig,
   createItzgDockerMinecraftServerInstance,
-  removeItzgDockerMinecraftServerInstance
+  removeItzgDockerMinecraftServerInstance,
+  getItzgDockerMinecraftServerInstance
 } from './generated/itzg-docker-minecraft-server';
 export {
   BirmeLambda,
   BirmeLambdaConfig,
   createBirmeLambdaInstance,
-  removeBirmeLambdaInstance
+  removeBirmeLambdaInstance,
+  getBirmeLambdaInstance
 } from './generated/birme-lambda';
 export {
   LinuxserverDockerMariadb,
   LinuxserverDockerMariadbConfig,
   createLinuxserverDockerMariadbInstance,
-  removeLinuxserverDockerMariadbInstance
+  removeLinuxserverDockerMariadbInstance,
+  getLinuxserverDockerMariadbInstance
 } from './generated/linuxserver-docker-mariadb';
 export {
   Alexbj75Movierecommendator,
   Alexbj75MovierecommendatorConfig,
   createAlexbj75MovierecommendatorInstance,
-  removeAlexbj75MovierecommendatorInstance
+  removeAlexbj75MovierecommendatorInstance,
+  getAlexbj75MovierecommendatorInstance
 } from './generated/alexbj75-movierecommendator';
 export {
   BirmeContactFormSvc,
   BirmeContactFormSvcConfig,
   createBirmeContactFormSvcInstance,
-  removeBirmeContactFormSvcInstance
+  removeBirmeContactFormSvcInstance,
+  getBirmeContactFormSvcInstance
 } from './generated/birme-contact-form-svc';
 export {
   BirmeCaptchaSvc,
   BirmeCaptchaSvcConfig,
   createBirmeCaptchaSvcInstance,
-  removeBirmeCaptchaSvcInstance
+  removeBirmeCaptchaSvcInstance,
+  getBirmeCaptchaSvcInstance
 } from './generated/birme-captcha-svc';
 export {
   Alexbj7590stv,
   Alexbj7590stvConfig,
   createAlexbj7590stvInstance,
-  removeAlexbj7590stvInstance
+  removeAlexbj7590stvInstance,
+  getAlexbj7590stvInstance
 } from './generated/alexbj75-90stv';
 export {
   AnderswassenChaosproxyConfig,
   AnderswassenChaosproxyConfigConfig,
   createAnderswassenChaosproxyConfigInstance,
-  removeAnderswassenChaosproxyConfigInstance
+  removeAnderswassenChaosproxyConfigInstance,
+  getAnderswassenChaosproxyConfigInstance
 } from './generated/anderswassen-chaosproxy-config';
 export {
   WordpressWordpress,
   WordpressWordpressConfig,
   createWordpressWordpressInstance,
-  removeWordpressWordpressInstance
+  removeWordpressWordpressInstance,
+  getWordpressWordpressInstance
 } from './generated/wordpress-wordpress';
 export {
   OlawalejuwonmAnomalydetector,
   OlawalejuwonmAnomalydetectorConfig,
   createOlawalejuwonmAnomalydetectorInstance,
-  removeOlawalejuwonmAnomalydetectorInstance
+  removeOlawalejuwonmAnomalydetectorInstance,
+  getOlawalejuwonmAnomalydetectorInstance
 } from './generated/olawalejuwonm-anomalydetector';
 export {
   AtmozSftp,
   AtmozSftpConfig,
   createAtmozSftpInstance,
-  removeAtmozSftpInstance
+  removeAtmozSftpInstance,
+  getAtmozSftpInstance
 } from './generated/atmoz-sftp';
 export {
   JoeldelpilarTicTacVue,
   JoeldelpilarTicTacVueConfig,
   createJoeldelpilarTicTacVueInstance,
-  removeJoeldelpilarTicTacVueInstance
+  removeJoeldelpilarTicTacVueInstance,
+  getJoeldelpilarTicTacVueInstance
 } from './generated/joeldelpilar-tic-tac-vue';
 export {
   EyevinnQrGenerator,
   EyevinnQrGeneratorConfig,
   createEyevinnQrGeneratorInstance,
-  removeEyevinnQrGeneratorInstance
+  removeEyevinnQrGeneratorInstance,
+  getEyevinnQrGeneratorInstance
 } from './generated/eyevinn-qr-generator';
 export {
   EyevinnAppConfigSvc,
   EyevinnAppConfigSvcConfig,
   createEyevinnAppConfigSvcInstance,
-  removeEyevinnAppConfigSvcInstance
+  removeEyevinnAppConfigSvcInstance,
+  getEyevinnAppConfigSvcInstance
 } from './generated/eyevinn-app-config-svc';
 export {
   ErnestocaroccaHelloWorld,
   ErnestocaroccaHelloWorldConfig,
   createErnestocaroccaHelloWorldInstance,
-  removeErnestocaroccaHelloWorldInstance
+  removeErnestocaroccaHelloWorldInstance,
+  getErnestocaroccaHelloWorldInstance
 } from './generated/ernestocarocca-hello-world';
 export {
   ChambanaNetDockerPodcastgen,
   ChambanaNetDockerPodcastgenConfig,
   createChambanaNetDockerPodcastgenInstance,
-  removeChambanaNetDockerPodcastgenInstance
+  removeChambanaNetDockerPodcastgenInstance,
+  getChambanaNetDockerPodcastgenInstance
 } from './generated/chambana-net-docker-podcastgen';
 export {
   AndersnasNodecat,
   AndersnasNodecatConfig,
   createAndersnasNodecatInstance,
-  removeAndersnasNodecatInstance
+  removeAndersnasNodecatInstance,
+  getAndersnasNodecatInstance
 } from './generated/andersnas-nodecat';
 export {
   BirmeOscPostgresql,
   BirmeOscPostgresqlConfig,
   createBirmeOscPostgresqlInstance,
-  removeBirmeOscPostgresqlInstance
+  removeBirmeOscPostgresqlInstance,
+  getBirmeOscPostgresqlInstance
 } from './generated/birme-osc-postgresql';
 export {
   SalesagilitySuitecrm,
   SalesagilitySuitecrmConfig,
   createSalesagilitySuitecrmInstance,
-  removeSalesagilitySuitecrmInstance
+  removeSalesagilitySuitecrmInstance,
+  getSalesagilitySuitecrmInstance
 } from './generated/salesagility-suitecrm';
 export {
   EyevinnDockerTestsrcHlsLive,
   EyevinnDockerTestsrcHlsLiveConfig,
   createEyevinnDockerTestsrcHlsLiveInstance,
-  removeEyevinnDockerTestsrcHlsLiveInstance
+  removeEyevinnDockerTestsrcHlsLiveInstance,
+  getEyevinnDockerTestsrcHlsLiveInstance
 } from './generated/eyevinn-docker-testsrc-hls-live';
 export {
   ApacheCouchdb,
   ApacheCouchdbConfig,
   createApacheCouchdbInstance,
-  removeApacheCouchdbInstance
+  removeApacheCouchdbInstance,
+  getApacheCouchdbInstance
 } from './generated/apache-couchdb';
 export {
   EyevinnSgaiAdProxy,
   EyevinnSgaiAdProxyConfig,
   createEyevinnSgaiAdProxyInstance,
-  removeEyevinnSgaiAdProxyInstance
+  removeEyevinnSgaiAdProxyInstance,
+  getEyevinnSgaiAdProxyInstance
 } from './generated/eyevinn-sgai-ad-proxy';
 export {
   MickaelKerjeanFilestash,
   MickaelKerjeanFilestashConfig,
   createMickaelKerjeanFilestashInstance,
-  removeMickaelKerjeanFilestashInstance
+  removeMickaelKerjeanFilestashInstance,
+  getMickaelKerjeanFilestashInstance
 } from './generated/mickael-kerjean-filestash';
 export {
   PlausibleAnalytics,
   PlausibleAnalyticsConfig,
   createPlausibleAnalyticsInstance,
-  removePlausibleAnalyticsInstance
+  removePlausibleAnalyticsInstance,
+  getPlausibleAnalyticsInstance
 } from './generated/plausible-analytics';
 export {
   BlueskySocialPds,
   BlueskySocialPdsConfig,
   createBlueskySocialPdsInstance,
-  removeBlueskySocialPdsInstance
+  removeBlueskySocialPdsInstance,
+  getBlueskySocialPdsInstance
 } from './generated/bluesky-social-pds';
 export {
   DocusealcoDocuseal,
   DocusealcoDocusealConfig,
   createDocusealcoDocusealInstance,
-  removeDocusealcoDocusealInstance
+  removeDocusealcoDocusealInstance,
+  getDocusealcoDocusealInstance
 } from './generated/docusealco-docuseal';
 export {
   EyevinnPdsAdmin,
   EyevinnPdsAdminConfig,
   createEyevinnPdsAdminInstance,
-  removeEyevinnPdsAdminInstance
+  removeEyevinnPdsAdminInstance,
+  getEyevinnPdsAdminInstance
 } from './generated/eyevinn-pds-admin';
 export {
   EyevinnCeSampleWebhook,
   EyevinnCeSampleWebhookConfig,
   createEyevinnCeSampleWebhookInstance,
-  removeEyevinnCeSampleWebhookInstance
+  removeEyevinnCeSampleWebhookInstance,
+  getEyevinnCeSampleWebhookInstance
 } from './generated/eyevinn-ce-sample-webhook';
 export {
   DrawdbIoDrawdb,
   DrawdbIoDrawdbConfig,
   createDrawdbIoDrawdbInstance,
-  removeDrawdbIoDrawdbInstance
+  removeDrawdbIoDrawdbInstance,
+  getDrawdbIoDrawdbInstance
 } from './generated/drawdb-io-drawdb';
+export {
+  EyevinnAiCodeReviewer,
+  EyevinnAiCodeReviewerConfig,
+  createEyevinnAiCodeReviewerInstance,
+  removeEyevinnAiCodeReviewerInstance,
+  getEyevinnAiCodeReviewerInstance
+} from './generated/eyevinn-ai-code-reviewer';

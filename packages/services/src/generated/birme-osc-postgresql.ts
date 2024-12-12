@@ -298,15 +298,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * PostgreSQL
+ * Create a new PostgreSQL instance
  *
- * Unlock the full potential of your data with the PostgreSQL OSC image, seamlessly integrated for use in Eyevinn Open Source Cloud. Experience robust scalability, high security, and unmatched extensibility.
- *
- * Create a new psql-db
+ * @description Unlock the full potential of your data with the PostgreSQL OSC image, seamlessly integrated for use in Eyevinn Open Source Cloud. Experience robust scalability, high security, and unmatched extensibility.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {BirmeOscPostgresqlConfig}} body - Service instance configuration
  * @returns {BirmeOscPostgresql} - Service instance
@@ -335,9 +334,9 @@ export async function createBirmeOscPostgresqlInstance(
 }
 
 /**
- * PostgreSQL
+ * Remove a PostgreSQL instance
  *
- * Remove a psql-db
+ * @description Unlock the full potential of your data with the PostgreSQL OSC image, seamlessly integrated for use in Eyevinn Open Source Cloud. Experience robust scalability, high security, and unmatched extensibility.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the psql-db to be removed
  */
@@ -349,4 +348,27 @@ export async function removeBirmeOscPostgresqlInstance(
     'birme-osc-postgresql'
   );
   await removeInstance(ctx, 'birme-osc-postgresql', name, serviceAccessToken);
+}
+
+/**
+ * Get a PostgreSQL instance
+ *
+ * @description Unlock the full potential of your data with the PostgreSQL OSC image, seamlessly integrated for use in Eyevinn Open Source Cloud. Experience robust scalability, high security, and unmatched extensibility.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the psql-db to be retrieved
+ * @returns {BirmeOscPostgresql} - Service instance
+ */
+export async function getBirmeOscPostgresqlInstance(
+  ctx: Context,
+  name: string
+): Promise<BirmeOscPostgresql> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'birme-osc-postgresql'
+  );
+  return await getInstance(
+    ctx,
+    'birme-osc-postgresql',
+    name,
+    serviceAccessToken
+  );
 }

@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * HLS VOD Stitcher
+ * Create a new HLS VOD Stitcher instance
  *
- * A proxy to insert ads in an HLS VOD either using manifest manipulation or HLS interstitials
- *
- * Create a new stitcher
+ * @description A proxy to insert ads in an HLS VOD either using manifest manipulation or HLS interstitials
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnLambdaStitchConfig}} body - Service instance configuration
  * @returns {EyevinnLambdaStitch} - Service instance
@@ -319,9 +318,9 @@ export async function createEyevinnLambdaStitchInstance(
 }
 
 /**
- * HLS VOD Stitcher
+ * Remove a HLS VOD Stitcher instance
  *
- * Remove a stitcher
+ * @description A proxy to insert ads in an HLS VOD either using manifest manipulation or HLS interstitials
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the stitcher to be removed
  */
@@ -333,4 +332,27 @@ export async function removeEyevinnLambdaStitchInstance(
     'eyevinn-lambda-stitch'
   );
   await removeInstance(ctx, 'eyevinn-lambda-stitch', name, serviceAccessToken);
+}
+
+/**
+ * Get a HLS VOD Stitcher instance
+ *
+ * @description A proxy to insert ads in an HLS VOD either using manifest manipulation or HLS interstitials
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the stitcher to be retrieved
+ * @returns {EyevinnLambdaStitch} - Service instance
+ */
+export async function getEyevinnLambdaStitchInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnLambdaStitch> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-lambda-stitch'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-lambda-stitch',
+    name,
+    serviceAccessToken
+  );
 }

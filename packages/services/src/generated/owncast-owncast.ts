@@ -244,15 +244,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * owncast
+ * Create a new owncast instance
  *
- * Revolutionize your live streaming experience with Owncast! Take control over your content, interface, and audience with this self-hosted, open-source platform. Explore the possibilities today.
- *
- * Create a new owncast
+ * @description Revolutionize your live streaming experience with Owncast! Take control over your content, interface, and audience with this self-hosted, open-source platform. Explore the possibilities today.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {OwncastOwncastConfig}} body - Service instance configuration
  * @returns {OwncastOwncast} - Service instance
@@ -279,9 +278,9 @@ export async function createOwncastOwncastInstance(
 }
 
 /**
- * owncast
+ * Remove a owncast instance
  *
- * Remove a owncast
+ * @description Revolutionize your live streaming experience with Owncast! Take control over your content, interface, and audience with this self-hosted, open-source platform. Explore the possibilities today.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the owncast to be removed
  */
@@ -291,4 +290,20 @@ export async function removeOwncastOwncastInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('owncast-owncast');
   await removeInstance(ctx, 'owncast-owncast', name, serviceAccessToken);
+}
+
+/**
+ * Get a owncast instance
+ *
+ * @description Revolutionize your live streaming experience with Owncast! Take control over your content, interface, and audience with this self-hosted, open-source platform. Explore the possibilities today.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the owncast to be retrieved
+ * @returns {OwncastOwncast} - Service instance
+ */
+export async function getOwncastOwncastInstance(
+  ctx: Context,
+  name: string
+): Promise<OwncastOwncast> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('owncast-owncast');
+  return await getInstance(ctx, 'owncast-owncast', name, serviceAccessToken);
 }

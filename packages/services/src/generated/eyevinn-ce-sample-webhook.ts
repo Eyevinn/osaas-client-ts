@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * FAST Engine Sample Webhook
+ * Create a new FAST Engine Sample Webhook instance
  *
- * Unlock seamless streaming experiences with our example webhook for FAST Channel Engine. Effortlessly integrate with `/loop/nextVod` and `/ads/nextVod` to optimize content delivery and boost viewer engagement.
- *
- * Create a new webhooks
+ * @description Unlock seamless streaming experiences with our example webhook for FAST Channel Engine. Effortlessly integrate with `/loop/nextVod` and `/ads/nextVod` to optimize content delivery and boost viewer engagement.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnCeSampleWebhookConfig}} body - Service instance configuration
  * @returns {EyevinnCeSampleWebhook} - Service instance
@@ -319,9 +318,9 @@ export async function createEyevinnCeSampleWebhookInstance(
 }
 
 /**
- * FAST Engine Sample Webhook
+ * Remove a FAST Engine Sample Webhook instance
  *
- * Remove a webhooks
+ * @description Unlock seamless streaming experiences with our example webhook for FAST Channel Engine. Effortlessly integrate with `/loop/nextVod` and `/ads/nextVod` to optimize content delivery and boost viewer engagement.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the webhooks to be removed
  */
@@ -333,6 +332,29 @@ export async function removeEyevinnCeSampleWebhookInstance(
     'eyevinn-ce-sample-webhook'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-ce-sample-webhook',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a FAST Engine Sample Webhook instance
+ *
+ * @description Unlock seamless streaming experiences with our example webhook for FAST Channel Engine. Effortlessly integrate with `/loop/nextVod` and `/ads/nextVod` to optimize content delivery and boost viewer engagement.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the webhooks to be retrieved
+ * @returns {EyevinnCeSampleWebhook} - Service instance
+ */
+export async function getEyevinnCeSampleWebhookInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnCeSampleWebhook> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-ce-sample-webhook'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-ce-sample-webhook',
     name,

@@ -286,17 +286,16 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Really Simple Message Queue
+ * Create a new Really Simple Message Queue instance
  * 
- * **Boost Your Productivity with REST rsmq**
+ * @description **Boost Your Productivity with REST rsmq**
 
 Easily integrate with rsmq for efficient message queuing. No security worries, just seamless communication across platforms like php, .net, and more. Maximize performance now!
- * 
- * Create a new message-queue
  * @param {Context} context - Open Source Cloud configuration context
  * @param {SmrchyRestRsmqConfig}} body - Service instance configuration
  * @returns {SmrchyRestRsmq} - Service instance
@@ -325,9 +324,11 @@ export async function createSmrchyRestRsmqInstance(
 }
 
 /**
- * Really Simple Message Queue
- *
- * Remove a message-queue
+ * Remove a Really Simple Message Queue instance
+ * 
+ * @description **Boost Your Productivity with REST rsmq**
+
+Easily integrate with rsmq for efficient message queuing. No security worries, just seamless communication across platforms like php, .net, and more. Maximize performance now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the message-queue to be removed
  */
@@ -339,4 +340,24 @@ export async function removeSmrchyRestRsmqInstance(
     'smrchy-rest-rsmq'
   );
   await removeInstance(ctx, 'smrchy-rest-rsmq', name, serviceAccessToken);
+}
+
+/**
+ * Get a Really Simple Message Queue instance
+ * 
+ * @description **Boost Your Productivity with REST rsmq**
+
+Easily integrate with rsmq for efficient message queuing. No security worries, just seamless communication across platforms like php, .net, and more. Maximize performance now!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the message-queue to be retrieved
+ * @returns {SmrchyRestRsmq} - Service instance
+ */
+export async function getSmrchyRestRsmqInstance(
+  ctx: Context,
+  name: string
+): Promise<SmrchyRestRsmq> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'smrchy-rest-rsmq'
+  );
+  return await getInstance(ctx, 'smrchy-rest-rsmq', name, serviceAccessToken);
 }

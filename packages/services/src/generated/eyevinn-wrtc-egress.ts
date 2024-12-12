@@ -290,15 +290,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Symphony Media Bridge WHEP Gateway
+ * Create a new Symphony Media Bridge WHEP Gateway instance
  *
- * "Streamline your video services with Eyevinn's WebRTC Egress Endpoint Library. Perfect for standardized streaming with WHEP protocol. Enhance your Symphony Media Bridge connections now!"
- *
- * Create a new gateway
+ * @description "Streamline your video services with Eyevinn's WebRTC Egress Endpoint Library. Perfect for standardized streaming with WHEP protocol. Enhance your Symphony Media Bridge connections now!"
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnWrtcEgressConfig}} body - Service instance configuration
  * @returns {EyevinnWrtcEgress} - Service instance
@@ -327,9 +326,9 @@ export async function createEyevinnWrtcEgressInstance(
 }
 
 /**
- * Symphony Media Bridge WHEP Gateway
+ * Remove a Symphony Media Bridge WHEP Gateway instance
  *
- * Remove a gateway
+ * @description "Streamline your video services with Eyevinn's WebRTC Egress Endpoint Library. Perfect for standardized streaming with WHEP protocol. Enhance your Symphony Media Bridge connections now!"
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the gateway to be removed
  */
@@ -341,4 +340,27 @@ export async function removeEyevinnWrtcEgressInstance(
     'eyevinn-wrtc-egress'
   );
   await removeInstance(ctx, 'eyevinn-wrtc-egress', name, serviceAccessToken);
+}
+
+/**
+ * Get a Symphony Media Bridge WHEP Gateway instance
+ *
+ * @description "Streamline your video services with Eyevinn's WebRTC Egress Endpoint Library. Perfect for standardized streaming with WHEP protocol. Enhance your Symphony Media Bridge connections now!"
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the gateway to be retrieved
+ * @returns {EyevinnWrtcEgress} - Service instance
+ */
+export async function getEyevinnWrtcEgressInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnWrtcEgress> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-wrtc-egress'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-wrtc-egress',
+    name,
+    serviceAccessToken
+  );
 }

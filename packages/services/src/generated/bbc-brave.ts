@@ -244,15 +244,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Brave
+ * Create a new Brave instance
  *
- * Brave is a Basic real-time (remote) audio/video editor. It allows LIVE video (and/or audio) to be received, manipulated, and sent elsewhere. Forwarding RTMP from one place to another, mixing two or more inputs or add basic graphics are some example of usage.
- *
- * Create a new mixer
+ * @description Brave is a Basic real-time (remote) audio/video editor. It allows LIVE video (and/or audio) to be received, manipulated, and sent elsewhere. Forwarding RTMP from one place to another, mixing two or more inputs or add basic graphics are some example of usage.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {BbcBraveConfig}} body - Service instance configuration
  * @returns {BbcBrave} - Service instance
@@ -279,9 +278,9 @@ export async function createBbcBraveInstance(
 }
 
 /**
- * Brave
+ * Remove a Brave instance
  *
- * Remove a mixer
+ * @description Brave is a Basic real-time (remote) audio/video editor. It allows LIVE video (and/or audio) to be received, manipulated, and sent elsewhere. Forwarding RTMP from one place to another, mixing two or more inputs or add basic graphics are some example of usage.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the mixer to be removed
  */
@@ -291,4 +290,20 @@ export async function removeBbcBraveInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('bbc-brave');
   await removeInstance(ctx, 'bbc-brave', name, serviceAccessToken);
+}
+
+/**
+ * Get a Brave instance
+ *
+ * @description Brave is a Basic real-time (remote) audio/video editor. It allows LIVE video (and/or audio) to be received, manipulated, and sent elsewhere. Forwarding RTMP from one place to another, mixing two or more inputs or add basic graphics are some example of usage.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the mixer to be retrieved
+ * @returns {BbcBrave} - Service instance
+ */
+export async function getBbcBraveInstance(
+  ctx: Context,
+  name: string
+): Promise<BbcBrave> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('bbc-brave');
+  return await getInstance(ctx, 'bbc-brave', name, serviceAccessToken);
 }

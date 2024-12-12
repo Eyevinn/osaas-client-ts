@@ -244,15 +244,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * restreamer
+ * Create a new restreamer instance
  *
- * Introducing Restreamer: A free, self-hosting solution for seamless live streaming to multiple platforms like YouTube, Twitch, and more. Easy setup, diverse features, hardware support, and GDPR compliance make it a must-have.
- *
- * Create a new restreamer
+ * @description Introducing Restreamer: A free, self-hosting solution for seamless live streaming to multiple platforms like YouTube, Twitch, and more. Easy setup, diverse features, hardware support, and GDPR compliance make it a must-have.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {DatarheiRestreamerConfig}} body - Service instance configuration
  * @returns {DatarheiRestreamer} - Service instance
@@ -281,9 +280,9 @@ export async function createDatarheiRestreamerInstance(
 }
 
 /**
- * restreamer
+ * Remove a restreamer instance
  *
- * Remove a restreamer
+ * @description Introducing Restreamer: A free, self-hosting solution for seamless live streaming to multiple platforms like YouTube, Twitch, and more. Easy setup, diverse features, hardware support, and GDPR compliance make it a must-have.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the restreamer to be removed
  */
@@ -295,4 +294,27 @@ export async function removeDatarheiRestreamerInstance(
     'datarhei-restreamer'
   );
   await removeInstance(ctx, 'datarhei-restreamer', name, serviceAccessToken);
+}
+
+/**
+ * Get a restreamer instance
+ *
+ * @description Introducing Restreamer: A free, self-hosting solution for seamless live streaming to multiple platforms like YouTube, Twitch, and more. Easy setup, diverse features, hardware support, and GDPR compliance make it a must-have.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the restreamer to be retrieved
+ * @returns {DatarheiRestreamer} - Service instance
+ */
+export async function getDatarheiRestreamerInstance(
+  ctx: Context,
+  name: string
+): Promise<DatarheiRestreamer> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'datarhei-restreamer'
+  );
+  return await getInstance(
+    ctx,
+    'datarhei-restreamer',
+    name,
+    serviceAccessToken
+  );
 }

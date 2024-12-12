@@ -294,15 +294,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Contact Form Service
+ * Create a new Contact Form Service instance
  *
- * Streamline your communication with our Contact Form Service! Seamlessly send messages from your website directly to Slack. Easy-to-install, Docker-ready backend ensures you never miss a lead. Try it now!
- *
- * Create a new service
+ * @description Streamline your communication with our Contact Form Service! Seamlessly send messages from your website directly to Slack. Easy-to-install, Docker-ready backend ensures you never miss a lead. Try it now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {BirmeContactFormSvcConfig}} body - Service instance configuration
  * @returns {BirmeContactFormSvc} - Service instance
@@ -331,9 +330,9 @@ export async function createBirmeContactFormSvcInstance(
 }
 
 /**
- * Contact Form Service
+ * Remove a Contact Form Service instance
  *
- * Remove a service
+ * @description Streamline your communication with our Contact Form Service! Seamlessly send messages from your website directly to Slack. Easy-to-install, Docker-ready backend ensures you never miss a lead. Try it now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the service to be removed
  */
@@ -345,4 +344,27 @@ export async function removeBirmeContactFormSvcInstance(
     'birme-contact-form-svc'
   );
   await removeInstance(ctx, 'birme-contact-form-svc', name, serviceAccessToken);
+}
+
+/**
+ * Get a Contact Form Service instance
+ *
+ * @description Streamline your communication with our Contact Form Service! Seamlessly send messages from your website directly to Slack. Easy-to-install, Docker-ready backend ensures you never miss a lead. Try it now!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the service to be retrieved
+ * @returns {BirmeContactFormSvc} - Service instance
+ */
+export async function getBirmeContactFormSvcInstance(
+  ctx: Context,
+  name: string
+): Promise<BirmeContactFormSvc> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'birme-contact-form-svc'
+  );
+  return await getInstance(
+    ctx,
+    'birme-contact-form-svc',
+    name,
+    serviceAccessToken
+  );
 }

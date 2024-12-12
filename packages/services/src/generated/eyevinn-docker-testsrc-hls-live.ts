@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Test Source HLS Live
+ * Create a new Test Source HLS Live instance
  *
- * Effortlessly create live HLS test streams with the docker-testsrc-hls-live image. Powered by FFmpeg, it's a must-have for developers crafting and testing video applications in real-time streaming environments.
- *
- * Create a new testsource
+ * @description Effortlessly create live HLS test streams with the docker-testsrc-hls-live image. Powered by FFmpeg, it's a must-have for developers crafting and testing video applications in real-time streaming environments.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnDockerTestsrcHlsLiveConfig}} body - Service instance configuration
  * @returns {EyevinnDockerTestsrcHlsLive} - Service instance
@@ -323,9 +322,9 @@ export async function createEyevinnDockerTestsrcHlsLiveInstance(
 }
 
 /**
- * Test Source HLS Live
+ * Remove a Test Source HLS Live instance
  *
- * Remove a testsource
+ * @description Effortlessly create live HLS test streams with the docker-testsrc-hls-live image. Powered by FFmpeg, it's a must-have for developers crafting and testing video applications in real-time streaming environments.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the testsource to be removed
  */
@@ -337,6 +336,29 @@ export async function removeEyevinnDockerTestsrcHlsLiveInstance(
     'eyevinn-docker-testsrc-hls-live'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-docker-testsrc-hls-live',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Test Source HLS Live instance
+ *
+ * @description Effortlessly create live HLS test streams with the docker-testsrc-hls-live image. Powered by FFmpeg, it's a must-have for developers crafting and testing video applications in real-time streaming environments.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the testsource to be retrieved
+ * @returns {EyevinnDockerTestsrcHlsLive} - Service instance
+ */
+export async function getEyevinnDockerTestsrcHlsLiveInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnDockerTestsrcHlsLive> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-docker-testsrc-hls-live'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-docker-testsrc-hls-live',
     name,

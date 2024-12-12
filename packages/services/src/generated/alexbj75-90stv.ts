@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * 90stv
+ * Create a new 90stv instance
  *
- * Experience nostalgia with 90stv! Transform your FAST channels into a classic 90s TV viewing adventure, effortlessly with a quick Docker setup. Relive the golden era of television today!
- *
- * Create a new 90stv
+ * @description Experience nostalgia with 90stv! Transform your FAST channels into a classic 90s TV viewing adventure, effortlessly with a quick Docker setup. Relive the golden era of television today!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {Alexbj7590stvConfig}} body - Service instance configuration
  * @returns {Alexbj7590stv} - Service instance
@@ -317,9 +316,9 @@ export async function createAlexbj7590stvInstance(
 }
 
 /**
- * 90stv
+ * Remove a 90stv instance
  *
- * Remove a 90stv
+ * @description Experience nostalgia with 90stv! Transform your FAST channels into a classic 90s TV viewing adventure, effortlessly with a quick Docker setup. Relive the golden era of television today!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the 90stv to be removed
  */
@@ -329,4 +328,20 @@ export async function removeAlexbj7590stvInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('alexbj75-90stv');
   await removeInstance(ctx, 'alexbj75-90stv', name, serviceAccessToken);
+}
+
+/**
+ * Get a 90stv instance
+ *
+ * @description Experience nostalgia with 90stv! Transform your FAST channels into a classic 90s TV viewing adventure, effortlessly with a quick Docker setup. Relive the golden era of television today!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the 90stv to be retrieved
+ * @returns {Alexbj7590stv} - Service instance
+ */
+export async function getAlexbj7590stvInstance(
+  ctx: Context,
+  name: string
+): Promise<Alexbj7590stv> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('alexbj75-90stv');
+  return await getInstance(ctx, 'alexbj75-90stv', name, serviceAccessToken);
 }

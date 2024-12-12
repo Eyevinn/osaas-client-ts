@@ -302,15 +302,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Filestash
+ * Create a new Filestash instance
  *
- * Transform your data management with Filestash, a versatile file manager that integrates seamlessly with multiple cloud services and protocols. Enjoy blazing speed, user-friendly interfaces, and plugin flexibility.
- *
- * Create a new filestash
+ * @description Transform your data management with Filestash, a versatile file manager that integrates seamlessly with multiple cloud services and protocols. Enjoy blazing speed, user-friendly interfaces, and plugin flexibility.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {MickaelKerjeanFilestashConfig}} body - Service instance configuration
  * @returns {MickaelKerjeanFilestash} - Service instance
@@ -339,9 +338,9 @@ export async function createMickaelKerjeanFilestashInstance(
 }
 
 /**
- * Filestash
+ * Remove a Filestash instance
  *
- * Remove a filestash
+ * @description Transform your data management with Filestash, a versatile file manager that integrates seamlessly with multiple cloud services and protocols. Enjoy blazing speed, user-friendly interfaces, and plugin flexibility.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the filestash to be removed
  */
@@ -353,6 +352,29 @@ export async function removeMickaelKerjeanFilestashInstance(
     'mickael-kerjean-filestash'
   );
   await removeInstance(
+    ctx,
+    'mickael-kerjean-filestash',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Filestash instance
+ *
+ * @description Transform your data management with Filestash, a versatile file manager that integrates seamlessly with multiple cloud services and protocols. Enjoy blazing speed, user-friendly interfaces, and plugin flexibility.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the filestash to be retrieved
+ * @returns {MickaelKerjeanFilestash} - Service instance
+ */
+export async function getMickaelKerjeanFilestashInstance(
+  ctx: Context,
+  name: string
+): Promise<MickaelKerjeanFilestash> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'mickael-kerjean-filestash'
+  );
+  return await getInstance(
     ctx,
     'mickael-kerjean-filestash',
     name,

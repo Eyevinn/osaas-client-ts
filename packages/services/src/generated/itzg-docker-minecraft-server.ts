@@ -290,15 +290,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Minecraft Server
+ * Create a new Minecraft Server instance
  *
- * Experience seamless Minecraft server management with our Docker solution! Easily deploy, customize, and scale your servers with robust support for different versions, mods, and plugins. Perfect for dedicated gamers and server admins alike!
- *
- * Create a new minecraft-server
+ * @description Experience seamless Minecraft server management with our Docker solution! Easily deploy, customize, and scale your servers with robust support for different versions, mods, and plugins. Perfect for dedicated gamers and server admins alike!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {ItzgDockerMinecraftServerConfig}} body - Service instance configuration
  * @returns {ItzgDockerMinecraftServer} - Service instance
@@ -331,9 +330,9 @@ export async function createItzgDockerMinecraftServerInstance(
 }
 
 /**
- * Minecraft Server
+ * Remove a Minecraft Server instance
  *
- * Remove a minecraft-server
+ * @description Experience seamless Minecraft server management with our Docker solution! Easily deploy, customize, and scale your servers with robust support for different versions, mods, and plugins. Perfect for dedicated gamers and server admins alike!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the minecraft-server to be removed
  */
@@ -345,6 +344,29 @@ export async function removeItzgDockerMinecraftServerInstance(
     'itzg-docker-minecraft-server'
   );
   await removeInstance(
+    ctx,
+    'itzg-docker-minecraft-server',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Minecraft Server instance
+ *
+ * @description Experience seamless Minecraft server management with our Docker solution! Easily deploy, customize, and scale your servers with robust support for different versions, mods, and plugins. Perfect for dedicated gamers and server admins alike!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the minecraft-server to be retrieved
+ * @returns {ItzgDockerMinecraftServer} - Service instance
+ */
+export async function getItzgDockerMinecraftServerInstance(
+  ctx: Context,
+  name: string
+): Promise<ItzgDockerMinecraftServer> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'itzg-docker-minecraft-server'
+  );
+  return await getInstance(
     ctx,
     'itzg-docker-minecraft-server',
     name,

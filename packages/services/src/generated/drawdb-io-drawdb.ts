@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * drawDB
+ * Create a new drawDB instance
  *
- * Effortlessly design and manage your database schema with drawDB. It's a user-friendly online DBER editor that lets you create diagrams and generate SQL without any hassle, all directly in your browser!
- *
- * Create a new editor
+ * @description Effortlessly design and manage your database schema with drawDB. It's a user-friendly online DBER editor that lets you create diagrams and generate SQL without any hassle, all directly in your browser!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {DrawdbIoDrawdbConfig}} body - Service instance configuration
  * @returns {DrawdbIoDrawdb} - Service instance
@@ -319,9 +318,9 @@ export async function createDrawdbIoDrawdbInstance(
 }
 
 /**
- * drawDB
+ * Remove a drawDB instance
  *
- * Remove a editor
+ * @description Effortlessly design and manage your database schema with drawDB. It's a user-friendly online DBER editor that lets you create diagrams and generate SQL without any hassle, all directly in your browser!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the editor to be removed
  */
@@ -333,4 +332,22 @@ export async function removeDrawdbIoDrawdbInstance(
     'drawdb-io-drawdb'
   );
   await removeInstance(ctx, 'drawdb-io-drawdb', name, serviceAccessToken);
+}
+
+/**
+ * Get a drawDB instance
+ *
+ * @description Effortlessly design and manage your database schema with drawDB. It's a user-friendly online DBER editor that lets you create diagrams and generate SQL without any hassle, all directly in your browser!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the editor to be retrieved
+ * @returns {DrawdbIoDrawdb} - Service instance
+ */
+export async function getDrawdbIoDrawdbInstance(
+  ctx: Context,
+  name: string
+): Promise<DrawdbIoDrawdb> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'drawdb-io-drawdb'
+  );
+  return await getInstance(ctx, 'drawdb-io-drawdb', name, serviceAccessToken);
 }

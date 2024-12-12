@@ -214,15 +214,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Chromecast receiver
+ * Create a new Chromecast receiver instance
  *
- * A basic custom chromecast receiver that can be configured using environment variables. Add your company branding to your own chromecast receiver without writing a single line of code!
- *
- * Create a new receiver
+ * @description A basic custom chromecast receiver that can be configured using environment variables. Add your company branding to your own chromecast receiver without writing a single line of code!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnCastReceiverConfig}} body - Service instance configuration
  * @returns {EyevinnCastReceiver} - Service instance
@@ -251,9 +250,9 @@ export async function createEyevinnCastReceiverInstance(
 }
 
 /**
- * Chromecast receiver
+ * Remove a Chromecast receiver instance
  *
- * Remove a receiver
+ * @description A basic custom chromecast receiver that can be configured using environment variables. Add your company branding to your own chromecast receiver without writing a single line of code!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the receiver to be removed
  */
@@ -265,4 +264,27 @@ export async function removeEyevinnCastReceiverInstance(
     'eyevinn-cast-receiver'
   );
   await removeInstance(ctx, 'eyevinn-cast-receiver', name, serviceAccessToken);
+}
+
+/**
+ * Get a Chromecast receiver instance
+ *
+ * @description A basic custom chromecast receiver that can be configured using environment variables. Add your company branding to your own chromecast receiver without writing a single line of code!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the receiver to be retrieved
+ * @returns {EyevinnCastReceiver} - Service instance
+ */
+export async function getEyevinnCastReceiverInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnCastReceiver> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-cast-receiver'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-cast-receiver',
+    name,
+    serviceAccessToken
+  );
 }

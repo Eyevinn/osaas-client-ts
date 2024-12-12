@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * livesim2
+ * Create a new livesim2 instance
  *
- * Elevate your streaming with livesim2, the next-gen DASH Live Source Simulator, offering infinite live streams, flexible content handling, and on-the-fly subtitles in multiple languages. Perfect for testing and demo purposes.
- *
- * Create a new livesimulators
+ * @description Elevate your streaming with livesim2, the next-gen DASH Live Source Simulator, offering infinite live streams, flexible content handling, and on-the-fly subtitles in multiple languages. Perfect for testing and demo purposes.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {DashIndustryForumLivesim2Config}} body - Service instance configuration
  * @returns {DashIndustryForumLivesim2} - Service instance
@@ -323,9 +322,9 @@ export async function createDashIndustryForumLivesim2Instance(
 }
 
 /**
- * livesim2
+ * Remove a livesim2 instance
  *
- * Remove a livesimulators
+ * @description Elevate your streaming with livesim2, the next-gen DASH Live Source Simulator, offering infinite live streams, flexible content handling, and on-the-fly subtitles in multiple languages. Perfect for testing and demo purposes.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the livesimulators to be removed
  */
@@ -337,6 +336,29 @@ export async function removeDashIndustryForumLivesim2Instance(
     'dash-industry-forum-livesim2'
   );
   await removeInstance(
+    ctx,
+    'dash-industry-forum-livesim2',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a livesim2 instance
+ *
+ * @description Elevate your streaming with livesim2, the next-gen DASH Live Source Simulator, offering infinite live streams, flexible content handling, and on-the-fly subtitles in multiple languages. Perfect for testing and demo purposes.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the livesimulators to be retrieved
+ * @returns {DashIndustryForumLivesim2} - Service instance
+ */
+export async function getDashIndustryForumLivesim2Instance(
+  ctx: Context,
+  name: string
+): Promise<DashIndustryForumLivesim2> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'dash-industry-forum-livesim2'
+  );
+  return await getInstance(
     ctx,
     'dash-industry-forum-livesim2',
     name,

@@ -5,13 +5,17 @@
 import {
   Context,
   createInstance,
-  waitForInstanceReady
+  waitForInstanceReady,
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 import * as sdk from '.';
 
 jest.mock('@osaas/client-core', () => {
   return {
     createInstance: jest.fn().mockResolvedValue({ name: 'sdk' }),
+    removeInstance: jest.fn(),
+    getInstance: jest.fn().mockResolvedValue({ name: 'sdk' }),
     waitForInstanceReady: jest.fn(),
     Context: jest.fn().mockImplementation(() => {
       return {
@@ -41,6 +45,19 @@ describe('createChannelEngineInstance', () => {
   });
 });
 
+describe('removeChannelEngineInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeChannelEngineInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'channel-engine',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEncoreInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -49,6 +66,14 @@ describe('createEncoreInstance', () => {
     expect(ctx.getServiceAccessToken).toHaveBeenCalledWith('encore');
     expect(createInstance).toHaveBeenCalledWith(ctx, 'encore', 'token', body);
     expect(waitForInstanceReady).toHaveBeenCalledWith('encore', 'sdk', ctx);
+  });
+});
+
+describe('removeEncoreInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEncoreInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(ctx, 'encore', 'sdk', 'token');
   });
 });
 
@@ -70,6 +95,19 @@ describe('createEyevinnTestAdserverInstance', () => {
       'eyevinn-test-adserver',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnTestAdserverInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnTestAdserverInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-test-adserver',
+      'sdk',
+      'token'
     );
   });
 });
@@ -96,6 +134,19 @@ describe('createEyevinnChaosStreamProxyInstance', () => {
   });
 });
 
+describe('removeEyevinnChaosStreamProxyInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnChaosStreamProxyInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-chaos-stream-proxy',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnChannelEngineBridgeInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -114,6 +165,19 @@ describe('createEyevinnChannelEngineBridgeInstance', () => {
       'eyevinn-channel-engine-bridge',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnChannelEngineBridgeInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnChannelEngineBridgeInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-channel-engine-bridge',
+      'sdk',
+      'token'
     );
   });
 });
@@ -140,6 +204,19 @@ describe('createEyevinnAutoSubtitlesInstance', () => {
   });
 });
 
+describe('removeEyevinnAutoSubtitlesInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnAutoSubtitlesInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-auto-subtitles',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnLambdaStitchInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -158,6 +235,19 @@ describe('createEyevinnLambdaStitchInstance', () => {
       'eyevinn-lambda-stitch',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnLambdaStitchInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnLambdaStitchInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-lambda-stitch',
+      'sdk',
+      'token'
     );
   });
 });
@@ -184,6 +274,19 @@ describe('createEyevinnFunctionScenesInstance', () => {
   });
 });
 
+describe('removeEyevinnFunctionScenesInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnFunctionScenesInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-function-scenes',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnPreviewHlsServiceInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -202,6 +305,19 @@ describe('createEyevinnPreviewHlsServiceInstance', () => {
       'eyevinn-preview-hls-service',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnPreviewHlsServiceInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnPreviewHlsServiceInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-preview-hls-service',
+      'sdk',
+      'token'
     );
   });
 });
@@ -228,6 +344,19 @@ describe('createEyevinnHlsMonitorInstance', () => {
   });
 });
 
+describe('removeEyevinnHlsMonitorInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnHlsMonitorInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-hls-monitor',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnCastReceiverInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -246,6 +375,19 @@ describe('createEyevinnCastReceiverInstance', () => {
       'eyevinn-cast-receiver',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnCastReceiverInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnCastReceiverInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-cast-receiver',
+      'sdk',
+      'token'
     );
   });
 });
@@ -272,6 +414,19 @@ describe('createEyevinnFunctionProbeInstance', () => {
   });
 });
 
+describe('removeEyevinnFunctionProbeInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnFunctionProbeInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-function-probe',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnScheduleServiceInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -290,6 +445,19 @@ describe('createEyevinnScheduleServiceInstance', () => {
       'eyevinn-schedule-service',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnScheduleServiceInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnScheduleServiceInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-schedule-service',
+      'sdk',
+      'token'
     );
   });
 });
@@ -316,6 +484,19 @@ describe('createEyevinnRustImageProcessorInstance', () => {
   });
 });
 
+describe('removeEyevinnRustImageProcessorInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnRustImageProcessorInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-rust-image-processor',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnContinueWatchingApiInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -338,6 +519,19 @@ describe('createEyevinnContinueWatchingApiInstance', () => {
   });
 });
 
+describe('removeEyevinnContinueWatchingApiInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnContinueWatchingApiInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-continue-watching-api',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createFlyimgFlyimgInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -354,6 +548,19 @@ describe('createFlyimgFlyimgInstance', () => {
       'flyimg-flyimg',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeFlyimgFlyimgInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeFlyimgFlyimgInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'flyimg-flyimg',
+      'sdk',
+      'token'
     );
   });
 });
@@ -380,6 +587,19 @@ describe('createRestorecommercePdfRenderingSrvInstance', () => {
   });
 });
 
+describe('removeRestorecommercePdfRenderingSrvInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeRestorecommercePdfRenderingSrvInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'restorecommerce-pdf-rendering-srv',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createBbcBraveInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -393,6 +613,19 @@ describe('createBbcBraveInstance', () => {
       body
     );
     expect(waitForInstanceReady).toHaveBeenCalledWith('bbc-brave', 'sdk', ctx);
+  });
+});
+
+describe('removeBbcBraveInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeBbcBraveInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'bbc-brave',
+      'sdk',
+      'token'
+    );
   });
 });
 
@@ -414,6 +647,19 @@ describe('createEyevinnFunctionTrimInstance', () => {
       'eyevinn-function-trim',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnFunctionTrimInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnFunctionTrimInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-function-trim',
+      'sdk',
+      'token'
     );
   });
 });
@@ -440,6 +686,19 @@ describe('createDatarheiRestreamerInstance', () => {
   });
 });
 
+describe('removeDatarheiRestreamerInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeDatarheiRestreamerInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'datarhei-restreamer',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createOwncastOwncastInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -460,6 +719,19 @@ describe('createOwncastOwncastInstance', () => {
   });
 });
 
+describe('removeOwncastOwncastInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeOwncastOwncastInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'owncast-owncast',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createOssrsSrsInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -473,6 +745,19 @@ describe('createOssrsSrsInstance', () => {
       body
     );
     expect(waitForInstanceReady).toHaveBeenCalledWith('ossrs-srs', 'sdk', ctx);
+  });
+});
+
+describe('removeOssrsSrsInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeOssrsSrsInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'ossrs-srs',
+      'sdk',
+      'token'
+    );
   });
 });
 
@@ -492,6 +777,19 @@ describe('createGwuhaolinLivegoInstance', () => {
       'gwuhaolin-livego',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeGwuhaolinLivegoInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeGwuhaolinLivegoInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'gwuhaolin-livego',
+      'sdk',
+      'token'
     );
   });
 });
@@ -518,6 +816,19 @@ describe('createEyevinnIntercomManagerInstance', () => {
   });
 });
 
+describe('removeEyevinnIntercomManagerInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnIntercomManagerInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-intercom-manager',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createValkeyIoValkeyInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -538,6 +849,19 @@ describe('createValkeyIoValkeyInstance', () => {
   });
 });
 
+describe('removeValkeyIoValkeyInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeValkeyIoValkeyInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'valkey-io-valkey',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnSrtWhepInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -554,6 +878,19 @@ describe('createEyevinnSrtWhepInstance', () => {
       'eyevinn-srt-whep',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnSrtWhepInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnSrtWhepInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-srt-whep',
+      'sdk',
+      'token'
     );
   });
 });
@@ -580,6 +917,19 @@ describe('createDashIndustryForumLivesim2Instance', () => {
   });
 });
 
+describe('removeDashIndustryForumLivesim2Instance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeDashIndustryForumLivesim2Instance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'dash-industry-forum-livesim2',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createUsefathomFathomInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -596,6 +946,19 @@ describe('createUsefathomFathomInstance', () => {
       'usefathom-fathom',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeUsefathomFathomInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeUsefathomFathomInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'usefathom-fathom',
+      'sdk',
+      'token'
     );
   });
 });
@@ -622,6 +985,19 @@ describe('createEyevinnEncoreCallbackListenerInstance', () => {
   });
 });
 
+describe('removeEyevinnEncoreCallbackListenerInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnEncoreCallbackListenerInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-encore-callback-listener',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnEncorePackagerInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -640,6 +1016,19 @@ describe('createEyevinnEncorePackagerInstance', () => {
       'eyevinn-encore-packager',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnEncorePackagerInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnEncorePackagerInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-encore-packager',
+      'sdk',
+      'token'
     );
   });
 });
@@ -664,6 +1053,19 @@ describe('createSmrchyRestRsmqInstance', () => {
   });
 });
 
+describe('removeSmrchyRestRsmqInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeSmrchyRestRsmqInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'smrchy-rest-rsmq',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createMinioMinioInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -680,6 +1082,19 @@ describe('createMinioMinioInstance', () => {
       'minio-minio',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeMinioMinioInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeMinioMinioInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'minio-minio',
+      'sdk',
+      'token'
     );
   });
 });
@@ -706,6 +1121,19 @@ describe('createPoundifdefSmoothmqInstance', () => {
   });
 });
 
+describe('removePoundifdefSmoothmqInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removePoundifdefSmoothmqInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'poundifdef-smoothmq',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnEncoreTransferInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -724,6 +1152,19 @@ describe('createEyevinnEncoreTransferInstance', () => {
       'eyevinn-encore-transfer',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnEncoreTransferInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnEncoreTransferInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-encore-transfer',
+      'sdk',
+      'token'
     );
   });
 });
@@ -750,6 +1191,19 @@ describe('createEyevinnLiveEncodingInstance', () => {
   });
 });
 
+describe('removeEyevinnLiveEncodingInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnLiveEncodingInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-live-encoding',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createBwallbergKingsAndPigsTsInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -768,6 +1222,19 @@ describe('createBwallbergKingsAndPigsTsInstance', () => {
       'bwallberg-kings-and-pigs-ts',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeBwallbergKingsAndPigsTsInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeBwallbergKingsAndPigsTsInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'bwallberg-kings-and-pigs-ts',
+      'sdk',
+      'token'
     );
   });
 });
@@ -794,6 +1261,19 @@ describe('createEyevinnSmbWhipBridgeInstance', () => {
   });
 });
 
+describe('removeEyevinnSmbWhipBridgeInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnSmbWhipBridgeInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-smb-whip-bridge',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnWrtcEgressInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -812,6 +1292,19 @@ describe('createEyevinnWrtcEgressInstance', () => {
       'eyevinn-wrtc-egress',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnWrtcEgressInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnWrtcEgressInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-wrtc-egress',
+      'sdk',
+      'token'
     );
   });
 });
@@ -838,6 +1331,19 @@ describe('createSwaggerApiSwaggerEditorInstance', () => {
   });
 });
 
+describe('removeSwaggerApiSwaggerEditorInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeSwaggerApiSwaggerEditorInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'swagger-api-swagger-editor',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createRealeyesMediaMoeReplayInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -856,6 +1362,19 @@ describe('createRealeyesMediaMoeReplayInstance', () => {
       'realeyes-media-moe-replay',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeRealeyesMediaMoeReplayInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeRealeyesMediaMoeReplayInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'realeyes-media-moe-replay',
+      'sdk',
+      'token'
     );
   });
 });
@@ -882,6 +1401,19 @@ describe('createItzgDockerMinecraftServerInstance', () => {
   });
 });
 
+describe('removeItzgDockerMinecraftServerInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeItzgDockerMinecraftServerInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'itzg-docker-minecraft-server',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createBirmeLambdaInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -898,6 +1430,19 @@ describe('createBirmeLambdaInstance', () => {
       'birme-lambda',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeBirmeLambdaInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeBirmeLambdaInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'birme-lambda',
+      'sdk',
+      'token'
     );
   });
 });
@@ -924,6 +1469,19 @@ describe('createLinuxserverDockerMariadbInstance', () => {
   });
 });
 
+describe('removeLinuxserverDockerMariadbInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeLinuxserverDockerMariadbInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'linuxserver-docker-mariadb',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createAlexbj75MovierecommendatorInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -942,6 +1500,19 @@ describe('createAlexbj75MovierecommendatorInstance', () => {
       'alexbj75-movierecommendator',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeAlexbj75MovierecommendatorInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeAlexbj75MovierecommendatorInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'alexbj75-movierecommendator',
+      'sdk',
+      'token'
     );
   });
 });
@@ -968,6 +1539,19 @@ describe('createBirmeContactFormSvcInstance', () => {
   });
 });
 
+describe('removeBirmeContactFormSvcInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeBirmeContactFormSvcInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'birme-contact-form-svc',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createBirmeCaptchaSvcInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -988,6 +1572,19 @@ describe('createBirmeCaptchaSvcInstance', () => {
   });
 });
 
+describe('removeBirmeCaptchaSvcInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeBirmeCaptchaSvcInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'birme-captcha-svc',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createAlexbj7590stvInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1004,6 +1601,19 @@ describe('createAlexbj7590stvInstance', () => {
       'alexbj75-90stv',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeAlexbj7590stvInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeAlexbj7590stvInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'alexbj75-90stv',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1030,6 +1640,19 @@ describe('createAnderswassenChaosproxyConfigInstance', () => {
   });
 });
 
+describe('removeAnderswassenChaosproxyConfigInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeAnderswassenChaosproxyConfigInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'anderswassen-chaosproxy-config',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createWordpressWordpressInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1048,6 +1671,19 @@ describe('createWordpressWordpressInstance', () => {
       'wordpress-wordpress',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeWordpressWordpressInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeWordpressWordpressInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'wordpress-wordpress',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1074,6 +1710,19 @@ describe('createOlawalejuwonmAnomalydetectorInstance', () => {
   });
 });
 
+describe('removeOlawalejuwonmAnomalydetectorInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeOlawalejuwonmAnomalydetectorInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'olawalejuwonm-anomalydetector',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createAtmozSftpInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1087,6 +1736,19 @@ describe('createAtmozSftpInstance', () => {
       body
     );
     expect(waitForInstanceReady).toHaveBeenCalledWith('atmoz-sftp', 'sdk', ctx);
+  });
+});
+
+describe('removeAtmozSftpInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeAtmozSftpInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'atmoz-sftp',
+      'sdk',
+      'token'
+    );
   });
 });
 
@@ -1108,6 +1770,19 @@ describe('createJoeldelpilarTicTacVueInstance', () => {
       'joeldelpilar-tic-tac-vue',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeJoeldelpilarTicTacVueInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeJoeldelpilarTicTacVueInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'joeldelpilar-tic-tac-vue',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1134,6 +1809,19 @@ describe('createEyevinnQrGeneratorInstance', () => {
   });
 });
 
+describe('removeEyevinnQrGeneratorInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnQrGeneratorInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-qr-generator',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnAppConfigSvcInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1152,6 +1840,19 @@ describe('createEyevinnAppConfigSvcInstance', () => {
       'eyevinn-app-config-svc',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnAppConfigSvcInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnAppConfigSvcInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-app-config-svc',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1178,6 +1879,19 @@ describe('createErnestocaroccaHelloWorldInstance', () => {
   });
 });
 
+describe('removeErnestocaroccaHelloWorldInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeErnestocaroccaHelloWorldInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'ernestocarocca-hello-world',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createChambanaNetDockerPodcastgenInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1200,6 +1914,19 @@ describe('createChambanaNetDockerPodcastgenInstance', () => {
   });
 });
 
+describe('removeChambanaNetDockerPodcastgenInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeChambanaNetDockerPodcastgenInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'chambana-net-docker-podcastgen',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createAndersnasNodecatInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1216,6 +1943,19 @@ describe('createAndersnasNodecatInstance', () => {
       'andersnas-nodecat',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeAndersnasNodecatInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeAndersnasNodecatInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'andersnas-nodecat',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1242,6 +1982,19 @@ describe('createBirmeOscPostgresqlInstance', () => {
   });
 });
 
+describe('removeBirmeOscPostgresqlInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeBirmeOscPostgresqlInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'birme-osc-postgresql',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createSalesagilitySuitecrmInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1260,6 +2013,19 @@ describe('createSalesagilitySuitecrmInstance', () => {
       'salesagility-suitecrm',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeSalesagilitySuitecrmInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeSalesagilitySuitecrmInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'salesagility-suitecrm',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1286,6 +2052,19 @@ describe('createEyevinnDockerTestsrcHlsLiveInstance', () => {
   });
 });
 
+describe('removeEyevinnDockerTestsrcHlsLiveInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnDockerTestsrcHlsLiveInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-docker-testsrc-hls-live',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createApacheCouchdbInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1302,6 +2081,19 @@ describe('createApacheCouchdbInstance', () => {
       'apache-couchdb',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeApacheCouchdbInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeApacheCouchdbInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'apache-couchdb',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1328,6 +2120,19 @@ describe('createEyevinnSgaiAdProxyInstance', () => {
   });
 });
 
+describe('removeEyevinnSgaiAdProxyInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnSgaiAdProxyInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-sgai-ad-proxy',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createMickaelKerjeanFilestashInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1346,6 +2151,19 @@ describe('createMickaelKerjeanFilestashInstance', () => {
       'mickael-kerjean-filestash',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeMickaelKerjeanFilestashInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeMickaelKerjeanFilestashInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'mickael-kerjean-filestash',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1372,6 +2190,19 @@ describe('createPlausibleAnalyticsInstance', () => {
   });
 });
 
+describe('removePlausibleAnalyticsInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removePlausibleAnalyticsInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'plausible-analytics',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createBlueskySocialPdsInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1390,6 +2221,19 @@ describe('createBlueskySocialPdsInstance', () => {
       'bluesky-social-pds',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeBlueskySocialPdsInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeBlueskySocialPdsInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'bluesky-social-pds',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1416,6 +2260,19 @@ describe('createDocusealcoDocusealInstance', () => {
   });
 });
 
+describe('removeDocusealcoDocusealInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeDocusealcoDocusealInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'docusealco-docuseal',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createEyevinnPdsAdminInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1432,6 +2289,19 @@ describe('createEyevinnPdsAdminInstance', () => {
       'eyevinn-pds-admin',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeEyevinnPdsAdminInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnPdsAdminInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-pds-admin',
+      'sdk',
+      'token'
     );
   });
 });
@@ -1458,6 +2328,19 @@ describe('createEyevinnCeSampleWebhookInstance', () => {
   });
 });
 
+describe('removeEyevinnCeSampleWebhookInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnCeSampleWebhookInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-ce-sample-webhook',
+      'sdk',
+      'token'
+    );
+  });
+});
+
 describe('createDrawdbIoDrawdbInstance', () => {
   it('should call createInstance', async () => {
     const ctx = new Context();
@@ -1474,6 +2357,54 @@ describe('createDrawdbIoDrawdbInstance', () => {
       'drawdb-io-drawdb',
       'sdk',
       ctx
+    );
+  });
+});
+
+describe('removeDrawdbIoDrawdbInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeDrawdbIoDrawdbInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'drawdb-io-drawdb',
+      'sdk',
+      'token'
+    );
+  });
+});
+
+describe('createEyevinnAiCodeReviewerInstance', () => {
+  it('should call createInstance', async () => {
+    const ctx = new Context();
+    const body = { name: 'sdk' };
+    await sdk.createEyevinnAiCodeReviewerInstance(ctx, body as any);
+    expect(ctx.getServiceAccessToken).toHaveBeenCalledWith(
+      'eyevinn-ai-code-reviewer'
+    );
+    expect(createInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-ai-code-reviewer',
+      'token',
+      body
+    );
+    expect(waitForInstanceReady).toHaveBeenCalledWith(
+      'eyevinn-ai-code-reviewer',
+      'sdk',
+      ctx
+    );
+  });
+});
+
+describe('removeEyevinnAiCodeReviewerInstance', () => {
+  it('should call removeInstance', async () => {
+    const ctx = new Context();
+    await sdk.removeEyevinnAiCodeReviewerInstance(ctx, 'sdk');
+    expect(removeInstance).toHaveBeenCalledWith(
+      ctx,
+      'eyevinn-ai-code-reviewer',
+      'sdk',
+      'token'
     );
   });
 });

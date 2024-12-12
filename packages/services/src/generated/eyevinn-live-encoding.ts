@@ -294,15 +294,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Eyevinn Live Encoding
+ * Create a new Eyevinn Live Encoding instance
  *
- * Transform your live streaming with Eyevinn Live Encoding: Open-source, ffmpeg-based, and ready for HLS & MPEG-DASH. Streamline now, CDN-ready.
- *
- * Create a new encoder
+ * @description Transform your live streaming with Eyevinn Live Encoding: Open-source, ffmpeg-based, and ready for HLS & MPEG-DASH. Streamline now, CDN-ready.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnLiveEncodingConfig}} body - Service instance configuration
  * @returns {EyevinnLiveEncoding} - Service instance
@@ -331,9 +330,9 @@ export async function createEyevinnLiveEncodingInstance(
 }
 
 /**
- * Eyevinn Live Encoding
+ * Remove a Eyevinn Live Encoding instance
  *
- * Remove a encoder
+ * @description Transform your live streaming with Eyevinn Live Encoding: Open-source, ffmpeg-based, and ready for HLS & MPEG-DASH. Streamline now, CDN-ready.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the encoder to be removed
  */
@@ -345,4 +344,27 @@ export async function removeEyevinnLiveEncodingInstance(
     'eyevinn-live-encoding'
   );
   await removeInstance(ctx, 'eyevinn-live-encoding', name, serviceAccessToken);
+}
+
+/**
+ * Get a Eyevinn Live Encoding instance
+ *
+ * @description Transform your live streaming with Eyevinn Live Encoding: Open-source, ffmpeg-based, and ready for HLS & MPEG-DASH. Streamline now, CDN-ready.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the encoder to be retrieved
+ * @returns {EyevinnLiveEncoding} - Service instance
+ */
+export async function getEyevinnLiveEncodingInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnLiveEncoding> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-live-encoding'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-live-encoding',
+    name,
+    serviceAccessToken
+  );
 }

@@ -306,15 +306,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Encore Transfer
+ * Create a new Encore Transfer instance
  *
- * Introducing Encore Transfer - the ultimate service for seamless output transfer in a video processing pipeline. With easy installation and essential environment variables, this service is a game-changer for Open Source Cloud users. Dive into our comprehensive documentation and join our supportive community on Slack. Don't miss out on this opportunity to revolutionize your video workflow with Eyevinn Technology's innovative solution. Get in touch with us for further customization and support options!
- *
- * Create a new encore-transfer
+ * @description Introducing Encore Transfer - the ultimate service for seamless output transfer in a video processing pipeline. With easy installation and essential environment variables, this service is a game-changer for Open Source Cloud users. Dive into our comprehensive documentation and join our supportive community on Slack. Don't miss out on this opportunity to revolutionize your video workflow with Eyevinn Technology's innovative solution. Get in touch with us for further customization and support options!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnEncoreTransferConfig}} body - Service instance configuration
  * @returns {EyevinnEncoreTransfer} - Service instance
@@ -343,9 +342,9 @@ export async function createEyevinnEncoreTransferInstance(
 }
 
 /**
- * Encore Transfer
+ * Remove a Encore Transfer instance
  *
- * Remove a encore-transfer
+ * @description Introducing Encore Transfer - the ultimate service for seamless output transfer in a video processing pipeline. With easy installation and essential environment variables, this service is a game-changer for Open Source Cloud users. Dive into our comprehensive documentation and join our supportive community on Slack. Don't miss out on this opportunity to revolutionize your video workflow with Eyevinn Technology's innovative solution. Get in touch with us for further customization and support options!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the encore-transfer to be removed
  */
@@ -357,6 +356,29 @@ export async function removeEyevinnEncoreTransferInstance(
     'eyevinn-encore-transfer'
   );
   await removeInstance(
+    ctx,
+    'eyevinn-encore-transfer',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Encore Transfer instance
+ *
+ * @description Introducing Encore Transfer - the ultimate service for seamless output transfer in a video processing pipeline. With easy installation and essential environment variables, this service is a game-changer for Open Source Cloud users. Dive into our comprehensive documentation and join our supportive community on Slack. Don't miss out on this opportunity to revolutionize your video workflow with Eyevinn Technology's innovative solution. Get in touch with us for further customization and support options!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the encore-transfer to be retrieved
+ * @returns {EyevinnEncoreTransfer} - Service instance
+ */
+export async function getEyevinnEncoreTransferInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnEncoreTransfer> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-encore-transfer'
+  );
+  return await getInstance(
     ctx,
     'eyevinn-encore-transfer',
     name,

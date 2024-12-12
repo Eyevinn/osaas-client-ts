@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Test Adserver
+ * Create a new Test Adserver instance
  *
- * Eyevinn Test Adserver is the ultimate solution for testing CSAI/SSAI stitching and tracking implementation. Open source, easy to use, and flexible for various use cases. Get it now and experience seamless testing!
- *
- * Create a new test-adserver
+ * @description Eyevinn Test Adserver is the ultimate solution for testing CSAI/SSAI stitching and tracking implementation. Open source, easy to use, and flexible for various use cases. Get it now and experience seamless testing!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnTestAdserverConfig}} body - Service instance configuration
  * @returns {EyevinnTestAdserver} - Service instance
@@ -319,9 +318,9 @@ export async function createEyevinnTestAdserverInstance(
 }
 
 /**
- * Test Adserver
+ * Remove a Test Adserver instance
  *
- * Remove a test-adserver
+ * @description Eyevinn Test Adserver is the ultimate solution for testing CSAI/SSAI stitching and tracking implementation. Open source, easy to use, and flexible for various use cases. Get it now and experience seamless testing!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the test-adserver to be removed
  */
@@ -333,4 +332,27 @@ export async function removeEyevinnTestAdserverInstance(
     'eyevinn-test-adserver'
   );
   await removeInstance(ctx, 'eyevinn-test-adserver', name, serviceAccessToken);
+}
+
+/**
+ * Get a Test Adserver instance
+ *
+ * @description Eyevinn Test Adserver is the ultimate solution for testing CSAI/SSAI stitching and tracking implementation. Open source, easy to use, and flexible for various use cases. Get it now and experience seamless testing!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the test-adserver to be retrieved
+ * @returns {EyevinnTestAdserver} - Service instance
+ */
+export async function getEyevinnTestAdserverInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnTestAdserver> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-test-adserver'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-test-adserver',
+    name,
+    serviceAccessToken
+  );
 }

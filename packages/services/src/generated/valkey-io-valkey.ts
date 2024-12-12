@@ -282,17 +282,16 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * valkey
+ * Create a new valkey instance
  * 
- * Introducing Valkey: a Redis-compatible high-performance key-value store with wide range support. Build on various systems, extensible plugin system, and TLS support available.
+ * @description Introducing Valkey: a Redis-compatible high-performance key-value store with wide range support. Build on various systems, extensible plugin system, and TLS support available.
 
 NB! Data persistence not guaranteed
- * 
- * Create a new valkey
  * @param {Context} context - Open Source Cloud configuration context
  * @param {ValkeyIoValkeyConfig}} body - Service instance configuration
  * @returns {ValkeyIoValkey} - Service instance
@@ -321,9 +320,11 @@ export async function createValkeyIoValkeyInstance(
 }
 
 /**
- * valkey
- *
- * Remove a valkey
+ * Remove a valkey instance
+ * 
+ * @description Introducing Valkey: a Redis-compatible high-performance key-value store with wide range support. Build on various systems, extensible plugin system, and TLS support available.
+
+NB! Data persistence not guaranteed
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the valkey to be removed
  */
@@ -335,4 +336,24 @@ export async function removeValkeyIoValkeyInstance(
     'valkey-io-valkey'
   );
   await removeInstance(ctx, 'valkey-io-valkey', name, serviceAccessToken);
+}
+
+/**
+ * Get a valkey instance
+ * 
+ * @description Introducing Valkey: a Redis-compatible high-performance key-value store with wide range support. Build on various systems, extensible plugin system, and TLS support available.
+
+NB! Data persistence not guaranteed
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the valkey to be retrieved
+ * @returns {ValkeyIoValkey} - Service instance
+ */
+export async function getValkeyIoValkeyInstance(
+  ctx: Context,
+  name: string
+): Promise<ValkeyIoValkey> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'valkey-io-valkey'
+  );
+  return await getInstance(ctx, 'valkey-io-valkey', name, serviceAccessToken);
 }

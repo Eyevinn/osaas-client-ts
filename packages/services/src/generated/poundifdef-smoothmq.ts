@@ -290,15 +290,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * SmoothMQ
+ * Create a new SmoothMQ instance
  *
- * Introducing SmoothMQ, the ultimate drop-in replacement for SQS! Enhance your developer experience with a functional UI, observability, tracing, scheduling, and rate-limiting. Run your own private SQS on any cloud effortlessly.
- *
- * Create a new message-queue
+ * @description Introducing SmoothMQ, the ultimate drop-in replacement for SQS! Enhance your developer experience with a functional UI, observability, tracing, scheduling, and rate-limiting. Run your own private SQS on any cloud effortlessly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {PoundifdefSmoothmqConfig}} body - Service instance configuration
  * @returns {PoundifdefSmoothmq} - Service instance
@@ -327,9 +326,9 @@ export async function createPoundifdefSmoothmqInstance(
 }
 
 /**
- * SmoothMQ
+ * Remove a SmoothMQ instance
  *
- * Remove a message-queue
+ * @description Introducing SmoothMQ, the ultimate drop-in replacement for SQS! Enhance your developer experience with a functional UI, observability, tracing, scheduling, and rate-limiting. Run your own private SQS on any cloud effortlessly.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the message-queue to be removed
  */
@@ -341,4 +340,27 @@ export async function removePoundifdefSmoothmqInstance(
     'poundifdef-smoothmq'
   );
   await removeInstance(ctx, 'poundifdef-smoothmq', name, serviceAccessToken);
+}
+
+/**
+ * Get a SmoothMQ instance
+ *
+ * @description Introducing SmoothMQ, the ultimate drop-in replacement for SQS! Enhance your developer experience with a functional UI, observability, tracing, scheduling, and rate-limiting. Run your own private SQS on any cloud effortlessly.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the message-queue to be retrieved
+ * @returns {PoundifdefSmoothmq} - Service instance
+ */
+export async function getPoundifdefSmoothmqInstance(
+  ctx: Context,
+  name: string
+): Promise<PoundifdefSmoothmq> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'poundifdef-smoothmq'
+  );
+  return await getInstance(
+    ctx,
+    'poundifdef-smoothmq',
+    name,
+    serviceAccessToken
+  );
 }

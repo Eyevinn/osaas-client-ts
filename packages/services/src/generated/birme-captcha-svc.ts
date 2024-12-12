@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Captcha Service
+ * Create a new Captcha Service instance
  *
- * Enhance your security effortlessly with our reliable CAPTCHA Service! Easily generate and verify CAPTCHAs to protect against automated attacks. Quick setup, seamless integration, robust solution!
- *
- * Create a new service
+ * @description Enhance your security effortlessly with our reliable CAPTCHA Service! Easily generate and verify CAPTCHAs to protect against automated attacks. Quick setup, seamless integration, robust solution!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {BirmeCaptchaSvcConfig}} body - Service instance configuration
  * @returns {BirmeCaptchaSvc} - Service instance
@@ -319,9 +318,9 @@ export async function createBirmeCaptchaSvcInstance(
 }
 
 /**
- * Captcha Service
+ * Remove a Captcha Service instance
  *
- * Remove a service
+ * @description Enhance your security effortlessly with our reliable CAPTCHA Service! Easily generate and verify CAPTCHAs to protect against automated attacks. Quick setup, seamless integration, robust solution!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the service to be removed
  */
@@ -333,4 +332,22 @@ export async function removeBirmeCaptchaSvcInstance(
     'birme-captcha-svc'
   );
   await removeInstance(ctx, 'birme-captcha-svc', name, serviceAccessToken);
+}
+
+/**
+ * Get a Captcha Service instance
+ *
+ * @description Enhance your security effortlessly with our reliable CAPTCHA Service! Easily generate and verify CAPTCHAs to protect against automated attacks. Quick setup, seamless integration, robust solution!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the service to be retrieved
+ * @returns {BirmeCaptchaSvc} - Service instance
+ */
+export async function getBirmeCaptchaSvcInstance(
+  ctx: Context,
+  name: string
+): Promise<BirmeCaptchaSvc> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'birme-captcha-svc'
+  );
+  return await getInstance(ctx, 'birme-captcha-svc', name, serviceAccessToken);
 }

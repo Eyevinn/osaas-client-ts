@@ -194,15 +194,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Media Probe
+ * Create a new Media Probe instance
  *
- * A serverless media function to obtain media information for a media file or media stream.
- *
- * Create a new probe
+ * @description A serverless media function to obtain media information for a media file or media stream.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnFunctionProbeConfig}} body - Service instance configuration
  * @returns {EyevinnFunctionProbe} - Service instance
@@ -231,9 +230,9 @@ export async function createEyevinnFunctionProbeInstance(
 }
 
 /**
- * Media Probe
+ * Remove a Media Probe instance
  *
- * Remove a probe
+ * @description A serverless media function to obtain media information for a media file or media stream.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the probe to be removed
  */
@@ -245,4 +244,27 @@ export async function removeEyevinnFunctionProbeInstance(
     'eyevinn-function-probe'
   );
   await removeInstance(ctx, 'eyevinn-function-probe', name, serviceAccessToken);
+}
+
+/**
+ * Get a Media Probe instance
+ *
+ * @description A serverless media function to obtain media information for a media file or media stream.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the probe to be retrieved
+ * @returns {EyevinnFunctionProbe} - Service instance
+ */
+export async function getEyevinnFunctionProbeInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnFunctionProbe> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-function-probe'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-function-probe',
+    name,
+    serviceAccessToken
+  );
 }

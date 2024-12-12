@@ -310,15 +310,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * SGAI Proxy
+ * Create a new SGAI Proxy instance
  *
- * Boost viewer engagement with our Server-Guided Ad Insertion Proxy! Automatically embed ads into video streams with precision timing. Enhance monetization effortlessly while maintaining a seamless user experience.
- *
- * Create a new proxy
+ * @description Boost viewer engagement with our Server-Guided Ad Insertion Proxy! Automatically embed ads into video streams with precision timing. Enhance monetization effortlessly while maintaining a seamless user experience.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {EyevinnSgaiAdProxyConfig}} body - Service instance configuration
  * @returns {EyevinnSgaiAdProxy} - Service instance
@@ -347,9 +346,9 @@ export async function createEyevinnSgaiAdProxyInstance(
 }
 
 /**
- * SGAI Proxy
+ * Remove a SGAI Proxy instance
  *
- * Remove a proxy
+ * @description Boost viewer engagement with our Server-Guided Ad Insertion Proxy! Automatically embed ads into video streams with precision timing. Enhance monetization effortlessly while maintaining a seamless user experience.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the proxy to be removed
  */
@@ -361,4 +360,27 @@ export async function removeEyevinnSgaiAdProxyInstance(
     'eyevinn-sgai-ad-proxy'
   );
   await removeInstance(ctx, 'eyevinn-sgai-ad-proxy', name, serviceAccessToken);
+}
+
+/**
+ * Get a SGAI Proxy instance
+ *
+ * @description Boost viewer engagement with our Server-Guided Ad Insertion Proxy! Automatically embed ads into video streams with precision timing. Enhance monetization effortlessly while maintaining a seamless user experience.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the proxy to be retrieved
+ * @returns {EyevinnSgaiAdProxy} - Service instance
+ */
+export async function getEyevinnSgaiAdProxyInstance(
+  ctx: Context,
+  name: string
+): Promise<EyevinnSgaiAdProxy> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'eyevinn-sgai-ad-proxy'
+  );
+  return await getInstance(
+    ctx,
+    'eyevinn-sgai-ad-proxy',
+    name,
+    serviceAccessToken
+  );
 }

@@ -194,19 +194,18 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * flyimg
+ * Create a new flyimg instance
  * 
- * An application that allows you to resize, crop, and compress images on the fly. 
+ * @description An application that allows you to resize, crop, and compress images on the fly. 
 
 By default, Flyimg generates the AVIF image format (when the browser supports it) which provides superior compression compared to other formats.
 
 Additionally, Flyimg also generates the WebP format, along with the impressive MozJPEG compression algorithm to optimize images, other formats are supported also such as PNG and GIF.
- * 
- * Create a new flyimg
  * @param {Context} context - Open Source Cloud configuration context
  * @param {FlyimgFlyimgConfig}} body - Service instance configuration
  * @returns {FlyimgFlyimg} - Service instance
@@ -233,9 +232,13 @@ export async function createFlyimgFlyimgInstance(
 }
 
 /**
- * flyimg
- *
- * Remove a flyimg
+ * Remove a flyimg instance
+ * 
+ * @description An application that allows you to resize, crop, and compress images on the fly. 
+
+By default, Flyimg generates the AVIF image format (when the browser supports it) which provides superior compression compared to other formats.
+
+Additionally, Flyimg also generates the WebP format, along with the impressive MozJPEG compression algorithm to optimize images, other formats are supported also such as PNG and GIF.
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the flyimg to be removed
  */
@@ -245,4 +248,24 @@ export async function removeFlyimgFlyimgInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('flyimg-flyimg');
   await removeInstance(ctx, 'flyimg-flyimg', name, serviceAccessToken);
+}
+
+/**
+ * Get a flyimg instance
+ * 
+ * @description An application that allows you to resize, crop, and compress images on the fly. 
+
+By default, Flyimg generates the AVIF image format (when the browser supports it) which provides superior compression compared to other formats.
+
+Additionally, Flyimg also generates the WebP format, along with the impressive MozJPEG compression algorithm to optimize images, other formats are supported also such as PNG and GIF.
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the flyimg to be retrieved
+ * @returns {FlyimgFlyimg} - Service instance
+ */
+export async function getFlyimgFlyimgInstance(
+  ctx: Context,
+  name: string
+): Promise<FlyimgFlyimg> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('flyimg-flyimg');
+  return await getInstance(ctx, 'flyimg-flyimg', name, serviceAccessToken);
 }

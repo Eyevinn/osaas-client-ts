@@ -244,17 +244,16 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Simple Realtime Server
+ * Create a new Simple Realtime Server instance
  * 
- * Experience high-efficiency video streaming with SRS/6.0. Stream seamlessly with essential features included. 
+ * @description Experience high-efficiency video streaming with SRS/6.0. Stream seamlessly with essential features included. 
 Transform your streaming experience now! Explore RTMP, HLS, HTTP-FLV, SRT, MPEG-DASH protocols, and more.
 Get started easily!
- * 
- * Create a new srs
  * @param {Context} context - Open Source Cloud configuration context
  * @param {OssrsSrsConfig}} body - Service instance configuration
  * @returns {OssrsSrs} - Service instance
@@ -281,9 +280,11 @@ export async function createOssrsSrsInstance(
 }
 
 /**
- * Simple Realtime Server
- *
- * Remove a srs
+ * Remove a Simple Realtime Server instance
+ * 
+ * @description Experience high-efficiency video streaming with SRS/6.0. Stream seamlessly with essential features included. 
+Transform your streaming experience now! Explore RTMP, HLS, HTTP-FLV, SRT, MPEG-DASH protocols, and more.
+Get started easily!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the srs to be removed
  */
@@ -293,4 +294,22 @@ export async function removeOssrsSrsInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('ossrs-srs');
   await removeInstance(ctx, 'ossrs-srs', name, serviceAccessToken);
+}
+
+/**
+ * Get a Simple Realtime Server instance
+ * 
+ * @description Experience high-efficiency video streaming with SRS/6.0. Stream seamlessly with essential features included. 
+Transform your streaming experience now! Explore RTMP, HLS, HTTP-FLV, SRT, MPEG-DASH protocols, and more.
+Get started easily!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the srs to be retrieved
+ * @returns {OssrsSrs} - Service instance
+ */
+export async function getOssrsSrsInstance(
+  ctx: Context,
+  name: string
+): Promise<OssrsSrs> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('ossrs-srs');
+  return await getInstance(ctx, 'ossrs-srs', name, serviceAccessToken);
 }

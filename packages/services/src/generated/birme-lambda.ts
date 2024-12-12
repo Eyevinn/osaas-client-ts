@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * lambda
+ * Create a new lambda instance
  *
- * Effortlessly deploy JavaScript/TypeScript code as HTTP-based lambda functions with our simple solution. Just zip, upload, and watch your code run on any HTTP request. Get started quickly with minimal setup!
- *
- * Create a new lambda
+ * @description Effortlessly deploy JavaScript/TypeScript code as HTTP-based lambda functions with our simple solution. Just zip, upload, and watch your code run on any HTTP request. Get started quickly with minimal setup!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {BirmeLambdaConfig}} body - Service instance configuration
  * @returns {BirmeLambda} - Service instance
@@ -317,9 +316,9 @@ export async function createBirmeLambdaInstance(
 }
 
 /**
- * lambda
+ * Remove a lambda instance
  *
- * Remove a lambda
+ * @description Effortlessly deploy JavaScript/TypeScript code as HTTP-based lambda functions with our simple solution. Just zip, upload, and watch your code run on any HTTP request. Get started quickly with minimal setup!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the lambda to be removed
  */
@@ -329,4 +328,20 @@ export async function removeBirmeLambdaInstance(
 ): Promise<void> {
   const serviceAccessToken = await ctx.getServiceAccessToken('birme-lambda');
   await removeInstance(ctx, 'birme-lambda', name, serviceAccessToken);
+}
+
+/**
+ * Get a lambda instance
+ *
+ * @description Effortlessly deploy JavaScript/TypeScript code as HTTP-based lambda functions with our simple solution. Just zip, upload, and watch your code run on any HTTP request. Get started quickly with minimal setup!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the lambda to be retrieved
+ * @returns {BirmeLambda} - Service instance
+ */
+export async function getBirmeLambdaInstance(
+  ctx: Context,
+  name: string
+): Promise<BirmeLambda> {
+  const serviceAccessToken = await ctx.getServiceAccessToken('birme-lambda');
+  return await getInstance(ctx, 'birme-lambda', name, serviceAccessToken);
 }

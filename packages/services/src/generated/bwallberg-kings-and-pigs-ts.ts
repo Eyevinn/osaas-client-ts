@@ -282,15 +282,14 @@ import {
   Context,
   createInstance,
   waitForInstanceReady,
-  removeInstance
+  removeInstance,
+  getInstance
 } from '@osaas/client-core';
 
 /**
- * Kings and Pigs
+ * Create a new Kings and Pigs instance
  *
- * Dive into Kings and Pigs, a vibrant 2D TypeScript game! Explore custom ECS architecture & physics with Planck.js. Perfect for TypeScript learners & game enthusiasts. Play now!
- *
- * Create a new kings-and-pigs-ts
+ * @description Dive into Kings and Pigs, a vibrant 2D TypeScript game! Explore custom ECS architecture & physics with Planck.js. Perfect for TypeScript learners & game enthusiasts. Play now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {BwallbergKingsAndPigsTsConfig}} body - Service instance configuration
  * @returns {BwallbergKingsAndPigsTs} - Service instance
@@ -319,9 +318,9 @@ export async function createBwallbergKingsAndPigsTsInstance(
 }
 
 /**
- * Kings and Pigs
+ * Remove a Kings and Pigs instance
  *
- * Remove a kings-and-pigs-ts
+ * @description Dive into Kings and Pigs, a vibrant 2D TypeScript game! Explore custom ECS architecture & physics with Planck.js. Perfect for TypeScript learners & game enthusiasts. Play now!
  * @param {Context} context - Open Source Cloud configuration context
  * @param {string} name - Name of the kings-and-pigs-ts to be removed
  */
@@ -333,6 +332,29 @@ export async function removeBwallbergKingsAndPigsTsInstance(
     'bwallberg-kings-and-pigs-ts'
   );
   await removeInstance(
+    ctx,
+    'bwallberg-kings-and-pigs-ts',
+    name,
+    serviceAccessToken
+  );
+}
+
+/**
+ * Get a Kings and Pigs instance
+ *
+ * @description Dive into Kings and Pigs, a vibrant 2D TypeScript game! Explore custom ECS architecture & physics with Planck.js. Perfect for TypeScript learners & game enthusiasts. Play now!
+ * @param {Context} context - Open Source Cloud configuration context
+ * @param {string} name - Name of the kings-and-pigs-ts to be retrieved
+ * @returns {BwallbergKingsAndPigsTs} - Service instance
+ */
+export async function getBwallbergKingsAndPigsTsInstance(
+  ctx: Context,
+  name: string
+): Promise<BwallbergKingsAndPigsTs> {
+  const serviceAccessToken = await ctx.getServiceAccessToken(
+    'bwallberg-kings-and-pigs-ts'
+  );
+  return await getInstance(
     ctx,
     'bwallberg-kings-and-pigs-ts',
     name,
